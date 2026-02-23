@@ -1,5 +1,27 @@
+import 'package:fl_subscriber/core/routes/route_names.dart';
+import 'package:fl_subscriber/features/settings/presentation/pages/settings_page.dart';
+import 'package:fl_subscriber/features/splash/presentation/pages/splash_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final _router = GoRouter(
-  routes: [GoRoute(path: '/', builder: (context, state) => HomeScreen())],
-);
+part 'generated/routes.g.dart';
+
+@Riverpod(keepAlive: true)
+GoRouter router(Ref ref) {
+  return GoRouter(
+    debugLogDiagnostics: kDebugMode,
+    routes: [
+      GoRoute(
+        path: RouteNames.main,
+        name: RouteNames.main,
+        builder: (context, state) => const SplashPage(),
+      ),
+      GoRoute(
+        path: RouteNames.settings,
+        name: RouteNames.settings,
+        builder: (context, state) => const SettingsPage(),
+      ),
+    ],
+  );
+}

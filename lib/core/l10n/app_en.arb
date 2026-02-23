@@ -1,0 +1,39 @@
+{
+  "@@locale": "en",
+  "settings": "Settings",
+  "appearance": "Appearance",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "language": "Language",
+  "languageEnglish": "English",
+  "languageSpanish": "Spanish",
+  "languageItalian": "Italian",
+  "somethingWentWrong": "Something went wrong: {error}",
+  "@somethingWentWrong": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "retry": "Retry",
+  "authPage": "Auth Page",
+  "loggedInWithToken": "Logged in with token: {token}",
+  "@loggedInWithToken": {
+    "placeholders": {
+      "token": {
+        "type": "String"
+      }
+    }
+  },
+  "notLoggedIn": "Not logged in",
+  "errorMessage": "Error: {error}",
+  "@errorMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
+}

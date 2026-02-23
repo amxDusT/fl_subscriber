@@ -1,0 +1,62 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of '../main_controller.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(MainController)
+final mainControllerProvider = MainControllerProvider._();
+
+final class MainControllerProvider
+    extends $NotifierProvider<MainController, MainState> {
+  MainControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'mainControllerProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$mainControllerHash();
+
+  @$internal
+  @override
+  MainController create() => MainController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(MainState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<MainState>(value),
+    );
+  }
+}
+
+String _$mainControllerHash() => r'46a2ed0946da7c3a22d083b5f431e834b7bb25ea';
+
+abstract class _$MainController extends $Notifier<MainState> {
+  MainState build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<MainState, MainState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<MainState, MainState>,
+              MainState,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}

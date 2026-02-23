@@ -1,0 +1,18 @@
+{
+  "@@locale": "it",
+  "settings": "Impostazioni",
+  "appearance": "Aspetto",
+  "themeSystem": "Sistema",
+  "themeLight": "Chiaro",
+  "themeDark": "Scuro",
+  "language": "Lingua",
+  "languageEnglish": "Inglese",
+  "languageSpanish": "Spagnolo",
+  "languageItalian": "Italiano",
+  "somethingWentWrong": "Qualcosa è andato storto: {error}",
+  "retry": "Riprova",
+  "authPage": "Pagina di autenticazione",
+  "loggedInWithToken": "Accesso effettuato con token: {token}",
+  "notLoggedIn": "Non connesso",
+  "errorMessage": "Errore: {error}"
+}

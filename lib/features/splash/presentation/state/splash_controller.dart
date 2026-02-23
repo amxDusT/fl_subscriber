@@ -6,6 +6,10 @@ part 'generated/splash_controller.g.dart';
 class SplashController extends _$SplashController {
   @override
   Future<void> build() async {
+    await _initialize();
+  }
+
+  Future<void> _initialize() async {
     await Future.delayed(const Duration(seconds: 2));
   }
 }

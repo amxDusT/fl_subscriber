@@ -1,9 +1,9 @@
 // features/auth/presentation/state/auth_controller.dart
 
-import 'package:fl_subscriber/features/auth/domain/entities/auth.dart';
+import 'package:fl_subscriber/features/auth_example/domain/entities/auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:fl_subscriber/features/auth/domain/providers/login_provider.dart';
+import 'package:fl_subscriber/features/auth_example/domain/providers/login_provider.dart';
 
 part 'generated/auth_controller.g.dart';
 
@@ -26,7 +26,7 @@ class AuthController extends _$AuthController {
         throw Exception('Login failed');
       }
 
-      return AuthData(
+      return const AuthData(
         token: 'dummy_token',
         refreshToken: 'dummy_refresh_token',
       );
