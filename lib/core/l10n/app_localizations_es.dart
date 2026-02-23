@@ -15,9 +15,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get appearance => 'Apariencia';
 
   @override
-  String get themeSystem => 'Sistema';
-
-  @override
   String get themeLight => 'Claro';
 
   @override
@@ -58,4 +55,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String errorMessage(String error) {
     return 'Error: $error';
   }
+
+  @override
+  String get subscriptions => 'Suscripciones';
+
+  @override
+  String get analytics => 'Análisis';
+
+  @override
+  String get profile => 'Perfil';
 }

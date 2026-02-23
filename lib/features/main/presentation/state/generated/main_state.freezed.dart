@@ -207,7 +207,7 @@ return $default(_that.locale,_that.themeMode);case _:
 
 
 class _MainState implements MainState {
-  const _MainState({this.locale = const Locale('en'), this.themeMode = ThemeMode.system});
+  const _MainState({this.locale = const Locale('en'), this.themeMode = ThemeMode.dark});
   
 
 @override@JsonKey() final  Locale locale;

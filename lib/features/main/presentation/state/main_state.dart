@@ -7,6 +7,6 @@ part 'generated/main_state.freezed.dart';
 abstract class MainState with _$MainState {
   const factory MainState({
     @Default(Locale('en')) Locale locale,
-    @Default(ThemeMode.system) ThemeMode themeMode,
+    @Default(ThemeMode.dark) ThemeMode themeMode,
   }) = _MainState;
 }

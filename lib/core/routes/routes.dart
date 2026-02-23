@@ -1,5 +1,5 @@
 import 'package:fl_subscriber/core/routes/route_names.dart';
-import 'package:fl_subscriber/features/settings/presentation/pages/settings_page.dart';
+import 'package:fl_subscriber/features/home/presentation/pages/home_page.dart';
 import 'package:fl_subscriber/features/splash/presentation/pages/splash_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
@@ -18,9 +18,9 @@ GoRouter router(Ref ref) {
         builder: (context, state) => const SplashPage(),
       ),
       GoRoute(
-        path: RouteNames.settings,
-        name: RouteNames.settings,
-        builder: (context, state) => const SettingsPage(),
+        path: RouteNames.home,
+        name: RouteNames.home,
+        builder: (context, state) => const HomePage(),
       ),
     ],
   );

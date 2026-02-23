@@ -112,12 +112,6 @@ abstract class AppLocalizations {
   /// **'Appearance'**
   String get appearance;
 
-  /// No description provided for @themeSystem.
-  ///
-  /// In en, this message translates to:
-  /// **'System'**
-  String get themeSystem;
-
   /// No description provided for @themeLight.
   ///
   /// In en, this message translates to:
@@ -189,6 +183,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error: {error}'**
   String errorMessage(String error);
+
+  /// No description provided for @subscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions'**
+  String get subscriptions;
+
+  /// No description provided for @analytics.
+  ///
+  /// In en, this message translates to:
+  /// **'Analytics'**
+  String get analytics;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
 }
 
 class _AppLocalizationsDelegate

@@ -2,7 +2,6 @@
   "@@locale": "es",
   "settings": "Ajustes",
   "appearance": "Apariencia",
-  "themeSystem": "Sistema",
   "themeLight": "Claro",
   "themeDark": "Oscuro",
   "language": "Idioma",
@@ -14,5 +13,8 @@
   "authPage": "Página de autenticación",
   "loggedInWithToken": "Sesión iniciada con token: {token}",
   "notLoggedIn": "No ha iniciado sesión",
-  "errorMessage": "Error: {error}"
+  "errorMessage": "Error: {error}",
+  "subscriptions": "Suscripciones",
+  "analytics": "Análisis",
+  "profile": "Perfil"
 }

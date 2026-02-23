@@ -2,7 +2,6 @@
   "@@locale": "en",
   "settings": "Settings",
   "appearance": "Appearance",
-  "themeSystem": "System",
   "themeLight": "Light",
   "themeDark": "Dark",
   "language": "Language",
@@ -35,5 +34,8 @@
         "type": "String"
       }
     }
-  }
+  },
+  "subscriptions": "Subscriptions",
+  "analytics": "Analytics",
+  "profile": "Profile"
 }

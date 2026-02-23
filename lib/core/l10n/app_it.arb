@@ -2,7 +2,6 @@
   "@@locale": "it",
   "settings": "Impostazioni",
   "appearance": "Aspetto",
-  "themeSystem": "Sistema",
   "themeLight": "Chiaro",
   "themeDark": "Scuro",
   "language": "Lingua",
@@ -14,5 +13,8 @@
   "authPage": "Pagina di autenticazione",
   "loggedInWithToken": "Accesso effettuato con token: {token}",
   "notLoggedIn": "Non connesso",
-  "errorMessage": "Errore: {error}"
+  "errorMessage": "Errore: {error}",
+  "subscriptions": "Abbonamenti",
+  "analytics": "Analisi",
+  "profile": "Profilo"
 }

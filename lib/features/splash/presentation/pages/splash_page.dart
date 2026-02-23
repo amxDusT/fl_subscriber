@@ -13,7 +13,7 @@ class SplashPage extends ConsumerWidget {
     ref.listen(splashControllerProvider, (previous, next) {
       if (!context.mounted) return;
       if (next.hasValue) {
-        context.goNamed(RouteNames.settings);
+        context.goNamed(RouteNames.home);
       }
     });
 
