@@ -48,5 +48,14 @@
   "chooseColor": "Scegli Colore",
   "enterAmount": "Inserisci l'importo",
   "paymentReminder": "Promemoria Pagamento",
-  "paymentReminderBody": "Il pagamento di {serviceName} di {amount} scade tra {days} giorni"
+  "paymentReminderBody": "Il pagamento di {serviceName} di {amount} scade tra {days} giorni",
+  "deleteService": "Eliminare Servizio?",
+  "deleteServiceConfirmation": "{name} verrà rimosso dal tuo catalogo.",
+  "delete": "Elimina",
+  "cancel": "Annulla",
+  "alert": "Avviso",
+  "alertDaysBefore": "{days}g prima",
+  "alertOff": "Disattivato",
+  "category": "Categoria",
+  "renewals": "Rinnovi"
 }

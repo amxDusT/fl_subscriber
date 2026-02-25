@@ -98,13 +98,28 @@ class SubscriptionCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 2),
-                  Text(
-                    dateFormat.format(subscription.nextPaymentDate),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: isDark
-                          ? Palette.textMutedDark
-                          : Palette.textMutedLight,
-                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (subscription.alertDaysBefore != null) ...[
+                        Icon(
+                          Icons.notifications_active_outlined,
+                          size: 12,
+                          color: isDark
+                              ? Palette.textMutedDark
+                              : Palette.textMutedLight,
+                        ),
+                        const SizedBox(width: 4),
+                      ],
+                      Text(
+                        dateFormat.format(subscription.nextPaymentDate),
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: isDark
+                              ? Palette.textMutedDark
+                              : Palette.textMutedLight,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

@@ -3,6 +3,7 @@ import 'package:fl_subscriber/core/providers/notification_provider.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/subscription_controller.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/date_alerts_step.dart';
+import 'package:fl_subscriber/features/subscriptions/presentation/widgets/frequency_step.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/plan_amount_step.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/service_selection_step.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/step_indicator.dart';
@@ -19,7 +20,24 @@ class AddSubscriptionSheet extends ConsumerStatefulWidget {
 
 class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
   late final PageController _pageController;
+  final List<int> _pageHistory = [0];
   bool _isLoading = false;
+
+  // Pages:
+  // 0 = Service selection
+  // 1 = Plan selection (catalog with plans only)
+  // 2 = Billing frequency
+  // 3 = Date + Alerts
+
+  int get _currentPage => _pageHistory.last;
+
+  int get _indicatorStep => switch (_currentPage) {
+        0 => 0,
+        1 => 1,
+        2 => 2,
+        3 => 3,
+        _ => 0,
+      };
 
   @override
   void initState() {
@@ -33,13 +51,35 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
     super.dispose();
   }
 
-  void _goToPage(int page) {
+  void _advanceTo(int page) {
+    _pageHistory.add(page);
     _pageController.animateToPage(
       page,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
     );
-    ref.read(addSubscriptionControllerProvider.notifier).goToStep(page);
+    setState(() {});
+  }
+
+  void _autoAdvanceTo(int page) {
+    Future.delayed(const Duration(milliseconds: 300), () {
+      if (mounted) _advanceTo(page);
+    });
+  }
+
+  void _goBack() {
+    if (_pageHistory.length <= 1) return;
+    _pageHistory.removeLast();
+    _pageController.animateToPage(
+      _currentPage,
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeInOut,
+    );
+    setState(() {});
+  }
+
+  void _onServiceSelected() {
+    _autoAdvanceTo(1);
   }
 
   Future<void> _handleFinish() async {
@@ -72,17 +112,17 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
-    final wizardState = ref.watch(addSubscriptionControllerProvider);
     final controller = ref.read(addSubscriptionControllerProvider.notifier);
 
-    final canProceed = switch (wizardState.currentStep) {
-      0 => controller.canProceedFromStep1,
-      1 => controller.canProceedFromStep2,
-      _ => controller.canFinish,
-    };
+    final wizardState = ref.watch(addSubscriptionControllerProvider);
+    final showBack = _pageHistory.length > 1;
+    final showFinish = _currentPage == 3;
+    final showContinue = _currentPage == 1 &&
+        (wizardState.selectedService?.plans.isEmpty ?? true);
+    final showBottomBar = showBack || showFinish || showContinue;
 
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.88,
+      height: MediaQuery.sizeOf(context).height * 0.88,
       child: Column(
         children: [
           Padding(
@@ -115,7 +155,10 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
                   ],
                 ),
                 const SizedBox(height: 16),
-                StepIndicator(currentStep: wizardState.currentStep),
+                StepIndicator(
+                  currentStep: _indicatorStep,
+                  totalSteps: 4,
+                ),
                 const SizedBox(height: 24),
               ],
             ),
@@ -124,68 +167,83 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
             child: PageView(
               controller: _pageController,
               physics: const NeverScrollableScrollPhysics(),
-              onPageChanged: (i) => controller.goToStep(i),
-              children: const [
-                ServiceSelectionStep(),
-                PlanAmountStep(),
-                DateAlertsStep(),
+              children: [
+                ServiceSelectionStep(
+                  onServiceSelected: _onServiceSelected,
+                ),
+                PlanSelectionStep(
+                  onPlanSelected: () => _autoAdvanceTo(2),
+                  onCustomAmountConfirmed: () => _autoAdvanceTo(2),
+                ),
+                FrequencyStep(
+                  onFrequencySelected: () => _autoAdvanceTo(3),
+                ),
+                const DateAlertsStep(),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
-            child: Row(
-              children: [
-                if (wizardState.currentStep > 0)
-                  SizedBox(
-                    width: 48,
-                    height: 48,
-                    child: IconButton(
-                      onPressed: () =>
-                          _goToPage(wizardState.currentStep - 1),
-                      icon: const Icon(
-                          Icons.arrow_back_rounded, size: 20),
-                      style: IconButton.styleFrom(
-                        backgroundColor: const Color(0xFF2A2A2A),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
+          if (showBottomBar)
+            AnimatedPadding(
+              duration: const Duration(milliseconds: 200),
+              padding: EdgeInsets.fromLTRB(
+                20,
+                12,
+                20,
+                MediaQuery.viewInsetsOf(context).bottom > 0
+                    ? MediaQuery.viewInsetsOf(context).bottom + 12
+                    : 24,
+              ),
+              child: Row(
+                children: [
+                  if (showBack)
+                    SizedBox(
+                      width: 48,
+                      height: 48,
+                      child: IconButton(
+                        onPressed: _goBack,
+                        icon: const Icon(
+                            Icons.arrow_back_rounded, size: 20),
+                        style: IconButton.styleFrom(
+                          backgroundColor: const Color(0xFF2A2A2A),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                if (wizardState.currentStep > 0) const SizedBox(width: 12),
-                Expanded(
-                  flex: 2,
-                  child: ElevatedButton(
-                    onPressed: canProceed
-                        ? () {
-                            if (wizardState.currentStep < 2) {
-                              _goToPage(wizardState.currentStep + 1);
-                            } else {
-                              _handleFinish();
-                            }
-                          }
-                        : null,
-                    child: _isLoading
-                        ? SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: theme.colorScheme.onPrimary,
-                            ),
-                          )
-                        : Text(
-                            wizardState.currentStep < 2
-                                ? l10n.continueLabel
-                                : l10n.finish,
-                          ),
-                  ),
-                ),
-              ],
+                  if (showBack && (showFinish || showContinue))
+                    const SizedBox(width: 12),
+                  if (showContinue)
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: controller.canProceedFromStep2
+                            ? () => _autoAdvanceTo(2)
+                            : null,
+                        child: Text(l10n.continueLabel),
+                      ),
+                    ),
+                  if (showFinish)
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: controller.canFinish
+                            ? _handleFinish
+                            : null,
+                        child: _isLoading
+                            ? SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: theme.colorScheme.onPrimary,
+                                ),
+                              )
+                            : Text(l10n.finish),
+                      ),
+                    ),
+                ],
+              ),
             ),
-          ),
         ],
       ),
     );

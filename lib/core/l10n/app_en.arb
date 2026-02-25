@@ -82,5 +82,28 @@
         "type": "String"
       }
     }
-  }
+  },
+  "deleteService": "Delete Service?",
+  "deleteServiceConfirmation": "{name} will be removed from your catalog.",
+  "@deleteServiceConfirmation": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "alert": "Alert",
+  "alertDaysBefore": "{days}d before",
+  "@alertDaysBefore": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "alertOff": "Off",
+  "category": "Category",
+  "renewals": "Renewals"
 }

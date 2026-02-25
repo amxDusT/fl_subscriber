@@ -393,6 +393,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{serviceName} payment of {amount} is due in {days} days'**
   String paymentReminderBody(String serviceName, String amount, String days);
+
+  /// No description provided for @deleteService.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Service?'**
+  String get deleteService;
+
+  /// No description provided for @deleteServiceConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} will be removed from your catalog.'**
+  String deleteServiceConfirmation(String name);
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @alert.
+  ///
+  /// In en, this message translates to:
+  /// **'Alert'**
+  String get alert;
+
+  /// No description provided for @alertDaysBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'{days}d before'**
+  String alertDaysBefore(String days);
+
+  /// No description provided for @alertOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get alertOff;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @renewals.
+  ///
+  /// In en, this message translates to:
+  /// **'Renewals'**
+  String get renewals;
 }
 
 class _AppLocalizationsDelegate

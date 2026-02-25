@@ -37,7 +37,7 @@ class CatalogService {
   const CatalogService({
     required this.id,
     required this.name,
-    required this.logo,
+    this.logo,
     required this.color,
     required this.category,
     this.plans = const [],
@@ -45,7 +45,7 @@ class CatalogService {
 
   final String id;
   final String name;
-  final AssetGenImage logo;
+  final AssetGenImage? logo;
   final Color color;
   final ServiceCategory category;
   final List<ServicePlan> plans;

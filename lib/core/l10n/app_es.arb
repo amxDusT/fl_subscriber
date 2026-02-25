@@ -48,5 +48,14 @@
   "chooseColor": "Elegir Color",
   "enterAmount": "Introduce el importe",
   "paymentReminder": "Recordatorio de Pago",
-  "paymentReminderBody": "El pago de {serviceName} de {amount} vence en {days} días"
+  "paymentReminderBody": "El pago de {serviceName} de {amount} vence en {days} días",
+  "deleteService": "¿Eliminar Servicio?",
+  "deleteServiceConfirmation": "{name} se eliminará de tu catálogo.",
+  "delete": "Eliminar",
+  "cancel": "Cancelar",
+  "alert": "Alerta",
+  "alertDaysBefore": "{days}d antes",
+  "alertOff": "Desactivada",
+  "category": "Categoría",
+  "renewals": "Renovaciones"
 }

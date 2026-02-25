@@ -28,14 +28,21 @@ class SubscriptionsTable extends Table {
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
 
-@DriftDatabase(tables: [SubscriptionsTable])
+class CustomServicesTable extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text()();
+  TextColumn get category => text()();
+  IntColumn get colorValue => integer()();
+}
+
+@DriftDatabase(tables: [SubscriptionsTable, CustomServicesTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -45,6 +52,9 @@ class AppDatabase extends _$AppDatabase {
                 subscriptionsTable, subscriptionsTable.logoAsset);
             await migrator.addColumn(
                 subscriptionsTable, subscriptionsTable.category);
+          }
+          if (from < 3) {
+            await migrator.createTable(customServicesTable);
           }
         },
       );

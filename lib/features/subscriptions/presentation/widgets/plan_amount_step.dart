@@ -1,19 +1,138 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
-import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
+import 'package:fl_subscriber/core/widgets/section_label.dart';
+import 'package:fl_subscriber/core/widgets/selectable_tile.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
+import 'package:fl_subscriber/features/subscriptions/presentation/widgets/custom_amount_step.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PlanAmountStep extends ConsumerStatefulWidget {
-  const PlanAmountStep({super.key});
+class PlanSelectionStep extends ConsumerWidget {
+  const PlanSelectionStep({
+    super.key,
+    this.onPlanSelected,
+    this.onCustomAmountConfirmed,
+  });
+
+  final VoidCallback? onPlanSelected;
+  final VoidCallback? onCustomAmountConfirmed;
 
   @override
-  ConsumerState<PlanAmountStep> createState() => _PlanAmountStepState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final wizardState = ref.watch(addSubscriptionControllerProvider);
+    final plans = wizardState.selectedService?.plans ?? [];
+
+    if (plans.isEmpty) {
+      return const _InlineAmountInput();
+    }
+
+    return _PlanList(
+      onPlanSelected: onPlanSelected,
+      onCustomAmountConfirmed: onCustomAmountConfirmed,
+    );
+  }
 }
 
-class _PlanAmountStepState extends ConsumerState<PlanAmountStep> {
+class _PlanList extends ConsumerWidget {
+  const _PlanList({this.onPlanSelected, this.onCustomAmountConfirmed});
+
+  final VoidCallback? onPlanSelected;
+  final VoidCallback? onCustomAmountConfirmed;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context)!;
+    final wizardState = ref.watch(addSubscriptionControllerProvider);
+    final controller = ref.read(addSubscriptionControllerProvider.notifier);
+
+    final plans = wizardState.selectedService?.plans ?? [];
+
+    return ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      children: [
+        SectionLabel(label: l10n.choosePlan),
+        const SizedBox(height: 10),
+        ...plans.map((plan) {
+          final selected = wizardState.selectedPlan?.name == plan.name;
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: SelectableTile(
+              label: plan.name,
+              selected: selected,
+              onTap: () {
+                controller.selectPlan(plan);
+                onPlanSelected?.call();
+              },
+              trailing: Text(
+                '€${plan.monthlyPrice.toStringAsFixed(2)}${l10n.perMonth}',
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          );
+        }),
+        const SizedBox(height: 8),
+        Material(
+          color: theme.colorScheme.surface,
+          borderRadius: BorderRadius.circular(16),
+          child: InkWell(
+            onTap: () async {
+              final confirmed = await showModalBottomSheet<bool>(
+                context: context,
+                isScrollControlled: true,
+                builder: (_) => const CustomAmountSheet(),
+              );
+              if (confirmed == true) {
+                onCustomAmountConfirmed?.call();
+              }
+            },
+            borderRadius: BorderRadius.circular(16),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 14,
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.edit_rounded,
+                    size: 18,
+                    color: isDark
+                        ? Palette.textSecondaryDark
+                        : Palette.textSecondaryLight,
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    l10n.orEnterCustomAmount,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: isDark
+                          ? Palette.textSecondaryDark
+                          : Palette.textSecondaryLight,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _InlineAmountInput extends ConsumerStatefulWidget {
+  const _InlineAmountInput();
+
+  @override
+  ConsumerState<_InlineAmountInput> createState() => _InlineAmountInputState();
+}
+
+class _InlineAmountInputState extends ConsumerState<_InlineAmountInput> {
+  static final _amountRegex = RegExp(r'^\d*\.?\d{0,2}');
   final _amountController = TextEditingController();
 
   @override
@@ -27,99 +146,41 @@ class _PlanAmountStepState extends ConsumerState<PlanAmountStep> {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
-    final wizardState = ref.watch(addSubscriptionControllerProvider);
     final controller = ref.read(addSubscriptionControllerProvider.notifier);
-
-    final hasPlans = !wizardState.isCustom &&
-        wizardState.selectedService != null &&
-        wizardState.selectedService!.plans.isNotEmpty;
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       children: [
-        if (hasPlans) ...[
-          _SectionLabel(label: l10n.choosePlan),
-          const SizedBox(height: 10),
-          ...wizardState.selectedService!.plans.map((plan) {
-            final selected = wizardState.selectedPlan?.name == plan.name;
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Material(
-                color: selected
-                    ? (isDark ? Palette.elevatedDark : Palette.elevatedLight)
-                    : theme.colorScheme.surface,
-                borderRadius: BorderRadius.circular(16),
-                child: InkWell(
-                  onTap: () {
-                    controller.selectPlan(plan);
-                    _amountController.text = plan.monthlyPrice.toStringAsFixed(2);
-                  },
-                  borderRadius: BorderRadius.circular(16),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 14,
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            plan.name,
-                            style: theme.textTheme.bodyLarge?.copyWith(
-                              fontWeight:
-                                  selected ? FontWeight.w600 : FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          '€${plan.monthlyPrice.toStringAsFixed(2)}${l10n.perMonth}',
-                          style: theme.textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        if (selected) ...[
-                          const SizedBox(width: 10),
-                          Icon(
-                            Icons.check_rounded,
-                            size: 18,
-                            color: theme.colorScheme.onSurface,
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          }),
-          const SizedBox(height: 16),
-          _SectionLabel(label: l10n.orEnterCustomAmount),
-          const SizedBox(height: 10),
-        ] else ...[
-          _SectionLabel(label: l10n.amount),
-          const SizedBox(height: 10),
-        ],
+        SectionLabel(label: l10n.enterAmount),
+        const SizedBox(height: 16),
         TextField(
           controller: _amountController,
-          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          autofocus: true,
+          onTapOutside: (_) => FocusScope.of(context).unfocus(),
+          keyboardType:
+              const TextInputType.numberWithOptions(decimal: true),
           inputFormatters: [
-            FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+            FilteringTextInputFormatter.allow(_amountRegex),
           ],
           onChanged: (value) {
             final amount = double.tryParse(value);
-            if (amount != null) {
-              controller.setCustomAmount(amount);
-            }
+            if (amount != null) controller.setCustomAmount(amount);
           },
-          style: theme.textTheme.bodyLarge,
+          textInputAction: TextInputAction.done,
+          style: theme.textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
           decoration: InputDecoration(
             prefixText: '€ ',
-            prefixStyle: theme.textTheme.bodyLarge?.copyWith(
+            prefixStyle: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.w600,
             ),
-            hintText: l10n.enterAmount,
-            hintStyle: theme.textTheme.bodyLarge?.copyWith(
-              color: isDark ? Palette.textMutedDark : Palette.textMutedLight,
+            hintText: '0.00',
+            hintStyle: theme.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+              color: isDark
+                  ? Palette.textMutedDark
+                  : Palette.textMutedLight,
             ),
             filled: true,
             fillColor: theme.colorScheme.surface,
@@ -128,104 +189,12 @@ class _PlanAmountStepState extends ConsumerState<PlanAmountStep> {
               borderSide: BorderSide.none,
             ),
             contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 14,
+              horizontal: 20,
+              vertical: 20,
             ),
           ),
-        ),
-        const SizedBox(height: 24),
-        _SectionLabel(label: l10n.billingFrequency),
-        const SizedBox(height: 10),
-        _FrequencySelector(
-          selected: wizardState.frequency,
-          onChanged: controller.setFrequency,
         ),
       ],
-    );
-  }
-}
-
-class _SectionLabel extends StatelessWidget {
-  const _SectionLabel({required this.label});
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label.toUpperCase(),
-      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-            letterSpacing: 0.8,
-          ),
-    );
-  }
-}
-
-class _FrequencySelector extends StatelessWidget {
-  const _FrequencySelector({
-    required this.selected,
-    required this.onChanged,
-  });
-
-  final BillingFrequency selected;
-  final ValueChanged<BillingFrequency> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-    final l10n = AppLocalizations.of(context)!;
-
-    final labels = {
-      BillingFrequency.monthly: l10n.monthly,
-      BillingFrequency.quarterly: l10n.quarterly,
-      BillingFrequency.semiannual: l10n.semiannual,
-      BillingFrequency.yearly: l10n.yearly,
-    };
-
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        children: BillingFrequency.values.map((freq) {
-          final isSelected = freq == selected;
-          return GestureDetector(
-            onTap: () => onChanged(freq),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeInOut,
-              margin: const EdgeInsets.all(4),
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? (isDark ? Palette.elevatedDark : Palette.elevatedLight)
-                    : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      labels[freq]!,
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        fontWeight:
-                            isSelected ? FontWeight.w600 : FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  if (isSelected)
-                    Icon(
-                      Icons.check_rounded,
-                      size: 18,
-                      color: theme.colorScheme.onSurface,
-                    ),
-                ],
-              ),
-            ),
-          );
-        }).toList(),
-      ),
     );
   }
 }

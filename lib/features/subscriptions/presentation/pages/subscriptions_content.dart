@@ -1,6 +1,8 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
+import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
 import 'package:fl_subscriber/core/widgets/button.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/pages/add_subscription_sheet.dart';
+import 'package:fl_subscriber/features/subscriptions/presentation/pages/subscription_detail_sheet.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/subscription_controller.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/empty_state.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/subscription_card.dart';
@@ -30,7 +32,11 @@ class SubscriptionsContent extends ConsumerWidget {
               itemCount: subscriptions.length,
               separatorBuilder: (_, _) => const SizedBox(height: 10),
               itemBuilder: (context, index) {
-                return SubscriptionCard(subscription: subscriptions[index]);
+                final sub = subscriptions[index];
+                return SubscriptionCard(
+                  subscription: sub,
+                  onTap: () => _openDetailSheet(context, sub),
+                );
               },
             ),
           Positioned(
@@ -45,6 +51,15 @@ class SubscriptionsContent extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+
+  void _openDetailSheet(BuildContext context, Subscription subscription) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (_) => SubscriptionDetailSheet(subscription: subscription),
     );
   }
 

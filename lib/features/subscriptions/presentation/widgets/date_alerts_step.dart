@@ -1,5 +1,6 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
-import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/core/widgets/section_label.dart';
+import 'package:fl_subscriber/core/widgets/selectable_tile.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class DateAlertsStep extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       children: [
-        _SectionLabel(label: l10n.startDate),
+        SectionLabel(label: l10n.startDate),
         const SizedBox(height: 10),
         Container(
           height: 200,
@@ -47,9 +48,9 @@ class DateAlertsStep extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 24),
-        _SectionLabel(label: l10n.paymentAlerts),
+        SectionLabel(label: l10n.paymentAlerts),
         const SizedBox(height: 10),
-        _AlertOption(
+        SelectableTile(
           label: l10n.alertOneDayBefore,
           selected: wizardState.alertDaysBefore == 1,
           onTap: () => controller.setAlertDaysBefore(
@@ -57,7 +58,7 @@ class DateAlertsStep extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 8),
-        _AlertOption(
+        SelectableTile(
           label: l10n.alertThreeDaysBefore,
           selected: wizardState.alertDaysBefore == 3,
           onTap: () => controller.setAlertDaysBefore(
@@ -65,7 +66,7 @@ class DateAlertsStep extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 8),
-        _AlertOption(
+        SelectableTile(
           label: l10n.alertSevenDaysBefore,
           selected: wizardState.alertDaysBefore == 7,
           onTap: () => controller.setAlertDaysBefore(
@@ -73,77 +74,12 @@ class DateAlertsStep extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 8),
-        _AlertOption(
+        SelectableTile(
           label: l10n.noAlerts,
           selected: wizardState.alertDaysBefore == null,
           onTap: () => controller.setAlertDaysBefore(null),
         ),
       ],
-    );
-  }
-}
-
-class _SectionLabel extends StatelessWidget {
-  const _SectionLabel({required this.label});
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label.toUpperCase(),
-      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-            letterSpacing: 0.8,
-          ),
-    );
-  }
-}
-
-class _AlertOption extends StatelessWidget {
-  const _AlertOption({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
-    return Material(
-      color: selected
-          ? (isDark ? Palette.elevatedDark : Palette.elevatedLight)
-          : theme.colorScheme.surface,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          child: Row(
-            children: [
-              Expanded(
-                child: Text(
-                  label,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-                  ),
-                ),
-              ),
-              if (selected)
-                Icon(
-                  Icons.check_rounded,
-                  size: 18,
-                  color: theme.colorScheme.onSurface,
-                ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

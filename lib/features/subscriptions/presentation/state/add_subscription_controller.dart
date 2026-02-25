@@ -15,34 +15,9 @@ class AddSubscriptionController extends _$AddSubscriptionController {
   void selectService(CatalogService service) {
     state = state.copyWith(
       selectedService: service,
-      isCustom: false,
-      customName: null,
-      customCategory: null,
-      customColorValue: null,
       selectedPlan: null,
       customAmount: null,
     );
-  }
-
-  void selectCustom() {
-    state = state.copyWith(
-      selectedService: null,
-      isCustom: true,
-      selectedPlan: null,
-      customAmount: null,
-    );
-  }
-
-  void setCustomName(String name) {
-    state = state.copyWith(customName: name);
-  }
-
-  void setCustomCategory(ServiceCategory category) {
-    state = state.copyWith(customCategory: category);
-  }
-
-  void setCustomColor(int colorValue) {
-    state = state.copyWith(customColorValue: colorValue);
   }
 
   void selectPlan(ServicePlan plan) {
@@ -72,12 +47,7 @@ class AddSubscriptionController extends _$AddSubscriptionController {
     state = state.copyWith(currentStep: step);
   }
 
-  bool get canProceedFromStep1 =>
-      state.selectedService != null ||
-      (state.isCustom &&
-          state.customName != null &&
-          state.customName!.isNotEmpty &&
-          state.customCategory != null);
+  bool get canProceedFromStep1 => state.selectedService != null;
 
   bool get canProceedFromStep2 =>
       state.customAmount != null && state.customAmount! > 0;
@@ -85,30 +55,21 @@ class AddSubscriptionController extends _$AddSubscriptionController {
   bool get canFinish => state.startDate != null;
 
   Subscription toSubscription() {
+    final service = state.selectedService!;
     final now = DateTime.now();
     final startDate = state.startDate ?? now;
 
     return Subscription(
       id: 0,
-      serviceId: state.isCustom
-          ? 'custom_${now.millisecondsSinceEpoch}'
-          : state.selectedService!.id,
-      serviceName: state.isCustom
-          ? state.customName!
-          : state.selectedService!.name,
-      iconCodePoint: state.isCustom
-          ? state.customCategory!.icon.codePoint
-          : state.selectedService!.category.icon.codePoint,
+      serviceId: service.id,
+      serviceName: service.name,
+      iconCodePoint: service.category.icon.codePoint,
       iconFontFamily: 'MaterialIcons',
-      colorValue: state.isCustom
-          ? (state.customColorValue ?? 0xFFFFFFFF)
-          : state.selectedService!.color.toARGB32(),
+      colorValue: service.color.toARGB32(),
       amount: state.customAmount!,
       planName: state.selectedPlan?.name,
-      logoAsset: state.isCustom ? null : state.selectedService!.logo.path,
-      category: state.isCustom
-          ? state.customCategory?.name
-          : state.selectedService!.category.name,
+      logoAsset: service.logo?.path,
+      category: service.category.name,
       frequency: state.frequency,
       startDate: startDate,
       nextPaymentDate: _calculateNextPayment(startDate, state.frequency),

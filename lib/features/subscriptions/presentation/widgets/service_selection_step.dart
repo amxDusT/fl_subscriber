@@ -1,31 +1,22 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
+import 'package:fl_subscriber/core/providers/database_provider.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/providers/subscription_provider.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
+import 'package:fl_subscriber/features/subscriptions/presentation/widgets/custom_service_sheet.dart';
 import 'package:fl_subscriber/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ServiceSelectionStep extends ConsumerStatefulWidget {
-  const ServiceSelectionStep({super.key});
+class ServiceSelectionStep extends ConsumerWidget {
+  const ServiceSelectionStep({super.key, this.onServiceSelected});
+
+  final VoidCallback? onServiceSelected;
 
   @override
-  ConsumerState<ServiceSelectionStep> createState() =>
-      _ServiceSelectionStepState();
-}
-
-class _ServiceSelectionStepState extends ConsumerState<ServiceSelectionStep> {
-  final _nameController = TextEditingController();
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
@@ -36,7 +27,7 @@ class _ServiceSelectionStepState extends ConsumerState<ServiceSelectionStep> {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 4),
       children: [
-        _SectionLabel(label: l10n.selectService),
+        SectionLabel(label: l10n.selectService),
         const SizedBox(height: 12),
         GridView.builder(
           shrinkWrap: true,
@@ -56,79 +47,74 @@ class _ServiceSelectionStepState extends ConsumerState<ServiceSelectionStep> {
                 color: isDark
                     ? Palette.textSecondaryDark
                     : Palette.textSecondaryLight,
-                selected: wizardState.isCustom,
-                onTap: () => controller.selectCustom(),
+                selected: false,
+                onTap: () async {
+                  final service = await showModalBottomSheet<CatalogService>(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (_) => const CustomServiceSheet(),
+                  );
+                  if (service != null) {
+                    controller.selectService(service);
+                    onServiceSelected?.call();
+                  }
+                },
               );
             }
             final service = services[index];
+            final isCustom = service.id.startsWith('custom_');
             return _ServiceTile(
               logo: service.logo,
+              icon: service.category.icon,
               name: service.name,
               color: service.color,
               selected: wizardState.selectedService?.id == service.id,
-              onTap: () => controller.selectService(service),
+              onTap: () {
+                controller.selectService(service);
+                onServiceSelected?.call();
+              },
+              onLongPress: isCustom
+                  ? () => _confirmDelete(context, ref, service, l10n)
+                  : null,
             );
           },
         ),
-        if (wizardState.isCustom) ...[
-          const SizedBox(height: 20),
-          _SectionLabel(label: l10n.customName),
-          const SizedBox(height: 10),
-          TextField(
-            controller: _nameController,
-            onChanged: controller.setCustomName,
-            style: theme.textTheme.bodyLarge,
-            decoration: InputDecoration(
-              hintText: l10n.customName,
-              hintStyle: theme.textTheme.bodyLarge?.copyWith(
-                color: isDark
-                    ? Palette.textMutedDark
-                    : Palette.textMutedLight,
-              ),
-              filled: true,
-              fillColor: theme.colorScheme.surface,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide.none,
-              ),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 14,
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          _SectionLabel(label: l10n.chooseCategory),
-          const SizedBox(height: 10),
-          _CategoryPicker(
-            selectedCategory: wizardState.customCategory,
-            onCategorySelected: controller.setCustomCategory,
-          ),
-          const SizedBox(height: 16),
-          _SectionLabel(label: l10n.chooseColor),
-          const SizedBox(height: 10),
-          _ColorPicker(
-            selectedColor: wizardState.customColorValue,
-            onColorSelected: controller.setCustomColor,
-          ),
-        ],
       ],
     );
   }
-}
 
-class _SectionLabel extends StatelessWidget {
-  const _SectionLabel({required this.label});
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label.toUpperCase(),
-      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-            letterSpacing: 0.8,
+  Future<void> _confirmDelete(
+    BuildContext context,
+    WidgetRef ref,
+    CatalogService service,
+    AppLocalizations l10n,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(l10n.deleteService),
+        content: Text(l10n.deleteServiceConfirmation(service.name)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text(l10n.cancel),
           ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: Text(l10n.delete),
+          ),
+        ],
+      ),
     );
+
+    if (confirmed == true) {
+      final dbId = int.parse(service.id.replaceFirst('custom_', ''));
+      final db = ref.read(appDatabaseProvider);
+      await (db.delete(
+        db.customServicesTable,
+      )..where((t) => t.id.equals(dbId))).go();
+    }
   }
 }
 
@@ -140,6 +126,7 @@ class _ServiceTile extends StatelessWidget {
     required this.color,
     required this.selected,
     required this.onTap,
+    this.onLongPress,
   });
 
   final AssetGenImage? logo;
@@ -148,6 +135,7 @@ class _ServiceTile extends StatelessWidget {
   final Color color;
   final bool selected;
   final VoidCallback onTap;
+  final VoidCallback? onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +149,7 @@ class _ServiceTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
         onTap: onTap,
+        onLongPress: onLongPress,
         borderRadius: BorderRadius.circular(16),
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -202,118 +191,6 @@ class _ServiceTile extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _CategoryPicker extends StatelessWidget {
-  const _CategoryPicker({
-    required this.selectedCategory,
-    required this.onCategorySelected,
-  });
-
-  final ServiceCategory? selectedCategory;
-  final ValueChanged<ServiceCategory> onCategorySelected;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: ServiceCategory.values.map((cat) {
-        final selected = selectedCategory == cat;
-        return GestureDetector(
-          onTap: () => onCategorySelected(cat),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: selected
-                  ? (isDark ? Palette.elevatedDark : Palette.elevatedLight)
-                  : theme.colorScheme.surface,
-              borderRadius: BorderRadius.circular(12),
-              border: selected
-                  ? Border.all(
-                      color: theme.colorScheme.onSurface, width: 1.5)
-                  : null,
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(cat.icon, size: 16),
-                const SizedBox(width: 6),
-                Text(
-                  cat.label,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-}
-
-class _ColorPicker extends StatelessWidget {
-  const _ColorPicker({
-    required this.selectedColor,
-    required this.onColorSelected,
-  });
-
-  final int? selectedColor;
-  final ValueChanged<int> onColorSelected;
-
-  static const _colors = [
-    0xFFE50914, // red
-    0xFF1DB954, // green
-    0xFF00A8E1, // blue
-    0xFFFF9F0A, // orange
-    0xFFA259FF, // purple
-    0xFFFC3C44, // pink
-    0xFF0A66C2, // dark blue
-    0xFF6E40C9, // violet
-    0xFF34C759, // lime
-    0xFFFF3B30, // bright red
-    0xFF5856D6, // indigo
-    0xFFAF52DE, // magenta
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: _colors.map((colorVal) {
-        final selected = selectedColor == colorVal;
-        return GestureDetector(
-          onTap: () => onColorSelected(colorVal),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: Color(colorVal),
-              shape: BoxShape.circle,
-              border: selected
-                  ? Border.all(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      width: 2.5,
-                    )
-                  : null,
-            ),
-            child: selected
-                ? const Icon(Icons.check_rounded,
-                    size: 16, color: Colors.white)
-                : null,
-          ),
-        );
-      }).toList(),
     );
   }
 }

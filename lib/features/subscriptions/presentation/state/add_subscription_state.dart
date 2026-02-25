@@ -9,10 +9,6 @@ abstract class AddSubscriptionState with _$AddSubscriptionState {
   const factory AddSubscriptionState({
     @Default(0) int currentStep,
     CatalogService? selectedService,
-    @Default(false) bool isCustom,
-    String? customName,
-    ServiceCategory? customCategory,
-    int? customColorValue,
     ServicePlan? selectedPlan,
     double? customAmount,
     @Default(BillingFrequency.monthly) BillingFrequency frequency,

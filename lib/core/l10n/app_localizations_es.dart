@@ -163,4 +163,35 @@ class AppLocalizationsEs extends AppLocalizations {
   String paymentReminderBody(String serviceName, String amount, String days) {
     return 'El pago de $serviceName de $amount vence en $days días';
   }
+
+  @override
+  String get deleteService => '¿Eliminar Servicio?';
+
+  @override
+  String deleteServiceConfirmation(String name) {
+    return '$name se eliminará de tu catálogo.';
+  }
+
+  @override
+  String get delete => 'Eliminar';
+
+  @override
+  String get cancel => 'Cancelar';
+
+  @override
+  String get alert => 'Alerta';
+
+  @override
+  String alertDaysBefore(String days) {
+    return '${days}d antes';
+  }
+
+  @override
+  String get alertOff => 'Desactivada';
+
+  @override
+  String get category => 'Categoría';
+
+  @override
+  String get renewals => 'Renovaciones';
 }

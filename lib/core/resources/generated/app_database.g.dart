@@ -966,16 +966,326 @@ class SubscriptionsTableCompanion
   }
 }
 
+class $CustomServicesTableTable extends CustomServicesTable
+    with TableInfo<$CustomServicesTableTable, CustomServicesTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CustomServicesTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _categoryMeta = const VerificationMeta(
+    'category',
+  );
+  @override
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+    'category',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _colorValueMeta = const VerificationMeta(
+    'colorValue',
+  );
+  @override
+  late final GeneratedColumn<int> colorValue = GeneratedColumn<int>(
+    'color_value',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, name, category, colorValue];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'custom_services_table';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<CustomServicesTableData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('category')) {
+      context.handle(
+        _categoryMeta,
+        category.isAcceptableOrUnknown(data['category']!, _categoryMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
+    }
+    if (data.containsKey('color_value')) {
+      context.handle(
+        _colorValueMeta,
+        colorValue.isAcceptableOrUnknown(data['color_value']!, _colorValueMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_colorValueMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  CustomServicesTableData map(
+    Map<String, dynamic> data, {
+    String? tablePrefix,
+  }) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CustomServicesTableData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      category: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}category'],
+      )!,
+      colorValue: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}color_value'],
+      )!,
+    );
+  }
+
+  @override
+  $CustomServicesTableTable createAlias(String alias) {
+    return $CustomServicesTableTable(attachedDatabase, alias);
+  }
+}
+
+class CustomServicesTableData extends DataClass
+    implements Insertable<CustomServicesTableData> {
+  final int id;
+  final String name;
+  final String category;
+  final int colorValue;
+  const CustomServicesTableData({
+    required this.id,
+    required this.name,
+    required this.category,
+    required this.colorValue,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['category'] = Variable<String>(category);
+    map['color_value'] = Variable<int>(colorValue);
+    return map;
+  }
+
+  CustomServicesTableCompanion toCompanion(bool nullToAbsent) {
+    return CustomServicesTableCompanion(
+      id: Value(id),
+      name: Value(name),
+      category: Value(category),
+      colorValue: Value(colorValue),
+    );
+  }
+
+  factory CustomServicesTableData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CustomServicesTableData(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      category: serializer.fromJson<String>(json['category']),
+      colorValue: serializer.fromJson<int>(json['colorValue']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'category': serializer.toJson<String>(category),
+      'colorValue': serializer.toJson<int>(colorValue),
+    };
+  }
+
+  CustomServicesTableData copyWith({
+    int? id,
+    String? name,
+    String? category,
+    int? colorValue,
+  }) => CustomServicesTableData(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    category: category ?? this.category,
+    colorValue: colorValue ?? this.colorValue,
+  );
+  CustomServicesTableData copyWithCompanion(CustomServicesTableCompanion data) {
+    return CustomServicesTableData(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      category: data.category.present ? data.category.value : this.category,
+      colorValue: data.colorValue.present
+          ? data.colorValue.value
+          : this.colorValue,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CustomServicesTableData(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('category: $category, ')
+          ..write('colorValue: $colorValue')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, category, colorValue);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CustomServicesTableData &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.category == this.category &&
+          other.colorValue == this.colorValue);
+}
+
+class CustomServicesTableCompanion
+    extends UpdateCompanion<CustomServicesTableData> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> category;
+  final Value<int> colorValue;
+  const CustomServicesTableCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.category = const Value.absent(),
+    this.colorValue = const Value.absent(),
+  });
+  CustomServicesTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String category,
+    required int colorValue,
+  }) : name = Value(name),
+       category = Value(category),
+       colorValue = Value(colorValue);
+  static Insertable<CustomServicesTableData> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? category,
+    Expression<int>? colorValue,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (category != null) 'category': category,
+      if (colorValue != null) 'color_value': colorValue,
+    });
+  }
+
+  CustomServicesTableCompanion copyWith({
+    Value<int>? id,
+    Value<String>? name,
+    Value<String>? category,
+    Value<int>? colorValue,
+  }) {
+    return CustomServicesTableCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      category: category ?? this.category,
+      colorValue: colorValue ?? this.colorValue,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
+    }
+    if (colorValue.present) {
+      map['color_value'] = Variable<int>(colorValue.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CustomServicesTableCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('category: $category, ')
+          ..write('colorValue: $colorValue')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $SubscriptionsTableTable subscriptionsTable =
       $SubscriptionsTableTable(this);
+  late final $CustomServicesTableTable customServicesTable =
+      $CustomServicesTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [subscriptionsTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+    subscriptionsTable,
+    customServicesTable,
+  ];
 }
 
 typedef $$SubscriptionsTableTableCreateCompanionBuilder =
@@ -1425,10 +1735,205 @@ typedef $$SubscriptionsTableTableProcessedTableManager =
       SubscriptionsTableData,
       PrefetchHooks Function()
     >;
+typedef $$CustomServicesTableTableCreateCompanionBuilder =
+    CustomServicesTableCompanion Function({
+      Value<int> id,
+      required String name,
+      required String category,
+      required int colorValue,
+    });
+typedef $$CustomServicesTableTableUpdateCompanionBuilder =
+    CustomServicesTableCompanion Function({
+      Value<int> id,
+      Value<String> name,
+      Value<String> category,
+      Value<int> colorValue,
+    });
+
+class $$CustomServicesTableTableFilterComposer
+    extends Composer<_$AppDatabase, $CustomServicesTableTable> {
+  $$CustomServicesTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get category => $composableBuilder(
+    column: $table.category,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get colorValue => $composableBuilder(
+    column: $table.colorValue,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$CustomServicesTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $CustomServicesTableTable> {
+  $$CustomServicesTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get category => $composableBuilder(
+    column: $table.category,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get colorValue => $composableBuilder(
+    column: $table.colorValue,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$CustomServicesTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CustomServicesTableTable> {
+  $$CustomServicesTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => column);
+
+  GeneratedColumn<int> get colorValue => $composableBuilder(
+    column: $table.colorValue,
+    builder: (column) => column,
+  );
+}
+
+class $$CustomServicesTableTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $CustomServicesTableTable,
+          CustomServicesTableData,
+          $$CustomServicesTableTableFilterComposer,
+          $$CustomServicesTableTableOrderingComposer,
+          $$CustomServicesTableTableAnnotationComposer,
+          $$CustomServicesTableTableCreateCompanionBuilder,
+          $$CustomServicesTableTableUpdateCompanionBuilder,
+          (
+            CustomServicesTableData,
+            BaseReferences<
+              _$AppDatabase,
+              $CustomServicesTableTable,
+              CustomServicesTableData
+            >,
+          ),
+          CustomServicesTableData,
+          PrefetchHooks Function()
+        > {
+  $$CustomServicesTableTableTableManager(
+    _$AppDatabase db,
+    $CustomServicesTableTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CustomServicesTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CustomServicesTableTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$CustomServicesTableTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> category = const Value.absent(),
+                Value<int> colorValue = const Value.absent(),
+              }) => CustomServicesTableCompanion(
+                id: id,
+                name: name,
+                category: category,
+                colorValue: colorValue,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String name,
+                required String category,
+                required int colorValue,
+              }) => CustomServicesTableCompanion.insert(
+                id: id,
+                name: name,
+                category: category,
+                colorValue: colorValue,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$CustomServicesTableTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $CustomServicesTableTable,
+      CustomServicesTableData,
+      $$CustomServicesTableTableFilterComposer,
+      $$CustomServicesTableTableOrderingComposer,
+      $$CustomServicesTableTableAnnotationComposer,
+      $$CustomServicesTableTableCreateCompanionBuilder,
+      $$CustomServicesTableTableUpdateCompanionBuilder,
+      (
+        CustomServicesTableData,
+        BaseReferences<
+          _$AppDatabase,
+          $CustomServicesTableTable,
+          CustomServicesTableData
+        >,
+      ),
+      CustomServicesTableData,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
   $$SubscriptionsTableTableTableManager get subscriptionsTable =>
       $$SubscriptionsTableTableTableManager(_db, _db.subscriptionsTable);
+  $$CustomServicesTableTableTableManager get customServicesTable =>
+      $$CustomServicesTableTableTableManager(_db, _db.customServicesTable);
 }
