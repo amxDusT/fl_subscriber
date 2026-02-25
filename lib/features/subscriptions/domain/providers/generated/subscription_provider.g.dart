@@ -95,4 +95,4 @@ final class ServiceCatalogProvider
   }
 }
 
-String _$serviceCatalogHash() => r'924b88031b79016dd11ff9b8cef8f935927b352d';
+String _$serviceCatalogHash() => r'f1762530f2d167830c80246784939e37978288ce';

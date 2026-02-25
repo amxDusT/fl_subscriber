@@ -41,7 +41,7 @@ final class MainControllerProvider
   }
 }
 
-String _$mainControllerHash() => r'0be9d822d3c3268b4fe5933abc450d6076bf86b1';
+String _$mainControllerHash() => r'a8248c9a033690eab0f2916da100f2bf61120f02';
 
 abstract class _$MainController extends $Notifier<MainState> {
   MainState build();
