@@ -64,4 +64,103 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get profile => 'Profilo';
+
+  @override
+  String get addSubscription => 'Aggiungi Abbonamento';
+
+  @override
+  String get noSubscriptionsYet => 'Nessun abbonamento';
+
+  @override
+  String get noSubscriptionsDescription =>
+      'Aggiungi il tuo primo abbonamento per iniziare a monitorare le spese';
+
+  @override
+  String get selectService => 'Seleziona un Servizio';
+
+  @override
+  String get custom => 'Personalizzato';
+
+  @override
+  String get customName => 'Nome Personalizzato';
+
+  @override
+  String get choosePlan => 'Scegli un Piano';
+
+  @override
+  String get orEnterCustomAmount => 'Oppure Inserisci un Importo';
+
+  @override
+  String get amount => 'Importo';
+
+  @override
+  String get billingFrequency => 'Frequenza di Pagamento';
+
+  @override
+  String get monthly => 'Mensile';
+
+  @override
+  String get quarterly => 'Ogni 3 Mesi';
+
+  @override
+  String get semiannual => 'Ogni 6 Mesi';
+
+  @override
+  String get yearly => 'Annuale';
+
+  @override
+  String get startDate => 'Data di Inizio';
+
+  @override
+  String get paymentAlerts => 'Avvisi di Pagamento';
+
+  @override
+  String get alertOneDayBefore => '1 giorno prima';
+
+  @override
+  String get alertThreeDaysBefore => '3 giorni prima';
+
+  @override
+  String get alertSevenDaysBefore => '7 giorni prima';
+
+  @override
+  String get noAlerts => 'Nessun avviso';
+
+  @override
+  String get continueLabel => 'Continua';
+
+  @override
+  String get back => 'Indietro';
+
+  @override
+  String get finish => 'Conferma';
+
+  @override
+  String get nextPayment => 'Prossimo pagamento';
+
+  @override
+  String get perMonth => '/mese';
+
+  @override
+  String get perYear => '/anno';
+
+  @override
+  String get chooseIcon => 'Scegli Icona';
+
+  @override
+  String get chooseCategory => 'Scegli Categoria';
+
+  @override
+  String get chooseColor => 'Scegli Colore';
+
+  @override
+  String get enterAmount => 'Inserisci l\'importo';
+
+  @override
+  String get paymentReminder => 'Promemoria Pagamento';
+
+  @override
+  String paymentReminderBody(String serviceName, String amount, String days) {
+    return 'Il pagamento di $serviceName di $amount scade tra $days giorni';
+  }
 }

@@ -1,0 +1,117 @@
+import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+class SubscriptionCard extends StatelessWidget {
+  const SubscriptionCard({
+    super.key,
+    required this.subscription,
+    this.onTap,
+  });
+
+  final Subscription subscription;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final color = Color(subscription.colorValue);
+    final icon = IconData(
+      subscription.iconCodePoint,
+      fontFamily: subscription.iconFontFamily,
+    );
+
+    final dateFormat = DateFormat('MMM d');
+    final frequencyLabel = subscription.frequency.label;
+    final subtitle = [
+      if (subscription.planName != null) subscription.planName!,
+      frequencyLabel,
+    ].join(' · ');
+
+    final hasLogo =
+        subscription.logoAsset != null && subscription.logoAsset!.isNotEmpty;
+
+    return Material(
+      color: theme.colorScheme.surface,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: hasLogo
+                      ? Colors.transparent
+                      : color.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                alignment: Alignment.center,
+                child: hasLogo
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          subscription.logoAsset!,
+                          width: 40,
+                          height: 40,
+                          fit: BoxFit.contain,
+                        ),
+                      )
+                    : Icon(icon, size: 20, color: color),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      subscription.serviceName,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: isDark
+                            ? Palette.textSecondaryDark
+                            : Palette.textSecondaryLight,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    '€${subscription.amount.toStringAsFixed(2)}',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    dateFormat.format(subscription.nextPaymentDate),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: isDark
+                          ? Palette.textMutedDark
+                          : Palette.textMutedLight,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -201,6 +201,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get profile;
+
+  /// No description provided for @addSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Subscription'**
+  String get addSubscription;
+
+  /// No description provided for @noSubscriptionsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No subscriptions yet'**
+  String get noSubscriptionsYet;
+
+  /// No description provided for @noSubscriptionsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first subscription to start tracking your spending'**
+  String get noSubscriptionsDescription;
+
+  /// No description provided for @selectService.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a Service'**
+  String get selectService;
+
+  /// No description provided for @custom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get custom;
+
+  /// No description provided for @customName.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Name'**
+  String get customName;
+
+  /// No description provided for @choosePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a Plan'**
+  String get choosePlan;
+
+  /// No description provided for @orEnterCustomAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Or Enter Custom Amount'**
+  String get orEnterCustomAmount;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @billingFrequency.
+  ///
+  /// In en, this message translates to:
+  /// **'Billing Frequency'**
+  String get billingFrequency;
+
+  /// No description provided for @monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get monthly;
+
+  /// No description provided for @quarterly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every 3 Months'**
+  String get quarterly;
+
+  /// No description provided for @semiannual.
+  ///
+  /// In en, this message translates to:
+  /// **'Every 6 Months'**
+  String get semiannual;
+
+  /// No description provided for @yearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly'**
+  String get yearly;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get startDate;
+
+  /// No description provided for @paymentAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Alerts'**
+  String get paymentAlerts;
+
+  /// No description provided for @alertOneDayBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'1 day before'**
+  String get alertOneDayBefore;
+
+  /// No description provided for @alertThreeDaysBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'3 days before'**
+  String get alertThreeDaysBefore;
+
+  /// No description provided for @alertSevenDaysBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'7 days before'**
+  String get alertSevenDaysBefore;
+
+  /// No description provided for @noAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'No alerts'**
+  String get noAlerts;
+
+  /// No description provided for @continueLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueLabel;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @finish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get finish;
+
+  /// No description provided for @nextPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Next payment'**
+  String get nextPayment;
+
+  /// No description provided for @perMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'/mo'**
+  String get perMonth;
+
+  /// No description provided for @perYear.
+  ///
+  /// In en, this message translates to:
+  /// **'/yr'**
+  String get perYear;
+
+  /// No description provided for @chooseIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Icon'**
+  String get chooseIcon;
+
+  /// No description provided for @chooseCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Category'**
+  String get chooseCategory;
+
+  /// No description provided for @chooseColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Color'**
+  String get chooseColor;
+
+  /// No description provided for @enterAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter amount'**
+  String get enterAmount;
+
+  /// No description provided for @paymentReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Reminder'**
+  String get paymentReminder;
+
+  /// No description provided for @paymentReminderBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{serviceName} payment of {amount} is due in {days} days'**
+  String paymentReminderBody(String serviceName, String amount, String days);
 }
 
 class _AppLocalizationsDelegate

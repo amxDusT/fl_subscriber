@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:fl_subscriber/core/providers/notification_provider.dart';
 import 'package:fl_subscriber/features/main/presentation/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,5 +13,15 @@ void main() async {
     await FlutterDisplayMode.setHighRefreshRate();
   }
 
-  runApp(const ProviderScope(child: MainPage()));
+  tz.initializeTimeZones();
+
+  final container = ProviderContainer();
+  await container.read(notificationServiceProvider).initialize();
+
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: const MainPage(),
+    ),
+  );
 }

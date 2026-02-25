@@ -64,4 +64,103 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get profile => 'Perfil';
+
+  @override
+  String get addSubscription => 'Añadir Suscripción';
+
+  @override
+  String get noSubscriptionsYet => 'Aún no hay suscripciones';
+
+  @override
+  String get noSubscriptionsDescription =>
+      'Añade tu primera suscripción para empezar a controlar tus gastos';
+
+  @override
+  String get selectService => 'Seleccionar Servicio';
+
+  @override
+  String get custom => 'Personalizado';
+
+  @override
+  String get customName => 'Nombre Personalizado';
+
+  @override
+  String get choosePlan => 'Elige un Plan';
+
+  @override
+  String get orEnterCustomAmount => 'O Introduce un Importe';
+
+  @override
+  String get amount => 'Importe';
+
+  @override
+  String get billingFrequency => 'Frecuencia de Pago';
+
+  @override
+  String get monthly => 'Mensual';
+
+  @override
+  String get quarterly => 'Cada 3 Meses';
+
+  @override
+  String get semiannual => 'Cada 6 Meses';
+
+  @override
+  String get yearly => 'Anual';
+
+  @override
+  String get startDate => 'Fecha de Inicio';
+
+  @override
+  String get paymentAlerts => 'Alertas de Pago';
+
+  @override
+  String get alertOneDayBefore => '1 día antes';
+
+  @override
+  String get alertThreeDaysBefore => '3 días antes';
+
+  @override
+  String get alertSevenDaysBefore => '7 días antes';
+
+  @override
+  String get noAlerts => 'Sin alertas';
+
+  @override
+  String get continueLabel => 'Continuar';
+
+  @override
+  String get back => 'Atrás';
+
+  @override
+  String get finish => 'Finalizar';
+
+  @override
+  String get nextPayment => 'Próximo pago';
+
+  @override
+  String get perMonth => '/mes';
+
+  @override
+  String get perYear => '/año';
+
+  @override
+  String get chooseIcon => 'Elegir Icono';
+
+  @override
+  String get chooseCategory => 'Elegir Categoría';
+
+  @override
+  String get chooseColor => 'Elegir Color';
+
+  @override
+  String get enterAmount => 'Introduce el importe';
+
+  @override
+  String get paymentReminder => 'Recordatorio de Pago';
+
+  @override
+  String paymentReminderBody(String serviceName, String amount, String days) {
+    return 'El pago de $serviceName de $amount vence en $days días';
+  }
 }

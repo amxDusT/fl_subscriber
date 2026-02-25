@@ -37,5 +37,50 @@
   },
   "subscriptions": "Subscriptions",
   "analytics": "Analytics",
-  "profile": "Profile"
+  "profile": "Profile",
+  "addSubscription": "Add Subscription",
+  "noSubscriptionsYet": "No subscriptions yet",
+  "noSubscriptionsDescription": "Add your first subscription to start tracking your spending",
+  "selectService": "Select a Service",
+  "custom": "Custom",
+  "customName": "Custom Name",
+  "choosePlan": "Choose a Plan",
+  "orEnterCustomAmount": "Or Enter Custom Amount",
+  "amount": "Amount",
+  "billingFrequency": "Billing Frequency",
+  "monthly": "Monthly",
+  "quarterly": "Every 3 Months",
+  "semiannual": "Every 6 Months",
+  "yearly": "Yearly",
+  "startDate": "Start Date",
+  "paymentAlerts": "Payment Alerts",
+  "alertOneDayBefore": "1 day before",
+  "alertThreeDaysBefore": "3 days before",
+  "alertSevenDaysBefore": "7 days before",
+  "noAlerts": "No alerts",
+  "continueLabel": "Continue",
+  "back": "Back",
+  "finish": "Finish",
+  "nextPayment": "Next payment",
+  "perMonth": "/mo",
+  "perYear": "/yr",
+  "chooseIcon": "Choose Icon",
+  "chooseCategory": "Choose Category",
+  "chooseColor": "Choose Color",
+  "enterAmount": "Enter amount",
+  "paymentReminder": "Payment Reminder",
+  "paymentReminderBody": "{serviceName} payment of {amount} is due in {days} days",
+  "@paymentReminderBody": {
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      },
+      "days": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -2,6 +2,7 @@ import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/features/analytics/presentation/pages/analytics_page.dart';
 import 'package:fl_subscriber/features/profile/presentation/pages/profile_page.dart';
+import 'package:fl_subscriber/features/subscriptions/presentation/pages/subscriptions_content.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -97,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                 controller: _pageController,
                 onPageChanged: (i) => setState(() => _currentPage = i),
                 children: const [
-                  _SubscriptionsContent(),
+                  SubscriptionsContent(),
                   AnalyticsContent(),
                   ProfileContent(),
                 ],
@@ -141,13 +142,3 @@ class _AvatarButton extends StatelessWidget {
   }
 }
 
-class _SubscriptionsContent extends StatelessWidget {
-  const _SubscriptionsContent();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Subscriptions'),
-    );
-  }
-}

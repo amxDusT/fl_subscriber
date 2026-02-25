@@ -64,4 +64,103 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get addSubscription => 'Add Subscription';
+
+  @override
+  String get noSubscriptionsYet => 'No subscriptions yet';
+
+  @override
+  String get noSubscriptionsDescription =>
+      'Add your first subscription to start tracking your spending';
+
+  @override
+  String get selectService => 'Select a Service';
+
+  @override
+  String get custom => 'Custom';
+
+  @override
+  String get customName => 'Custom Name';
+
+  @override
+  String get choosePlan => 'Choose a Plan';
+
+  @override
+  String get orEnterCustomAmount => 'Or Enter Custom Amount';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get billingFrequency => 'Billing Frequency';
+
+  @override
+  String get monthly => 'Monthly';
+
+  @override
+  String get quarterly => 'Every 3 Months';
+
+  @override
+  String get semiannual => 'Every 6 Months';
+
+  @override
+  String get yearly => 'Yearly';
+
+  @override
+  String get startDate => 'Start Date';
+
+  @override
+  String get paymentAlerts => 'Payment Alerts';
+
+  @override
+  String get alertOneDayBefore => '1 day before';
+
+  @override
+  String get alertThreeDaysBefore => '3 days before';
+
+  @override
+  String get alertSevenDaysBefore => '7 days before';
+
+  @override
+  String get noAlerts => 'No alerts';
+
+  @override
+  String get continueLabel => 'Continue';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get finish => 'Finish';
+
+  @override
+  String get nextPayment => 'Next payment';
+
+  @override
+  String get perMonth => '/mo';
+
+  @override
+  String get perYear => '/yr';
+
+  @override
+  String get chooseIcon => 'Choose Icon';
+
+  @override
+  String get chooseCategory => 'Choose Category';
+
+  @override
+  String get chooseColor => 'Choose Color';
+
+  @override
+  String get enterAmount => 'Enter amount';
+
+  @override
+  String get paymentReminder => 'Payment Reminder';
+
+  @override
+  String paymentReminderBody(String serviceName, String amount, String days) {
+    return '$serviceName payment of $amount is due in $days days';
+  }
 }
