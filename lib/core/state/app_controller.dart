@@ -1,17 +1,17 @@
 import 'package:fl_subscriber/core/providers/preferences_provider.dart';
-import 'package:fl_subscriber/features/main/presentation/state/main_state.dart';
+import 'package:fl_subscriber/core/state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'generated/main_controller.g.dart';
+part 'generated/app_controller.g.dart';
 
 const _keyThemeMode = 'theme_mode';
 const _keyLocale = 'locale';
 
 @Riverpod(keepAlive: true)
-class MainController extends _$MainController {
+class AppController extends _$AppController {
   @override
-  MainState build() {
+  AppState build() {
     final prefs = ref.read(sharedPreferencesProvider);
 
     final savedTheme = prefs.getString(_keyThemeMode);
@@ -24,7 +24,7 @@ class MainController extends _$MainController {
     final savedLocale = prefs.getString(_keyLocale);
     final locale = savedLocale != null ? Locale(savedLocale) : const Locale('en');
 
-    return MainState(locale: locale, themeMode: themeMode);
+    return AppState(locale: locale, themeMode: themeMode);
   }
 
   void setThemeMode(ThemeMode themeMode) {

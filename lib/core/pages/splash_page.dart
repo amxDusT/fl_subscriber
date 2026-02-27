@@ -1,5 +1,5 @@
 import 'package:fl_subscriber/core/routes/route_names.dart';
-import 'package:fl_subscriber/features/splash/presentation/state/splash_controller.dart';
+import 'package:fl_subscriber/core/state/splash_controller.dart';
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

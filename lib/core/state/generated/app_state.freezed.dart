@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of '../main_state.dart';
+part of '../app_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,20 +12,20 @@ part of '../main_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$MainState {
+mixin _$AppState {
 
  Locale get locale; ThemeMode get themeMode;
-/// Create a copy of MainState
+/// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$MainStateCopyWith<MainState> get copyWith => _$MainStateCopyWithImpl<MainState>(this as MainState, _$identity);
+$AppStateCopyWith<AppState> get copyWith => _$AppStateCopyWithImpl<AppState>(this as AppState, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MainState&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppState&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
 }
 
 
@@ -34,15 +34,15 @@ int get hashCode => Object.hash(runtimeType,locale,themeMode);
 
 @override
 String toString() {
-  return 'MainState(locale: $locale, themeMode: $themeMode)';
+  return 'AppState(locale: $locale, themeMode: $themeMode)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $MainStateCopyWith<$Res>  {
-  factory $MainStateCopyWith(MainState value, $Res Function(MainState) _then) = _$MainStateCopyWithImpl;
+abstract mixin class $AppStateCopyWith<$Res>  {
+  factory $AppStateCopyWith(AppState value, $Res Function(AppState) _then) = _$AppStateCopyWithImpl;
 @useResult
 $Res call({
  Locale locale, ThemeMode themeMode
@@ -53,14 +53,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$MainStateCopyWithImpl<$Res>
-    implements $MainStateCopyWith<$Res> {
-  _$MainStateCopyWithImpl(this._self, this._then);
+class _$AppStateCopyWithImpl<$Res>
+    implements $AppStateCopyWith<$Res> {
+  _$AppStateCopyWithImpl(this._self, this._then);
 
-  final MainState _self;
-  final $Res Function(MainState) _then;
+  final AppState _self;
+  final $Res Function(AppState) _then;
 
-/// Create a copy of MainState
+/// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? locale = null,Object? themeMode = null,}) {
   return _then(_self.copyWith(
@@ -73,8 +73,8 @@ as ThemeMode,
 }
 
 
-/// Adds pattern-matching-related methods to [MainState].
-extension MainStatePatterns on MainState {
+/// Adds pattern-matching-related methods to [AppState].
+extension AppStatePatterns on AppState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -87,10 +87,10 @@ extension MainStatePatterns on MainState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MainState value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AppState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _MainState() when $default != null:
+case _AppState() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -109,10 +109,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MainState value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AppState value)  $default,){
 final _that = this;
 switch (_that) {
-case _MainState():
+case _AppState():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -130,10 +130,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MainState value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AppState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _MainState() when $default != null:
+case _AppState() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -153,7 +153,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Locale locale,  ThemeMode themeMode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _MainState() when $default != null:
+case _AppState() when $default != null:
 return $default(_that.locale,_that.themeMode);case _:
   return orElse();
 
@@ -174,7 +174,7 @@ return $default(_that.locale,_that.themeMode);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Locale locale,  ThemeMode themeMode)  $default,) {final _that = this;
 switch (_that) {
-case _MainState():
+case _AppState():
 return $default(_that.locale,_that.themeMode);case _:
   throw StateError('Unexpected subclass');
 
@@ -194,7 +194,7 @@ return $default(_that.locale,_that.themeMode);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Locale locale,  ThemeMode themeMode)?  $default,) {final _that = this;
 switch (_that) {
-case _MainState() when $default != null:
+case _AppState() when $default != null:
 return $default(_that.locale,_that.themeMode);case _:
   return null;
 
@@ -206,24 +206,24 @@ return $default(_that.locale,_that.themeMode);case _:
 /// @nodoc
 
 
-class _MainState implements MainState {
-  const _MainState({this.locale = const Locale('en'), this.themeMode = ThemeMode.dark});
+class _AppState implements AppState {
+  const _AppState({this.locale = const Locale('en'), this.themeMode = ThemeMode.dark});
   
 
 @override@JsonKey() final  Locale locale;
 @override@JsonKey() final  ThemeMode themeMode;
 
-/// Create a copy of MainState
+/// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$MainStateCopyWith<_MainState> get copyWith => __$MainStateCopyWithImpl<_MainState>(this, _$identity);
+_$AppStateCopyWith<_AppState> get copyWith => __$AppStateCopyWithImpl<_AppState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MainState&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppState&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
 }
 
 
@@ -232,15 +232,15 @@ int get hashCode => Object.hash(runtimeType,locale,themeMode);
 
 @override
 String toString() {
-  return 'MainState(locale: $locale, themeMode: $themeMode)';
+  return 'AppState(locale: $locale, themeMode: $themeMode)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$MainStateCopyWith<$Res> implements $MainStateCopyWith<$Res> {
-  factory _$MainStateCopyWith(_MainState value, $Res Function(_MainState) _then) = __$MainStateCopyWithImpl;
+abstract mixin class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
+  factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) _then) = __$AppStateCopyWithImpl;
 @override @useResult
 $Res call({
  Locale locale, ThemeMode themeMode
@@ -251,17 +251,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$MainStateCopyWithImpl<$Res>
-    implements _$MainStateCopyWith<$Res> {
-  __$MainStateCopyWithImpl(this._self, this._then);
+class __$AppStateCopyWithImpl<$Res>
+    implements _$AppStateCopyWith<$Res> {
+  __$AppStateCopyWithImpl(this._self, this._then);
 
-  final _MainState _self;
-  final $Res Function(_MainState) _then;
+  final _AppState _self;
+  final $Res Function(_AppState) _then;
 
-/// Create a copy of MainState
+/// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? locale = null,Object? themeMode = null,}) {
-  return _then(_MainState(
+  return _then(_AppState(
 locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
 as Locale,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
 as ThemeMode,

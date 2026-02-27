@@ -1,5 +1,5 @@
 import 'package:fl_subscriber/core/theme/palette.dart';
-import 'package:fl_subscriber/features/main/presentation/state/main_controller.dart';
+import 'package:fl_subscriber/core/state/app_controller.dart';
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +9,7 @@ class SettingsSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mainState = ref.watch(mainControllerProvider);
+    final appState = ref.watch(appControllerProvider);
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
@@ -48,7 +48,7 @@ class SettingsSheet extends ConsumerWidget {
           isDark: isDark,
           onChanged: (dark) {
             ref
-                .read(mainControllerProvider.notifier)
+                .read(appControllerProvider.notifier)
                 .setThemeMode(dark ? ThemeMode.dark : ThemeMode.light);
           },
         ),
@@ -59,8 +59,8 @@ class SettingsSheet extends ConsumerWidget {
         const SizedBox(height: 10),
         _SettingsTile(
           icon: Icons.language_rounded,
-          title: _localeLabel(mainState.locale, l10n),
-          onTap: () => _showLanguageSheet(context, ref, mainState.locale, l10n),
+          title: _localeLabel(appState.locale, l10n),
+          onTap: () => _showLanguageSheet(context, ref, appState.locale, l10n),
         ),
 
         const SizedBox(height: 32),
@@ -118,7 +118,7 @@ class SettingsSheet extends ConsumerWidget {
                         : null,
                     onTap: () {
                       ref
-                          .read(mainControllerProvider.notifier)
+                          .read(appControllerProvider.notifier)
                           .setLocale(entry.$1);
                       Navigator.pop(context);
                     },

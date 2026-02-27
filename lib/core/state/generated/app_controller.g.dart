@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../main_controller.dart';
+part of '../app_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,51 +9,51 @@ part of '../main_controller.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(MainController)
-final mainControllerProvider = MainControllerProvider._();
+@ProviderFor(AppController)
+final appControllerProvider = AppControllerProvider._();
 
-final class MainControllerProvider
-    extends $NotifierProvider<MainController, MainState> {
-  MainControllerProvider._()
+final class AppControllerProvider
+    extends $NotifierProvider<AppController, AppState> {
+  AppControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'mainControllerProvider',
+        name: r'appControllerProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$mainControllerHash();
+  String debugGetCreateSourceHash() => _$appControllerHash();
 
   @$internal
   @override
-  MainController create() => MainController();
+  AppController create() => AppController();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MainState value) {
+  Override overrideWithValue(AppState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MainState>(value),
+      providerOverride: $SyncValueProvider<AppState>(value),
     );
   }
 }
 
-String _$mainControllerHash() => r'a8248c9a033690eab0f2916da100f2bf61120f02';
+String _$appControllerHash() => r'e48563926dbf33293d71ae5895b90badb0f75259';
 
-abstract class _$MainController extends $Notifier<MainState> {
-  MainState build();
+abstract class _$AppController extends $Notifier<AppState> {
+  AppState build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<MainState, MainState>;
+    final ref = this.ref as $Ref<AppState, AppState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<MainState, MainState>,
-              MainState,
+              AnyNotifier<AppState, AppState>,
+              AppState,
               Object?,
               Object?
             >;

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:fl_subscriber/core/providers/notification_provider.dart';
 import 'package:fl_subscriber/core/providers/preferences_provider.dart';
-import 'package:fl_subscriber/features/main/presentation/pages/main_page.dart';
+import 'package:fl_subscriber/app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +28,7 @@ void main() async {
   runApp(
     UncontrolledProviderScope(
       container: container,
-      child: const MainPage(),
+      child: const App(),
     ),
   );
 }
