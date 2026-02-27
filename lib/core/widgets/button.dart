@@ -5,7 +5,7 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.label,
-    this.icon,
+    this.icon = Icons.arrow_forward_ios_rounded,
     this.isLoading = false,
   });
 
@@ -26,15 +26,15 @@ class AppButton extends StatelessWidget {
             ),
           )
         : icon != null
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(icon, size: 18),
-                  const SizedBox(width: 8),
-                  Text(label),
-                ],
-              )
-            : Text(label);
+        ? Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(child: Text(label)),
+              const SizedBox(width: 8),
+              Icon(icon, size: 18),
+            ],
+          )
+        : Text(label);
 
     return ElevatedButton(
       onPressed: isLoading ? null : onPressed,

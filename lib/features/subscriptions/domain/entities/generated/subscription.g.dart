@@ -28,6 +28,10 @@ _Subscription _$SubscriptionFromJson(Map<String, dynamic> json) =>
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
+      endDate: json['endDate'] == null
+          ? null
+          : DateTime.parse(json['endDate'] as String),
+      unsubscribeUrl: json['unsubscribeUrl'] as String?,
     );
 
 Map<String, dynamic> _$SubscriptionToJson(_Subscription instance) =>
@@ -50,6 +54,8 @@ Map<String, dynamic> _$SubscriptionToJson(_Subscription instance) =>
       'alertDaysBefore': instance.alertDaysBefore,
       'isActive': instance.isActive,
       'createdAt': instance.createdAt?.toIso8601String(),
+      'endDate': instance.endDate?.toIso8601String(),
+      'unsubscribeUrl': instance.unsubscribeUrl,
     };
 
 const _$BillingFrequencyEnumMap = {

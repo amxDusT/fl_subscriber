@@ -62,6 +62,7 @@ class CatalogService {
     required this.color,
     required this.category,
     this.plans = const [],
+    this.unsubscribeUrl,
   });
 
   final String id;
@@ -71,6 +72,7 @@ class CatalogService {
   final Color color;
   final ServiceCategory category;
   final List<ServicePlan> plans;
+  final String? unsubscribeUrl;
 }
 
 const defaultServices = <CatalogService>[
@@ -80,6 +82,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.netflix,
     color: Color(0xFFE50914),
     category: ServiceCategory.entertainment,
+    unsubscribeUrl: 'https://www.netflix.com/cancelplan',
     plans: [
       ServicePlan(name: 'Standard with Ads', monthlyPrice: 6.99),
       ServicePlan(name: 'Standard', monthlyPrice: 15.49),
@@ -92,6 +95,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.spotify,
     color: Color(0xFF1DB954),
     category: ServiceCategory.entertainment,
+    unsubscribeUrl: 'https://www.spotify.com/account/subscription/',
     plans: [
       ServicePlan(name: 'Individual', monthlyPrice: 11.99),
       ServicePlan(name: 'Duo', monthlyPrice: 16.99),
@@ -105,6 +109,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.amazon,
     color: Color(0xFF00A8E1),
     category: ServiceCategory.shopping,
+    unsubscribeUrl: 'https://www.amazon.com/mc/pipelines/cancellation',
     plans: [
       ServicePlan(name: 'Monthly', monthlyPrice: 14.99),
       ServicePlan(name: 'Annual', monthlyPrice: 11.58),
@@ -117,6 +122,7 @@ const defaultServices = <CatalogService>[
     logoDark: Assets.disneyDark,
     color: Color(0xFF113CCF),
     category: ServiceCategory.entertainment,
+    unsubscribeUrl: 'https://www.disneyplus.com/account/subscription',
     plans: [
       ServicePlan(name: 'Basic', monthlyPrice: 7.99),
       ServicePlan(name: 'Premium', monthlyPrice: 13.99),
@@ -128,6 +134,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.youtube,
     color: Color(0xFFFF0000),
     category: ServiceCategory.entertainment,
+    unsubscribeUrl: 'https://www.youtube.com/paid_memberships',
     plans: [
       ServicePlan(name: 'Individual', monthlyPrice: 13.99),
       ServicePlan(name: 'Family', monthlyPrice: 22.99),
@@ -141,6 +148,7 @@ const defaultServices = <CatalogService>[
     logoDark: Assets.chatgptDark,
     color: Color(0xFF10A37F),
     category: ServiceCategory.ai,
+    unsubscribeUrl: 'https://chat.openai.com/settings/subscription',
     plans: [
       ServicePlan(name: 'Plus', monthlyPrice: 20.00),
       ServicePlan(name: 'Pro', monthlyPrice: 200.00),
@@ -152,6 +160,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.notion,
     color: Color(0xFF787774),
     category: ServiceCategory.productivity,
+    unsubscribeUrl: 'https://www.notion.so/my-account/plans',
     plans: [
       ServicePlan(name: 'Plus', monthlyPrice: 10.00),
       ServicePlan(name: 'Business', monthlyPrice: 18.00),
@@ -163,6 +172,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.apple,
     color: Color(0xFFFC3C44),
     category: ServiceCategory.entertainment,
+    unsubscribeUrl: 'https://support.apple.com/en-us/HT202039',
     plans: [
       ServicePlan(name: 'Voice', monthlyPrice: 4.99),
       ServicePlan(name: 'Student', monthlyPrice: 5.99),
@@ -176,6 +186,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.icloud,
     color: Color(0xFF3693F3),
     category: ServiceCategory.cloud,
+    unsubscribeUrl: 'https://support.apple.com/en-us/HT207594',
     plans: [
       ServicePlan(name: '50 GB', monthlyPrice: 0.99),
       ServicePlan(name: '200 GB', monthlyPrice: 2.99),
@@ -190,6 +201,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.hbo,
     color: Color(0xFF002BE7),
     category: ServiceCategory.entertainment,
+    unsubscribeUrl: 'https://www.max.com/account/subscription',
     plans: [
       ServicePlan(name: 'With Ads', monthlyPrice: 9.99),
       ServicePlan(name: 'Ad-Free', monthlyPrice: 16.99),
@@ -202,6 +214,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.hulu,
     color: Color(0xFF1CE783),
     category: ServiceCategory.entertainment,
+    unsubscribeUrl: 'https://secure.hulu.com/account',
     plans: [
       ServicePlan(name: 'With Ads', monthlyPrice: 7.99),
       ServicePlan(name: 'No Ads', monthlyPrice: 17.99),
@@ -213,6 +226,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.adobe,
     color: Color(0xFFFF0000),
     category: ServiceCategory.design,
+    unsubscribeUrl: 'https://account.adobe.com/plans',
     plans: [
       ServicePlan(name: 'Photography', monthlyPrice: 9.99),
       ServicePlan(name: 'Single App', monthlyPrice: 22.99),
@@ -225,6 +239,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.microsoft,
     color: Color(0xFFD83B01),
     category: ServiceCategory.productivity,
+    unsubscribeUrl: 'https://account.microsoft.com/services',
     plans: [
       ServicePlan(name: 'Personal', monthlyPrice: 6.99),
       ServicePlan(name: 'Family', monthlyPrice: 9.99),
@@ -236,6 +251,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.dropbox,
     color: Color(0xFF0061FF),
     category: ServiceCategory.cloud,
+    unsubscribeUrl: 'https://www.dropbox.com/account/plan',
     plans: [
       ServicePlan(name: 'Plus', monthlyPrice: 11.99),
       ServicePlan(name: 'Essentials', monthlyPrice: 22.00),
@@ -248,6 +264,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.linkedin,
     color: Color(0xFF0A66C2),
     category: ServiceCategory.social,
+    unsubscribeUrl: 'https://www.linkedin.com/mypreferences/d/manage-premium',
     plans: [
       ServicePlan(name: 'Career', monthlyPrice: 29.99),
       ServicePlan(name: 'Business', monthlyPrice: 59.99),
@@ -260,6 +277,7 @@ const defaultServices = <CatalogService>[
     logoDark: Assets.copilotDark,
     color: Color(0xFF6E40C9),
     category: ServiceCategory.development,
+    unsubscribeUrl: 'https://github.com/settings/copilot',
     plans: [
       ServicePlan(name: 'Individual', monthlyPrice: 10.00),
       ServicePlan(name: 'Business', monthlyPrice: 19.00),
@@ -271,6 +289,7 @@ const defaultServices = <CatalogService>[
     logo: Assets.figma,
     color: Color(0xFFA259FF),
     category: ServiceCategory.design,
+    unsubscribeUrl: 'https://www.figma.com/settings/billing',
     plans: [
       ServicePlan(name: 'Professional', monthlyPrice: 15.00),
       ServicePlan(name: 'Organization', monthlyPrice: 45.00),

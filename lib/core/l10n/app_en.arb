@@ -120,5 +120,24 @@
   "categoryNews": "News",
   "categoryFinance": "Finance",
   "categoryLifestyle": "Lifestyle",
-  "categoryOther": "Other"
+  "categoryOther": "Other",
+  "activeSubscriptions": "Active",
+  "expiredSubscriptions": "Expired",
+  "expired": "Expired",
+  "endDate": "End date",
+  "openUnsubscribePage": "Open cancellation page",
+  "didYouUnsubscribe": "Did you unsubscribe?",
+  "didYouUnsubscribeMessage": "Did you complete the cancellation for {serviceName}?",
+  "@didYouUnsubscribeMessage": {
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      }
+    }
+  },
+  "yes": "Yes",
+  "no": "No",
+  "restoreSubscription": "Restore Subscription",
+  "noExpiredSubscriptions": "No expired subscriptions",
+  "noExpiredSubscriptionsDescription": "Cancelled subscriptions will appear here"
 }

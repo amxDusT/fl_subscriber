@@ -75,6 +75,7 @@ class AddSubscriptionController extends _$AddSubscriptionController {
       startDate: startDate,
       nextPaymentDate: _calculateNextPayment(startDate, state.frequency),
       alertDaysBefore: state.alertDaysBefore,
+      unsubscribeUrl: service.unsubscribeUrl,
     );
   }
 

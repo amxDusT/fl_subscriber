@@ -1,30 +1,119 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/core/widgets/confirm_dialog.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
+import 'package:fl_subscriber/features/subscriptions/presentation/state/subscription_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class SubscriptionDetailSheet extends StatelessWidget {
+class SubscriptionDetailSheet extends ConsumerStatefulWidget {
   const SubscriptionDetailSheet({super.key, required this.subscription});
 
   final Subscription subscription;
 
   @override
+  ConsumerState<SubscriptionDetailSheet> createState() =>
+      _SubscriptionDetailSheetState();
+}
+
+class _SubscriptionDetailSheetState
+    extends ConsumerState<SubscriptionDetailSheet>
+    with WidgetsBindingObserver {
+  bool _awaitingUnsubscribeConfirmation = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed &&
+        _awaitingUnsubscribeConfirmation) {
+      _awaitingUnsubscribeConfirmation = false;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _showUnsubscribeConfirmationDialog();
+      });
+    }
+  }
+
+  Future<void> _openUnsubscribeUrl() async {
+    final url = widget.subscription.unsubscribeUrl;
+    if (url == null) return;
+
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      setState(() => _awaitingUnsubscribeConfirmation = true);
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  Future<void> _showUnsubscribeConfirmationDialog() async {
+    final l10n = AppLocalizations.of(context)!;
+    final confirmed = await showAppConfirmDialog(
+      context: context,
+      title: l10n.didYouUnsubscribe,
+      message: l10n.didYouUnsubscribeMessage(widget.subscription.serviceName),
+      ctaLabel: l10n.yes,
+    );
+
+    if (confirmed == true && mounted) {
+      await ref
+          .read(subscriptionControllerProvider.notifier)
+          .unsubscribeSubscription(widget.subscription);
+      if (mounted) Navigator.pop(context);
+    }
+  }
+
+  Future<void> _restoreSubscription() async {
+    await ref
+        .read(subscriptionControllerProvider.notifier)
+        .restoreSubscription(widget.subscription);
+    if (mounted) Navigator.pop(context);
+  }
+
+  List<DateTime> _computeRenewals() {
+    final now = DateTime.now();
+    final months = widget.subscription.frequency.months;
+    final renewals = <DateTime>[];
+    var date = widget.subscription.startDate;
+    final limit = widget.subscription.endDate ?? now;
+
+    while (!date.isAfter(limit)) {
+      renewals.add(date);
+      date = DateTime(date.year, date.month + months, date.day);
+    }
+
+    return renewals.reversed.toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final sub = widget.subscription;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final muted = isDark ? Palette.textMutedDark : Palette.textMutedLight;
-    final secondary =
-        isDark ? Palette.textSecondaryDark : Palette.textSecondaryLight;
-    final color = Color(subscription.colorValue);
+    final secondary = isDark
+        ? Palette.textSecondaryDark
+        : Palette.textSecondaryLight;
+    final color = Color(sub.colorValue);
     final icon = IconData(
-      subscription.iconCodePoint,
-      fontFamily: subscription.iconFontFamily,
+      sub.iconCodePoint,
+      fontFamily: sub.iconFontFamily,
     );
-    final logoPath = isDark && subscription.logoAssetDark != null
-        ? subscription.logoAssetDark!
-        : subscription.logoAsset;
+    final logoPath = isDark && sub.logoAssetDark != null
+        ? sub.logoAssetDark!
+        : sub.logoAsset;
     final hasLogo = logoPath != null && logoPath.isNotEmpty;
     final l10n = AppLocalizations.of(context)!;
     final dateFormat = DateFormat('MMM d, yyyy');
@@ -87,14 +176,16 @@ class SubscriptionDetailSheet extends StatelessWidget {
 
                   // Service name
                   Text(
-                    subscription.serviceName,
+                    sub.serviceName,
                     style: theme.textTheme.headlineMedium,
                   ),
-                  if (subscription.planName != null) ...[
+                  if (sub.planName != null) ...[
                     const SizedBox(height: 4),
                     Text(
-                      subscription.planName!,
-                      style: theme.textTheme.bodySmall?.copyWith(color: secondary),
+                      sub.planName!,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: secondary,
+                      ),
                     ),
                   ],
 
@@ -102,54 +193,108 @@ class SubscriptionDetailSheet extends StatelessWidget {
 
                   // Amount + frequency
                   Text(
-                    '€${subscription.amount.toStringAsFixed(2)}',
+                    '€${sub.amount.toStringAsFixed(2)}',
                     style: theme.textTheme.headlineLarge?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    subscription.frequency.localizedLabel(l10n),
-                    style: theme.textTheme.bodySmall?.copyWith(color: secondary),
+                    sub.frequency.localizedLabel(l10n),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: secondary,
+                    ),
                   ),
 
                   const SizedBox(height: 32),
 
                   // Detail rows
-                  _DetailRow(
-                    label: l10n.nextPayment,
-                    value: dateFormat.format(subscription.nextPaymentDate),
-                    muted: muted,
-                    theme: theme,
-                  ),
-                  _DetailRow(
-                    label: l10n.startDate,
-                    value: dateFormat.format(subscription.startDate),
-                    muted: muted,
-                    theme: theme,
-                  ),
-                  _DetailRow(
-                    label: l10n.alert,
-                    value: subscription.alertDaysBefore != null
-                        ? l10n.alertDaysBefore(
-                            subscription.alertDaysBefore.toString())
-                        : l10n.alertOff,
-                    muted: muted,
-                    theme: theme,
-                    valueIcon: subscription.alertDaysBefore != null
-                        ? Icons.notifications_active_outlined
-                        : null,
-                  ),
-                  if (subscription.category != null)
+                  if (sub.isActive)
                     _DetailRow(
-                      label: l10n.category,
-                      value: ServiceCategory.values
-                          .where((c) => c.name == subscription.category)
-                          .firstOrNull
-                          ?.localizedLabel(l10n) ?? subscription.category!,
+                      label: l10n.nextPayment,
+                      value: dateFormat.format(sub.nextPaymentDate),
                       muted: muted,
                       theme: theme,
                     ),
+                  _DetailRow(
+                    label: l10n.startDate,
+                    value: dateFormat.format(sub.startDate),
+                    muted: muted,
+                    theme: theme,
+                  ),
+                  if (!sub.isActive && sub.endDate != null)
+                    _DetailRow(
+                      label: l10n.endDate,
+                      value: dateFormat.format(sub.endDate!),
+                      muted: muted,
+                      theme: theme,
+                    ),
+                  if (sub.isActive)
+                    _DetailRow(
+                      label: l10n.alert,
+                      value: sub.alertDaysBefore != null
+                          ? l10n.alertDaysBefore(sub.alertDaysBefore.toString())
+                          : l10n.alertOff,
+                      muted: muted,
+                      theme: theme,
+                      valueIcon: sub.alertDaysBefore != null
+                          ? Icons.notifications_active_outlined
+                          : null,
+                    ),
+                  if (sub.category != null)
+                    _DetailRow(
+                      label: l10n.category,
+                      value:
+                          ServiceCategory.values
+                              .where((c) => c.name == sub.category)
+                              .firstOrNull
+                              ?.localizedLabel(l10n) ??
+                          sub.category!,
+                      muted: muted,
+                      theme: theme,
+                    ),
+
+                  // Unsubscribe button (active subscriptions with URL)
+                  if (sub.isActive && sub.unsubscribeUrl != null) ...[
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: _openUnsubscribeUrl,
+                        icon: const Icon(Icons.open_in_new_rounded, size: 16),
+                        label: Text(l10n.openUnsubscribePage),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Palette.error,
+                          side: BorderSide(
+                            color: Palette.error.withValues(alpha: 0.3),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+
+                  // Restore button (expired subscriptions)
+                  if (!sub.isActive) ...[
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: _restoreSubscription,
+                        icon: const Icon(Icons.replay_rounded, size: 18),
+                        label: Text(l10n.restoreSubscription),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
 
                   const SizedBox(height: 32),
 
@@ -171,7 +316,7 @@ class SubscriptionDetailSheet extends StatelessWidget {
                     ...renewals.map(
                       (date) => _RenewalRow(
                         date: date,
-                        amount: subscription.amount,
+                        amount: sub.amount,
                         dateFormat: dateFormat,
                         muted: muted,
                         theme: theme,
@@ -185,22 +330,6 @@ class SubscriptionDetailSheet extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  /// Computes all past renewal dates from [startDate] up to today,
-  /// sorted most recent first.
-  List<DateTime> _computeRenewals() {
-    final now = DateTime.now();
-    final months = subscription.frequency.months;
-    final renewals = <DateTime>[];
-    var date = subscription.startDate;
-
-    while (!date.isAfter(now)) {
-      renewals.add(date);
-      date = DateTime(date.year, date.month + months, date.day);
-    }
-
-    return renewals.reversed.toList();
   }
 }
 

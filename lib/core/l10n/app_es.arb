@@ -72,5 +72,24 @@
   "categoryNews": "Noticias",
   "categoryFinance": "Finanzas",
   "categoryLifestyle": "Estilo de Vida",
-  "categoryOther": "Otro"
+  "categoryOther": "Otro",
+  "activeSubscriptions": "Activas",
+  "expiredSubscriptions": "Canceladas",
+  "expired": "Cancelada",
+  "endDate": "Fecha de cancelación",
+  "openUnsubscribePage": "Abrir página de cancelación",
+  "didYouUnsubscribe": "¿Te has dado de baja?",
+  "didYouUnsubscribeMessage": "¿Has completado la cancelación de {serviceName}?",
+  "@didYouUnsubscribeMessage": {
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      }
+    }
+  },
+  "yes": "Sí",
+  "no": "No",
+  "restoreSubscription": "Restaurar Suscripción",
+  "noExpiredSubscriptions": "No hay suscripciones canceladas",
+  "noExpiredSubscriptionsDescription": "Las suscripciones canceladas aparecerán aquí"
 }

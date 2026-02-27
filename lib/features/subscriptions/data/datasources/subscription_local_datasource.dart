@@ -93,6 +93,8 @@ class SubscriptionLocalDatasourceImpl implements SubscriptionLocalDatasource {
       alertDaysBefore: row.alertDaysBefore,
       isActive: row.isActive,
       createdAt: row.createdAt,
+      endDate: row.endDate,
+      unsubscribeUrl: row.unsubscribeUrl,
     );
   }
 
@@ -114,6 +116,8 @@ class SubscriptionLocalDatasourceImpl implements SubscriptionLocalDatasource {
       nextPaymentDate: Value(sub.nextPaymentDate),
       alertDaysBefore: Value(sub.alertDaysBefore),
       isActive: Value(sub.isActive),
+      endDate: Value(sub.endDate),
+      unsubscribeUrl: Value(sub.unsubscribeUrl),
     );
   }
 }

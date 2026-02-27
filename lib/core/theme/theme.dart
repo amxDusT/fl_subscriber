@@ -70,9 +70,9 @@ class AppTheme {
           backgroundColor: Palette.textPrimaryDark,
           foregroundColor: Palette.backgroundDark,
           elevation: 0,
-          minimumSize: const Size(double.infinity, 52),
+          minimumSize: const Size(double.infinity, 60),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
           ),
           textStyle: const TextStyle(
             fontSize: 16,
@@ -84,6 +84,10 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: Palette.textPrimaryDark,
+          minimumSize: const Size(double.infinity, 60),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -174,9 +178,10 @@ class AppTheme {
           backgroundColor: Palette.textPrimaryLight,
           foregroundColor: Palette.backgroundLight,
           elevation: 0,
-          minimumSize: const Size(double.infinity, 52),
+
+          minimumSize: const Size(double.infinity, 60),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
           ),
           textStyle: const TextStyle(
             fontSize: 16,
@@ -188,6 +193,10 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: Palette.textPrimaryLight,
+          minimumSize: const Size(double.infinity, 60),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,

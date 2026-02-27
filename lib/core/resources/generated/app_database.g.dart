@@ -215,6 +215,28 @@ class $SubscriptionsTableTable extends SubscriptionsTable
     requiredDuringInsert: false,
     defaultValue: currentDateAndTime,
   );
+  static const VerificationMeta _endDateMeta = const VerificationMeta(
+    'endDate',
+  );
+  @override
+  late final GeneratedColumn<DateTime> endDate = GeneratedColumn<DateTime>(
+    'end_date',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _unsubscribeUrlMeta = const VerificationMeta(
+    'unsubscribeUrl',
+  );
+  @override
+  late final GeneratedColumn<String> unsubscribeUrl = GeneratedColumn<String>(
+    'unsubscribe_url',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -235,6 +257,8 @@ class $SubscriptionsTableTable extends SubscriptionsTable
     alertDaysBefore,
     isActive,
     createdAt,
+    endDate,
+    unsubscribeUrl,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -387,6 +411,21 @@ class $SubscriptionsTableTable extends SubscriptionsTable
         createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta),
       );
     }
+    if (data.containsKey('end_date')) {
+      context.handle(
+        _endDateMeta,
+        endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta),
+      );
+    }
+    if (data.containsKey('unsubscribe_url')) {
+      context.handle(
+        _unsubscribeUrlMeta,
+        unsubscribeUrl.isAcceptableOrUnknown(
+          data['unsubscribe_url']!,
+          _unsubscribeUrlMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -468,6 +507,14 @@ class $SubscriptionsTableTable extends SubscriptionsTable
         DriftSqlType.dateTime,
         data['${effectivePrefix}created_at'],
       )!,
+      endDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}end_date'],
+      ),
+      unsubscribeUrl: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unsubscribe_url'],
+      ),
     );
   }
 
@@ -497,6 +544,8 @@ class SubscriptionsTableData extends DataClass
   final int? alertDaysBefore;
   final bool isActive;
   final DateTime createdAt;
+  final DateTime? endDate;
+  final String? unsubscribeUrl;
   const SubscriptionsTableData({
     required this.id,
     required this.serviceId,
@@ -516,6 +565,8 @@ class SubscriptionsTableData extends DataClass
     this.alertDaysBefore,
     required this.isActive,
     required this.createdAt,
+    this.endDate,
+    this.unsubscribeUrl,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -548,6 +599,12 @@ class SubscriptionsTableData extends DataClass
     }
     map['is_active'] = Variable<bool>(isActive);
     map['created_at'] = Variable<DateTime>(createdAt);
+    if (!nullToAbsent || endDate != null) {
+      map['end_date'] = Variable<DateTime>(endDate);
+    }
+    if (!nullToAbsent || unsubscribeUrl != null) {
+      map['unsubscribe_url'] = Variable<String>(unsubscribeUrl);
+    }
     return map;
   }
 
@@ -581,6 +638,12 @@ class SubscriptionsTableData extends DataClass
           : Value(alertDaysBefore),
       isActive: Value(isActive),
       createdAt: Value(createdAt),
+      endDate: endDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(endDate),
+      unsubscribeUrl: unsubscribeUrl == null && nullToAbsent
+          ? const Value.absent()
+          : Value(unsubscribeUrl),
     );
   }
 
@@ -608,6 +671,8 @@ class SubscriptionsTableData extends DataClass
       alertDaysBefore: serializer.fromJson<int?>(json['alertDaysBefore']),
       isActive: serializer.fromJson<bool>(json['isActive']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      endDate: serializer.fromJson<DateTime?>(json['endDate']),
+      unsubscribeUrl: serializer.fromJson<String?>(json['unsubscribeUrl']),
     );
   }
   @override
@@ -632,6 +697,8 @@ class SubscriptionsTableData extends DataClass
       'alertDaysBefore': serializer.toJson<int?>(alertDaysBefore),
       'isActive': serializer.toJson<bool>(isActive),
       'createdAt': serializer.toJson<DateTime>(createdAt),
+      'endDate': serializer.toJson<DateTime?>(endDate),
+      'unsubscribeUrl': serializer.toJson<String?>(unsubscribeUrl),
     };
   }
 
@@ -654,6 +721,8 @@ class SubscriptionsTableData extends DataClass
     Value<int?> alertDaysBefore = const Value.absent(),
     bool? isActive,
     DateTime? createdAt,
+    Value<DateTime?> endDate = const Value.absent(),
+    Value<String?> unsubscribeUrl = const Value.absent(),
   }) => SubscriptionsTableData(
     id: id ?? this.id,
     serviceId: serviceId ?? this.serviceId,
@@ -677,6 +746,10 @@ class SubscriptionsTableData extends DataClass
         : this.alertDaysBefore,
     isActive: isActive ?? this.isActive,
     createdAt: createdAt ?? this.createdAt,
+    endDate: endDate.present ? endDate.value : this.endDate,
+    unsubscribeUrl: unsubscribeUrl.present
+        ? unsubscribeUrl.value
+        : this.unsubscribeUrl,
   );
   SubscriptionsTableData copyWithCompanion(SubscriptionsTableCompanion data) {
     return SubscriptionsTableData(
@@ -712,6 +785,10 @@ class SubscriptionsTableData extends DataClass
           : this.alertDaysBefore,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      endDate: data.endDate.present ? data.endDate.value : this.endDate,
+      unsubscribeUrl: data.unsubscribeUrl.present
+          ? data.unsubscribeUrl.value
+          : this.unsubscribeUrl,
     );
   }
 
@@ -735,7 +812,9 @@ class SubscriptionsTableData extends DataClass
           ..write('category: $category, ')
           ..write('alertDaysBefore: $alertDaysBefore, ')
           ..write('isActive: $isActive, ')
-          ..write('createdAt: $createdAt')
+          ..write('createdAt: $createdAt, ')
+          ..write('endDate: $endDate, ')
+          ..write('unsubscribeUrl: $unsubscribeUrl')
           ..write(')'))
         .toString();
   }
@@ -760,6 +839,8 @@ class SubscriptionsTableData extends DataClass
     alertDaysBefore,
     isActive,
     createdAt,
+    endDate,
+    unsubscribeUrl,
   );
   @override
   bool operator ==(Object other) =>
@@ -782,7 +863,9 @@ class SubscriptionsTableData extends DataClass
           other.category == this.category &&
           other.alertDaysBefore == this.alertDaysBefore &&
           other.isActive == this.isActive &&
-          other.createdAt == this.createdAt);
+          other.createdAt == this.createdAt &&
+          other.endDate == this.endDate &&
+          other.unsubscribeUrl == this.unsubscribeUrl);
 }
 
 class SubscriptionsTableCompanion
@@ -805,6 +888,8 @@ class SubscriptionsTableCompanion
   final Value<int?> alertDaysBefore;
   final Value<bool> isActive;
   final Value<DateTime> createdAt;
+  final Value<DateTime?> endDate;
+  final Value<String?> unsubscribeUrl;
   const SubscriptionsTableCompanion({
     this.id = const Value.absent(),
     this.serviceId = const Value.absent(),
@@ -824,6 +909,8 @@ class SubscriptionsTableCompanion
     this.alertDaysBefore = const Value.absent(),
     this.isActive = const Value.absent(),
     this.createdAt = const Value.absent(),
+    this.endDate = const Value.absent(),
+    this.unsubscribeUrl = const Value.absent(),
   });
   SubscriptionsTableCompanion.insert({
     this.id = const Value.absent(),
@@ -844,6 +931,8 @@ class SubscriptionsTableCompanion
     this.alertDaysBefore = const Value.absent(),
     this.isActive = const Value.absent(),
     this.createdAt = const Value.absent(),
+    this.endDate = const Value.absent(),
+    this.unsubscribeUrl = const Value.absent(),
   }) : serviceId = Value(serviceId),
        serviceName = Value(serviceName),
        iconCodePoint = Value(iconCodePoint),
@@ -871,6 +960,8 @@ class SubscriptionsTableCompanion
     Expression<int>? alertDaysBefore,
     Expression<bool>? isActive,
     Expression<DateTime>? createdAt,
+    Expression<DateTime>? endDate,
+    Expression<String>? unsubscribeUrl,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -891,6 +982,8 @@ class SubscriptionsTableCompanion
       if (alertDaysBefore != null) 'alert_days_before': alertDaysBefore,
       if (isActive != null) 'is_active': isActive,
       if (createdAt != null) 'created_at': createdAt,
+      if (endDate != null) 'end_date': endDate,
+      if (unsubscribeUrl != null) 'unsubscribe_url': unsubscribeUrl,
     });
   }
 
@@ -913,6 +1006,8 @@ class SubscriptionsTableCompanion
     Value<int?>? alertDaysBefore,
     Value<bool>? isActive,
     Value<DateTime>? createdAt,
+    Value<DateTime?>? endDate,
+    Value<String?>? unsubscribeUrl,
   }) {
     return SubscriptionsTableCompanion(
       id: id ?? this.id,
@@ -933,6 +1028,8 @@ class SubscriptionsTableCompanion
       alertDaysBefore: alertDaysBefore ?? this.alertDaysBefore,
       isActive: isActive ?? this.isActive,
       createdAt: createdAt ?? this.createdAt,
+      endDate: endDate ?? this.endDate,
+      unsubscribeUrl: unsubscribeUrl ?? this.unsubscribeUrl,
     );
   }
 
@@ -993,6 +1090,12 @@ class SubscriptionsTableCompanion
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
     }
+    if (endDate.present) {
+      map['end_date'] = Variable<DateTime>(endDate.value);
+    }
+    if (unsubscribeUrl.present) {
+      map['unsubscribe_url'] = Variable<String>(unsubscribeUrl.value);
+    }
     return map;
   }
 
@@ -1016,7 +1119,9 @@ class SubscriptionsTableCompanion
           ..write('category: $category, ')
           ..write('alertDaysBefore: $alertDaysBefore, ')
           ..write('isActive: $isActive, ')
-          ..write('createdAt: $createdAt')
+          ..write('createdAt: $createdAt, ')
+          ..write('endDate: $endDate, ')
+          ..write('unsubscribeUrl: $unsubscribeUrl')
           ..write(')'))
         .toString();
   }
@@ -1364,6 +1469,8 @@ typedef $$SubscriptionsTableTableCreateCompanionBuilder =
       Value<int?> alertDaysBefore,
       Value<bool> isActive,
       Value<DateTime> createdAt,
+      Value<DateTime?> endDate,
+      Value<String?> unsubscribeUrl,
     });
 typedef $$SubscriptionsTableTableUpdateCompanionBuilder =
     SubscriptionsTableCompanion Function({
@@ -1385,6 +1492,8 @@ typedef $$SubscriptionsTableTableUpdateCompanionBuilder =
       Value<int?> alertDaysBefore,
       Value<bool> isActive,
       Value<DateTime> createdAt,
+      Value<DateTime?> endDate,
+      Value<String?> unsubscribeUrl,
     });
 
 class $$SubscriptionsTableTableFilterComposer
@@ -1483,6 +1592,16 @@ class $$SubscriptionsTableTableFilterComposer
 
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
     column: $table.createdAt,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get endDate => $composableBuilder(
+    column: $table.endDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get unsubscribeUrl => $composableBuilder(
+    column: $table.unsubscribeUrl,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -1585,6 +1704,16 @@ class $$SubscriptionsTableTableOrderingComposer
     column: $table.createdAt,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<DateTime> get endDate => $composableBuilder(
+    column: $table.endDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get unsubscribeUrl => $composableBuilder(
+    column: $table.unsubscribeUrl,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$SubscriptionsTableTableAnnotationComposer
@@ -1663,6 +1792,14 @@ class $$SubscriptionsTableTableAnnotationComposer
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get endDate =>
+      $composableBuilder(column: $table.endDate, builder: (column) => column);
+
+  GeneratedColumn<String> get unsubscribeUrl => $composableBuilder(
+    column: $table.unsubscribeUrl,
+    builder: (column) => column,
+  );
 }
 
 class $$SubscriptionsTableTableTableManager
@@ -1723,6 +1860,8 @@ class $$SubscriptionsTableTableTableManager
                 Value<int?> alertDaysBefore = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime?> endDate = const Value.absent(),
+                Value<String?> unsubscribeUrl = const Value.absent(),
               }) => SubscriptionsTableCompanion(
                 id: id,
                 serviceId: serviceId,
@@ -1742,6 +1881,8 @@ class $$SubscriptionsTableTableTableManager
                 alertDaysBefore: alertDaysBefore,
                 isActive: isActive,
                 createdAt: createdAt,
+                endDate: endDate,
+                unsubscribeUrl: unsubscribeUrl,
               ),
           createCompanionCallback:
               ({
@@ -1763,6 +1904,8 @@ class $$SubscriptionsTableTableTableManager
                 Value<int?> alertDaysBefore = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
                 Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime?> endDate = const Value.absent(),
+                Value<String?> unsubscribeUrl = const Value.absent(),
               }) => SubscriptionsTableCompanion.insert(
                 id: id,
                 serviceId: serviceId,
@@ -1782,6 +1925,8 @@ class $$SubscriptionsTableTableTableManager
                 alertDaysBefore: alertDaysBefore,
                 isActive: isActive,
                 createdAt: createdAt,
+                endDate: endDate,
+                unsubscribeUrl: unsubscribeUrl,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

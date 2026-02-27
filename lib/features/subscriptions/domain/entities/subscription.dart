@@ -54,6 +54,8 @@ abstract class Subscription with _$Subscription {
     int? alertDaysBefore,
     @Default(true) bool isActive,
     DateTime? createdAt,
+    DateTime? endDate,
+    String? unsubscribeUrl,
   }) = _Subscription;
 
   factory Subscription.fromJson(Map<String, dynamic> json) =>

@@ -537,6 +537,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get categoryOther;
+
+  /// No description provided for @activeSubscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get activeSubscriptions;
+
+  /// No description provided for @expiredSubscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get expiredSubscriptions;
+
+  /// No description provided for @expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get expired;
+
+  /// No description provided for @endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End date'**
+  String get endDate;
+
+  /// No description provided for @openUnsubscribePage.
+  ///
+  /// In en, this message translates to:
+  /// **'Open cancellation page'**
+  String get openUnsubscribePage;
+
+  /// No description provided for @didYouUnsubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you unsubscribe?'**
+  String get didYouUnsubscribe;
+
+  /// No description provided for @didYouUnsubscribeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you complete the cancellation for {serviceName}?'**
+  String didYouUnsubscribeMessage(String serviceName);
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @restoreSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Subscription'**
+  String get restoreSubscription;
+
+  /// No description provided for @noExpiredSubscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'No expired subscriptions'**
+  String get noExpiredSubscriptions;
+
+  /// No description provided for @noExpiredSubscriptionsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled subscriptions will appear here'**
+  String get noExpiredSubscriptionsDescription;
 }
 
 class _AppLocalizationsDelegate

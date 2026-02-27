@@ -72,5 +72,24 @@
   "categoryNews": "Notizie",
   "categoryFinance": "Finanza",
   "categoryLifestyle": "Stile di Vita",
-  "categoryOther": "Altro"
+  "categoryOther": "Altro",
+  "activeSubscriptions": "Attivi",
+  "expiredSubscriptions": "Scaduti",
+  "expired": "Scaduto",
+  "endDate": "Data di cancellazione",
+  "openUnsubscribePage": "Apri pagina di cancellazione",
+  "didYouUnsubscribe": "Ti sei cancellato?",
+  "didYouUnsubscribeMessage": "Hai completato la cancellazione di {serviceName}?",
+  "@didYouUnsubscribeMessage": {
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      }
+    }
+  },
+  "yes": "Sì",
+  "no": "No",
+  "restoreSubscription": "Ripristina Abbonamento",
+  "noExpiredSubscriptions": "Nessun abbonamento scaduto",
+  "noExpiredSubscriptionsDescription": "Gli abbonamenti cancellati appariranno qui"
 }

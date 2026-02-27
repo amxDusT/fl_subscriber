@@ -239,4 +239,43 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get categoryOther => 'Otro';
+
+  @override
+  String get activeSubscriptions => 'Activas';
+
+  @override
+  String get expiredSubscriptions => 'Canceladas';
+
+  @override
+  String get expired => 'Cancelada';
+
+  @override
+  String get endDate => 'Fecha de cancelación';
+
+  @override
+  String get openUnsubscribePage => 'Abrir página de cancelación';
+
+  @override
+  String get didYouUnsubscribe => '¿Te has dado de baja?';
+
+  @override
+  String didYouUnsubscribeMessage(String serviceName) {
+    return '¿Has completado la cancelación de $serviceName?';
+  }
+
+  @override
+  String get yes => 'Sí';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get restoreSubscription => 'Restaurar Suscripción';
+
+  @override
+  String get noExpiredSubscriptions => 'No hay suscripciones canceladas';
+
+  @override
+  String get noExpiredSubscriptionsDescription =>
+      'Las suscripciones canceladas aparecerán aquí';
 }
