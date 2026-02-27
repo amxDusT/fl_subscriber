@@ -155,6 +155,17 @@ class $SubscriptionsTableTable extends SubscriptionsTable
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
+  static const VerificationMeta _logoAssetDarkMeta = const VerificationMeta(
+    'logoAssetDark',
+  );
+  @override
+  late final GeneratedColumn<String> logoAssetDark = GeneratedColumn<String>(
+    'logo_asset_dark',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _categoryMeta = const VerificationMeta(
     'category',
   );
@@ -219,6 +230,7 @@ class $SubscriptionsTableTable extends SubscriptionsTable
     startDate,
     nextPaymentDate,
     logoAsset,
+    logoAssetDark,
     category,
     alertDaysBefore,
     isActive,
@@ -339,6 +351,15 @@ class $SubscriptionsTableTable extends SubscriptionsTable
         logoAsset.isAcceptableOrUnknown(data['logo_asset']!, _logoAssetMeta),
       );
     }
+    if (data.containsKey('logo_asset_dark')) {
+      context.handle(
+        _logoAssetDarkMeta,
+        logoAssetDark.isAcceptableOrUnknown(
+          data['logo_asset_dark']!,
+          _logoAssetDarkMeta,
+        ),
+      );
+    }
     if (data.containsKey('category')) {
       context.handle(
         _categoryMeta,
@@ -427,6 +448,10 @@ class $SubscriptionsTableTable extends SubscriptionsTable
         DriftSqlType.string,
         data['${effectivePrefix}logo_asset'],
       ),
+      logoAssetDark: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}logo_asset_dark'],
+      ),
       category: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}category'],
@@ -467,6 +492,7 @@ class SubscriptionsTableData extends DataClass
   final DateTime startDate;
   final DateTime nextPaymentDate;
   final String? logoAsset;
+  final String? logoAssetDark;
   final String? category;
   final int? alertDaysBefore;
   final bool isActive;
@@ -485,6 +511,7 @@ class SubscriptionsTableData extends DataClass
     required this.startDate,
     required this.nextPaymentDate,
     this.logoAsset,
+    this.logoAssetDark,
     this.category,
     this.alertDaysBefore,
     required this.isActive,
@@ -509,6 +536,9 @@ class SubscriptionsTableData extends DataClass
     map['next_payment_date'] = Variable<DateTime>(nextPaymentDate);
     if (!nullToAbsent || logoAsset != null) {
       map['logo_asset'] = Variable<String>(logoAsset);
+    }
+    if (!nullToAbsent || logoAssetDark != null) {
+      map['logo_asset_dark'] = Variable<String>(logoAssetDark);
     }
     if (!nullToAbsent || category != null) {
       map['category'] = Variable<String>(category);
@@ -540,6 +570,9 @@ class SubscriptionsTableData extends DataClass
       logoAsset: logoAsset == null && nullToAbsent
           ? const Value.absent()
           : Value(logoAsset),
+      logoAssetDark: logoAssetDark == null && nullToAbsent
+          ? const Value.absent()
+          : Value(logoAssetDark),
       category: category == null && nullToAbsent
           ? const Value.absent()
           : Value(category),
@@ -570,6 +603,7 @@ class SubscriptionsTableData extends DataClass
       startDate: serializer.fromJson<DateTime>(json['startDate']),
       nextPaymentDate: serializer.fromJson<DateTime>(json['nextPaymentDate']),
       logoAsset: serializer.fromJson<String?>(json['logoAsset']),
+      logoAssetDark: serializer.fromJson<String?>(json['logoAssetDark']),
       category: serializer.fromJson<String?>(json['category']),
       alertDaysBefore: serializer.fromJson<int?>(json['alertDaysBefore']),
       isActive: serializer.fromJson<bool>(json['isActive']),
@@ -593,6 +627,7 @@ class SubscriptionsTableData extends DataClass
       'startDate': serializer.toJson<DateTime>(startDate),
       'nextPaymentDate': serializer.toJson<DateTime>(nextPaymentDate),
       'logoAsset': serializer.toJson<String?>(logoAsset),
+      'logoAssetDark': serializer.toJson<String?>(logoAssetDark),
       'category': serializer.toJson<String?>(category),
       'alertDaysBefore': serializer.toJson<int?>(alertDaysBefore),
       'isActive': serializer.toJson<bool>(isActive),
@@ -614,6 +649,7 @@ class SubscriptionsTableData extends DataClass
     DateTime? startDate,
     DateTime? nextPaymentDate,
     Value<String?> logoAsset = const Value.absent(),
+    Value<String?> logoAssetDark = const Value.absent(),
     Value<String?> category = const Value.absent(),
     Value<int?> alertDaysBefore = const Value.absent(),
     bool? isActive,
@@ -632,6 +668,9 @@ class SubscriptionsTableData extends DataClass
     startDate: startDate ?? this.startDate,
     nextPaymentDate: nextPaymentDate ?? this.nextPaymentDate,
     logoAsset: logoAsset.present ? logoAsset.value : this.logoAsset,
+    logoAssetDark: logoAssetDark.present
+        ? logoAssetDark.value
+        : this.logoAssetDark,
     category: category.present ? category.value : this.category,
     alertDaysBefore: alertDaysBefore.present
         ? alertDaysBefore.value
@@ -664,6 +703,9 @@ class SubscriptionsTableData extends DataClass
           ? data.nextPaymentDate.value
           : this.nextPaymentDate,
       logoAsset: data.logoAsset.present ? data.logoAsset.value : this.logoAsset,
+      logoAssetDark: data.logoAssetDark.present
+          ? data.logoAssetDark.value
+          : this.logoAssetDark,
       category: data.category.present ? data.category.value : this.category,
       alertDaysBefore: data.alertDaysBefore.present
           ? data.alertDaysBefore.value
@@ -689,6 +731,7 @@ class SubscriptionsTableData extends DataClass
           ..write('startDate: $startDate, ')
           ..write('nextPaymentDate: $nextPaymentDate, ')
           ..write('logoAsset: $logoAsset, ')
+          ..write('logoAssetDark: $logoAssetDark, ')
           ..write('category: $category, ')
           ..write('alertDaysBefore: $alertDaysBefore, ')
           ..write('isActive: $isActive, ')
@@ -712,6 +755,7 @@ class SubscriptionsTableData extends DataClass
     startDate,
     nextPaymentDate,
     logoAsset,
+    logoAssetDark,
     category,
     alertDaysBefore,
     isActive,
@@ -734,6 +778,7 @@ class SubscriptionsTableData extends DataClass
           other.startDate == this.startDate &&
           other.nextPaymentDate == this.nextPaymentDate &&
           other.logoAsset == this.logoAsset &&
+          other.logoAssetDark == this.logoAssetDark &&
           other.category == this.category &&
           other.alertDaysBefore == this.alertDaysBefore &&
           other.isActive == this.isActive &&
@@ -755,6 +800,7 @@ class SubscriptionsTableCompanion
   final Value<DateTime> startDate;
   final Value<DateTime> nextPaymentDate;
   final Value<String?> logoAsset;
+  final Value<String?> logoAssetDark;
   final Value<String?> category;
   final Value<int?> alertDaysBefore;
   final Value<bool> isActive;
@@ -773,6 +819,7 @@ class SubscriptionsTableCompanion
     this.startDate = const Value.absent(),
     this.nextPaymentDate = const Value.absent(),
     this.logoAsset = const Value.absent(),
+    this.logoAssetDark = const Value.absent(),
     this.category = const Value.absent(),
     this.alertDaysBefore = const Value.absent(),
     this.isActive = const Value.absent(),
@@ -792,6 +839,7 @@ class SubscriptionsTableCompanion
     required DateTime startDate,
     required DateTime nextPaymentDate,
     this.logoAsset = const Value.absent(),
+    this.logoAssetDark = const Value.absent(),
     this.category = const Value.absent(),
     this.alertDaysBefore = const Value.absent(),
     this.isActive = const Value.absent(),
@@ -818,6 +866,7 @@ class SubscriptionsTableCompanion
     Expression<DateTime>? startDate,
     Expression<DateTime>? nextPaymentDate,
     Expression<String>? logoAsset,
+    Expression<String>? logoAssetDark,
     Expression<String>? category,
     Expression<int>? alertDaysBefore,
     Expression<bool>? isActive,
@@ -837,6 +886,7 @@ class SubscriptionsTableCompanion
       if (startDate != null) 'start_date': startDate,
       if (nextPaymentDate != null) 'next_payment_date': nextPaymentDate,
       if (logoAsset != null) 'logo_asset': logoAsset,
+      if (logoAssetDark != null) 'logo_asset_dark': logoAssetDark,
       if (category != null) 'category': category,
       if (alertDaysBefore != null) 'alert_days_before': alertDaysBefore,
       if (isActive != null) 'is_active': isActive,
@@ -858,6 +908,7 @@ class SubscriptionsTableCompanion
     Value<DateTime>? startDate,
     Value<DateTime>? nextPaymentDate,
     Value<String?>? logoAsset,
+    Value<String?>? logoAssetDark,
     Value<String?>? category,
     Value<int?>? alertDaysBefore,
     Value<bool>? isActive,
@@ -877,6 +928,7 @@ class SubscriptionsTableCompanion
       startDate: startDate ?? this.startDate,
       nextPaymentDate: nextPaymentDate ?? this.nextPaymentDate,
       logoAsset: logoAsset ?? this.logoAsset,
+      logoAssetDark: logoAssetDark ?? this.logoAssetDark,
       category: category ?? this.category,
       alertDaysBefore: alertDaysBefore ?? this.alertDaysBefore,
       isActive: isActive ?? this.isActive,
@@ -926,6 +978,9 @@ class SubscriptionsTableCompanion
     if (logoAsset.present) {
       map['logo_asset'] = Variable<String>(logoAsset.value);
     }
+    if (logoAssetDark.present) {
+      map['logo_asset_dark'] = Variable<String>(logoAssetDark.value);
+    }
     if (category.present) {
       map['category'] = Variable<String>(category.value);
     }
@@ -957,6 +1012,7 @@ class SubscriptionsTableCompanion
           ..write('startDate: $startDate, ')
           ..write('nextPaymentDate: $nextPaymentDate, ')
           ..write('logoAsset: $logoAsset, ')
+          ..write('logoAssetDark: $logoAssetDark, ')
           ..write('category: $category, ')
           ..write('alertDaysBefore: $alertDaysBefore, ')
           ..write('isActive: $isActive, ')
@@ -1303,6 +1359,7 @@ typedef $$SubscriptionsTableTableCreateCompanionBuilder =
       required DateTime startDate,
       required DateTime nextPaymentDate,
       Value<String?> logoAsset,
+      Value<String?> logoAssetDark,
       Value<String?> category,
       Value<int?> alertDaysBefore,
       Value<bool> isActive,
@@ -1323,6 +1380,7 @@ typedef $$SubscriptionsTableTableUpdateCompanionBuilder =
       Value<DateTime> startDate,
       Value<DateTime> nextPaymentDate,
       Value<String?> logoAsset,
+      Value<String?> logoAssetDark,
       Value<String?> category,
       Value<int?> alertDaysBefore,
       Value<bool> isActive,
@@ -1400,6 +1458,11 @@ class $$SubscriptionsTableTableFilterComposer
 
   ColumnFilters<String> get logoAsset => $composableBuilder(
     column: $table.logoAsset,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get logoAssetDark => $composableBuilder(
+    column: $table.logoAssetDark,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -1498,6 +1561,11 @@ class $$SubscriptionsTableTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get logoAssetDark => $composableBuilder(
+    column: $table.logoAssetDark,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get category => $composableBuilder(
     column: $table.category,
     builder: (column) => ColumnOrderings(column),
@@ -1577,6 +1645,11 @@ class $$SubscriptionsTableTableAnnotationComposer
   GeneratedColumn<String> get logoAsset =>
       $composableBuilder(column: $table.logoAsset, builder: (column) => column);
 
+  GeneratedColumn<String> get logoAssetDark => $composableBuilder(
+    column: $table.logoAssetDark,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<String> get category =>
       $composableBuilder(column: $table.category, builder: (column) => column);
 
@@ -1645,6 +1718,7 @@ class $$SubscriptionsTableTableTableManager
                 Value<DateTime> startDate = const Value.absent(),
                 Value<DateTime> nextPaymentDate = const Value.absent(),
                 Value<String?> logoAsset = const Value.absent(),
+                Value<String?> logoAssetDark = const Value.absent(),
                 Value<String?> category = const Value.absent(),
                 Value<int?> alertDaysBefore = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
@@ -1663,6 +1737,7 @@ class $$SubscriptionsTableTableTableManager
                 startDate: startDate,
                 nextPaymentDate: nextPaymentDate,
                 logoAsset: logoAsset,
+                logoAssetDark: logoAssetDark,
                 category: category,
                 alertDaysBefore: alertDaysBefore,
                 isActive: isActive,
@@ -1683,6 +1758,7 @@ class $$SubscriptionsTableTableTableManager
                 required DateTime startDate,
                 required DateTime nextPaymentDate,
                 Value<String?> logoAsset = const Value.absent(),
+                Value<String?> logoAssetDark = const Value.absent(),
                 Value<String?> category = const Value.absent(),
                 Value<int?> alertDaysBefore = const Value.absent(),
                 Value<bool> isActive = const Value.absent(),
@@ -1701,6 +1777,7 @@ class $$SubscriptionsTableTableTableManager
                 startDate: startDate,
                 nextPaymentDate: nextPaymentDate,
                 logoAsset: logoAsset,
+                logoAssetDark: logoAssetDark,
                 category: category,
                 alertDaysBefore: alertDaysBefore,
                 isActive: isActive,

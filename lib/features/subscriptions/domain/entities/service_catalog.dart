@@ -58,6 +58,7 @@ class CatalogService {
     required this.id,
     required this.name,
     this.logo,
+    this.logoDark,
     required this.color,
     required this.category,
     this.plans = const [],
@@ -66,6 +67,7 @@ class CatalogService {
   final String id;
   final String name;
   final AssetGenImage? logo;
+  final AssetGenImage? logoDark;
   final Color color;
   final ServiceCategory category;
   final List<ServicePlan> plans;
@@ -112,6 +114,7 @@ const defaultServices = <CatalogService>[
     id: 'disney_plus',
     name: 'Disney+',
     logo: Assets.disney,
+    logoDark: Assets.disneyDark,
     color: Color(0xFF113CCF),
     category: ServiceCategory.entertainment,
     plans: [
@@ -135,6 +138,7 @@ const defaultServices = <CatalogService>[
     id: 'chatgpt_plus',
     name: 'ChatGPT Plus',
     logo: Assets.chatgpt,
+    logoDark: Assets.chatgptDark,
     color: Color(0xFF10A37F),
     category: ServiceCategory.ai,
     plans: [
@@ -253,6 +257,7 @@ const defaultServices = <CatalogService>[
     id: 'github_copilot',
     name: 'GitHub Copilot',
     logo: Assets.copilot,
+    logoDark: Assets.copilotDark,
     color: Color(0xFF6E40C9),
     category: ServiceCategory.development,
     plans: [

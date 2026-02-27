@@ -22,6 +22,7 @@ class SubscriptionsTable extends Table {
   DateTimeColumn get startDate => dateTime()();
   DateTimeColumn get nextPaymentDate => dateTime()();
   TextColumn get logoAsset => text().nullable()();
+  TextColumn get logoAssetDark => text().nullable()();
   TextColumn get category => text().nullable()();
   IntColumn get alertDaysBefore => integer().nullable()();
   BoolColumn get isActive => boolean().withDefault(const Constant(true))();
@@ -42,7 +43,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -55,6 +56,10 @@ class AppDatabase extends _$AppDatabase {
           }
           if (from < 3) {
             await migrator.createTable(customServicesTable);
+          }
+          if (from < 4) {
+            await migrator.addColumn(
+                subscriptionsTable, subscriptionsTable.logoAssetDark);
           }
         },
       );

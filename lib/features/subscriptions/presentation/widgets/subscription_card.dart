@@ -1,3 +1,4 @@
+import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +25,17 @@ class SubscriptionCard extends StatelessWidget {
     );
 
     final dateFormat = DateFormat('MMM d');
-    final frequencyLabel = subscription.frequency.label;
+    final l10n = AppLocalizations.of(context)!;
+    final frequencyLabel = subscription.frequency.localizedLabel(l10n);
     final subtitle = [
       if (subscription.planName != null) subscription.planName!,
       frequencyLabel,
     ].join(' · ');
 
-    final hasLogo =
-        subscription.logoAsset != null && subscription.logoAsset!.isNotEmpty;
+    final logoPath = isDark && subscription.logoAssetDark != null
+        ? subscription.logoAssetDark!
+        : subscription.logoAsset;
+    final hasLogo = logoPath != null && logoPath.isNotEmpty;
 
     return Material(
       color: theme.colorScheme.surface,
@@ -57,7 +61,7 @@ class SubscriptionCard extends StatelessWidget {
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(
-                          subscription.logoAsset!,
+                          logoPath,
                           width: 40,
                           height: 40,
                           fit: BoxFit.contain,

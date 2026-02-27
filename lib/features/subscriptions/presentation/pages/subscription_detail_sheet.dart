@@ -22,8 +22,10 @@ class SubscriptionDetailSheet extends StatelessWidget {
       subscription.iconCodePoint,
       fontFamily: subscription.iconFontFamily,
     );
-    final hasLogo =
-        subscription.logoAsset != null && subscription.logoAsset!.isNotEmpty;
+    final logoPath = isDark && subscription.logoAssetDark != null
+        ? subscription.logoAssetDark!
+        : subscription.logoAsset;
+    final hasLogo = logoPath != null && logoPath.isNotEmpty;
     final l10n = AppLocalizations.of(context)!;
     final dateFormat = DateFormat('MMM d, yyyy');
     final renewals = _computeRenewals();
@@ -73,7 +75,7 @@ class SubscriptionDetailSheet extends StatelessWidget {
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(16),
                             child: Image.asset(
-                              subscription.logoAsset!,
+                              logoPath,
                               width: 64,
                               height: 64,
                               fit: BoxFit.contain,
@@ -107,7 +109,7 @@ class SubscriptionDetailSheet extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    subscription.frequency.label,
+                    subscription.frequency.localizedLabel(l10n),
                     style: theme.textTheme.bodySmall?.copyWith(color: secondary),
                   ),
 

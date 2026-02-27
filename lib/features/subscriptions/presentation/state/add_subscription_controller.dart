@@ -69,6 +69,7 @@ class AddSubscriptionController extends _$AddSubscriptionController {
       amount: state.customAmount!,
       planName: state.selectedPlan?.name,
       logoAsset: service.logo?.path,
+      logoAssetDark: service.logoDark?.path,
       category: service.category.name,
       frequency: state.frequency,
       startDate: startDate,

@@ -82,7 +82,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get custom => 'Personalizzato';
 
   @override
-  String get customName => 'Nome Personalizzato';
+  String get customName => 'Nome';
 
   @override
   String get choosePlan => 'Scegli un Piano';

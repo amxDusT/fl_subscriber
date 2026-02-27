@@ -64,7 +64,9 @@ class ServiceSelectionStep extends ConsumerWidget {
             final service = services[index];
             final isCustom = service.id.startsWith('custom_');
             return _ServiceTile(
-              logo: service.logo,
+              logo: isDark && service.logoDark != null
+                  ? service.logoDark!
+                  : service.logo,
               icon: service.category.icon,
               name: service.name,
               color: service.color,

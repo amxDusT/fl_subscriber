@@ -82,6 +82,7 @@ class SubscriptionLocalDatasourceImpl implements SubscriptionLocalDatasource {
       currency: row.currency,
       planName: row.planName,
       logoAsset: row.logoAsset,
+      logoAssetDark: row.logoAssetDark,
       category: row.category,
       frequency: BillingFrequency.values.firstWhere(
         (f) => f.name == row.frequency,
@@ -106,6 +107,7 @@ class SubscriptionLocalDatasourceImpl implements SubscriptionLocalDatasource {
       currency: Value(sub.currency),
       planName: Value(sub.planName),
       logoAsset: Value(sub.logoAsset),
+      logoAssetDark: Value(sub.logoAssetDark),
       category: Value(sub.category),
       frequency: Value(sub.frequency.name),
       startDate: Value(sub.startDate),

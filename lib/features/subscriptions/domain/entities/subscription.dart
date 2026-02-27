@@ -1,3 +1,4 @@
+import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'generated/subscription.freezed.dart';
@@ -9,17 +10,13 @@ enum BillingFrequency {
   semiannual,
   yearly;
 
-  String get label {
-    switch (this) {
-      case BillingFrequency.monthly:
-        return 'Monthly';
-      case BillingFrequency.quarterly:
-        return 'Every 3 Months';
-      case BillingFrequency.semiannual:
-        return 'Every 6 Months';
-      case BillingFrequency.yearly:
-        return 'Yearly';
-    }
+  String localizedLabel(AppLocalizations l10n) {
+    return switch (this) {
+      monthly => l10n.monthly,
+      quarterly => l10n.quarterly,
+      semiannual => l10n.semiannual,
+      yearly => l10n.yearly,
+    };
   }
 
   int get months {
@@ -49,6 +46,7 @@ abstract class Subscription with _$Subscription {
     @Default('EUR') String currency,
     String? planName,
     String? logoAsset,
+    String? logoAssetDark,
     String? category,
     required BillingFrequency frequency,
     required DateTime startDate,

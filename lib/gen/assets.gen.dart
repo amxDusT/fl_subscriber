@@ -16,8 +16,17 @@ class Assets {
   static const AssetGenImage amazon = AssetGenImage('assets/amazon.png');
   static const AssetGenImage apple = AssetGenImage('assets/apple.png');
   static const AssetGenImage chatgpt = AssetGenImage('assets/chatgpt.png');
+  static const AssetGenImage chatgptDark = AssetGenImage(
+    'assets/chatgpt_dark.png',
+  );
   static const AssetGenImage copilot = AssetGenImage('assets/copilot.png');
+  static const AssetGenImage copilotDark = AssetGenImage(
+    'assets/copilot_dark.png',
+  );
   static const AssetGenImage disney = AssetGenImage('assets/disney.png');
+  static const AssetGenImage disneyDark = AssetGenImage(
+    'assets/disney_dark.png',
+  );
   static const AssetGenImage dropbox = AssetGenImage('assets/dropbox.png');
   static const AssetGenImage figma = AssetGenImage('assets/figma.png');
   static const AssetGenImage hbo = AssetGenImage('assets/hbo.png');
@@ -36,8 +45,11 @@ class Assets {
     amazon,
     apple,
     chatgpt,
+    chatgptDark,
     copilot,
+    copilotDark,
     disney,
+    disneyDark,
     dropbox,
     figma,
     hbo,
