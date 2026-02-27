@@ -711,6 +711,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{percentage}% of total'**
   String ofTotal(String percentage);
+
+  /// No description provided for @hapticFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Haptic Feedback'**
+  String get hapticFeedback;
 }
 
 class _AppLocalizationsDelegate

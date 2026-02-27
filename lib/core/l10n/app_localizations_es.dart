@@ -333,4 +333,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String ofTotal(String percentage) {
     return '$percentage% del total';
   }
+
+  @override
+  String get hapticFeedback => 'Vibración';
 }

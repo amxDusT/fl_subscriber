@@ -7,6 +7,7 @@ part 'generated/app_controller.g.dart';
 
 const _keyThemeMode = 'theme_mode';
 const _keyLocale = 'locale';
+const _keyHapticFeedback = 'haptic_feedback';
 
 @Riverpod(keepAlive: true)
 class AppController extends _$AppController {
@@ -24,7 +25,9 @@ class AppController extends _$AppController {
     final savedLocale = prefs.getString(_keyLocale);
     final locale = savedLocale != null ? Locale(savedLocale) : const Locale('en');
 
-    return AppState(locale: locale, themeMode: themeMode);
+    final hapticFeedback = prefs.getBool(_keyHapticFeedback) ?? true;
+
+    return AppState(locale: locale, themeMode: themeMode, hapticFeedback: hapticFeedback);
   }
 
   void setThemeMode(ThemeMode themeMode) {
@@ -40,5 +43,10 @@ class AppController extends _$AppController {
     ref
         .read(sharedPreferencesProvider)
         .setString(_keyLocale, locale.languageCode);
+  }
+
+  void setHapticFeedback(bool enabled) {
+    state = state.copyWith(hapticFeedback: enabled);
+    ref.read(sharedPreferencesProvider).setBool(_keyHapticFeedback, enabled);
   }
 }

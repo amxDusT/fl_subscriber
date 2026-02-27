@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AppState {
 
- Locale get locale; ThemeMode get themeMode;
+ Locale get locale; ThemeMode get themeMode; bool get hapticFeedback;
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $AppStateCopyWith<AppState> get copyWith => _$AppStateCopyWithImpl<AppState>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppState&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppState&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.hapticFeedback, hapticFeedback) || other.hapticFeedback == hapticFeedback));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,locale,themeMode);
+int get hashCode => Object.hash(runtimeType,locale,themeMode,hapticFeedback);
 
 @override
 String toString() {
-  return 'AppState(locale: $locale, themeMode: $themeMode)';
+  return 'AppState(locale: $locale, themeMode: $themeMode, hapticFeedback: $hapticFeedback)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $AppStateCopyWith<$Res>  {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) _then) = _$AppStateCopyWithImpl;
 @useResult
 $Res call({
- Locale locale, ThemeMode themeMode
+ Locale locale, ThemeMode themeMode, bool hapticFeedback
 });
 
 
@@ -62,11 +62,12 @@ class _$AppStateCopyWithImpl<$Res>
 
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? locale = null,Object? themeMode = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? locale = null,Object? themeMode = null,Object? hapticFeedback = null,}) {
   return _then(_self.copyWith(
 locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
 as Locale,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
-as ThemeMode,
+as ThemeMode,hapticFeedback: null == hapticFeedback ? _self.hapticFeedback : hapticFeedback // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -151,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Locale locale,  ThemeMode themeMode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Locale locale,  ThemeMode themeMode,  bool hapticFeedback)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppState() when $default != null:
-return $default(_that.locale,_that.themeMode);case _:
+return $default(_that.locale,_that.themeMode,_that.hapticFeedback);case _:
   return orElse();
 
 }
@@ -172,10 +173,10 @@ return $default(_that.locale,_that.themeMode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Locale locale,  ThemeMode themeMode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Locale locale,  ThemeMode themeMode,  bool hapticFeedback)  $default,) {final _that = this;
 switch (_that) {
 case _AppState():
-return $default(_that.locale,_that.themeMode);case _:
+return $default(_that.locale,_that.themeMode,_that.hapticFeedback);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +193,10 @@ return $default(_that.locale,_that.themeMode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Locale locale,  ThemeMode themeMode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Locale locale,  ThemeMode themeMode,  bool hapticFeedback)?  $default,) {final _that = this;
 switch (_that) {
 case _AppState() when $default != null:
-return $default(_that.locale,_that.themeMode);case _:
+return $default(_that.locale,_that.themeMode,_that.hapticFeedback);case _:
   return null;
 
 }
@@ -207,11 +208,12 @@ return $default(_that.locale,_that.themeMode);case _:
 
 
 class _AppState implements AppState {
-  const _AppState({this.locale = const Locale('en'), this.themeMode = ThemeMode.dark});
+  const _AppState({this.locale = const Locale('en'), this.themeMode = ThemeMode.dark, this.hapticFeedback = true});
   
 
 @override@JsonKey() final  Locale locale;
 @override@JsonKey() final  ThemeMode themeMode;
+@override@JsonKey() final  bool hapticFeedback;
 
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
@@ -223,16 +225,16 @@ _$AppStateCopyWith<_AppState> get copyWith => __$AppStateCopyWithImpl<_AppState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppState&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppState&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.hapticFeedback, hapticFeedback) || other.hapticFeedback == hapticFeedback));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,locale,themeMode);
+int get hashCode => Object.hash(runtimeType,locale,themeMode,hapticFeedback);
 
 @override
 String toString() {
-  return 'AppState(locale: $locale, themeMode: $themeMode)';
+  return 'AppState(locale: $locale, themeMode: $themeMode, hapticFeedback: $hapticFeedback)';
 }
 
 
@@ -243,7 +245,7 @@ abstract mixin class _$AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res>
   factory _$AppStateCopyWith(_AppState value, $Res Function(_AppState) _then) = __$AppStateCopyWithImpl;
 @override @useResult
 $Res call({
- Locale locale, ThemeMode themeMode
+ Locale locale, ThemeMode themeMode, bool hapticFeedback
 });
 
 
@@ -260,11 +262,12 @@ class __$AppStateCopyWithImpl<$Res>
 
 /// Create a copy of AppState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? locale = null,Object? themeMode = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? locale = null,Object? themeMode = null,Object? hapticFeedback = null,}) {
   return _then(_AppState(
 locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
 as Locale,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
-as ThemeMode,
+as ThemeMode,hapticFeedback: null == hapticFeedback ? _self.hapticFeedback : hapticFeedback // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

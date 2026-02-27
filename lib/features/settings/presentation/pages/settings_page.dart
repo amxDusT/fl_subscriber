@@ -55,6 +55,19 @@ class SettingsSheet extends ConsumerWidget {
 
         const SizedBox(height: 28),
 
+        _SectionLabel(label: l10n.hapticFeedback),
+        const SizedBox(height: 10),
+        _HapticToggle(
+          enabled: appState.hapticFeedback,
+          onChanged: (enabled) {
+            ref
+                .read(appControllerProvider.notifier)
+                .setHapticFeedback(enabled);
+          },
+        ),
+
+        const SizedBox(height: 28),
+
         _SectionLabel(label: l10n.language),
         const SizedBox(height: 10),
         _SettingsTile(
@@ -241,6 +254,40 @@ class _ThemeOption extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _HapticToggle extends StatelessWidget {
+  const _HapticToggle({required this.enabled, required this.onChanged});
+  final bool enabled;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.vibration_rounded, size: 22),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Text(
+              AppLocalizations.of(context)!.hapticFeedback,
+              style: theme.textTheme.bodyLarge,
+            ),
+          ),
+          Switch.adaptive(
+            value: enabled,
+            onChanged: onChanged,
+          ),
+        ],
       ),
     );
   }

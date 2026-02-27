@@ -7,6 +7,7 @@ import 'package:fl_subscriber/features/subscriptions/domain/providers/subscripti
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/custom_service_sheet.dart';
 import 'package:fl_subscriber/gen/assets.gen.dart';
+import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -49,6 +50,7 @@ class ServiceSelectionStep extends ConsumerWidget {
                     : Palette.textSecondaryLight,
                 selected: false,
                 onTap: () async {
+                  triggerHaptic(ref);
                   final service = await showModalBottomSheet<CatalogService>(
                     context: context,
                     isScrollControlled: true,
@@ -72,6 +74,7 @@ class ServiceSelectionStep extends ConsumerWidget {
               color: service.color,
               selected: wizardState.selectedService?.id == service.id,
               onTap: () {
+                triggerHaptic(ref);
                 controller.selectService(service);
                 onServiceSelected?.call();
               },

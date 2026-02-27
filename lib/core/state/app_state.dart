@@ -8,5 +8,6 @@ abstract class AppState with _$AppState {
   const factory AppState({
     @Default(Locale('en')) Locale locale,
     @Default(ThemeMode.dark) ThemeMode themeMode,
+    @Default(true) bool hapticFeedback,
   }) = _AppState;
 }

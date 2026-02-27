@@ -7,6 +7,7 @@ import 'package:fl_subscriber/features/subscriptions/presentation/widgets/freque
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/plan_amount_step.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/service_selection_step.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/step_indicator.dart';
+import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -142,7 +143,10 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
                       width: 40,
                       height: 40,
                       child: IconButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () {
+                          triggerHaptic(ref);
+                          Navigator.pop(context);
+                        },
                         icon: const Icon(Icons.close_rounded, size: 20),
                         style: IconButton.styleFrom(
                           backgroundColor: theme.colorScheme.surface,
@@ -200,7 +204,10 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
                       width: 48,
                       height: 48,
                       child: IconButton(
-                        onPressed: _goBack,
+                        onPressed: () {
+                          triggerHaptic(ref);
+                          _goBack();
+                        },
                         icon: const Icon(
                             Icons.arrow_back_rounded, size: 20),
                         style: IconButton.styleFrom(
