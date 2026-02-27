@@ -164,5 +164,7 @@
       }
     }
   },
-  "hapticFeedback": "Haptic Feedback"
+  "hapticFeedback": "Haptic Feedback",
+  "websiteLink": "Website / Unsubscribe Link",
+  "urlHint": "https://..."
 }

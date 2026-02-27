@@ -717,6 +717,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Haptic Feedback'**
   String get hapticFeedback;
+
+  /// No description provided for @websiteLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Website / Unsubscribe Link'**
+  String get websiteLink;
+
+  /// No description provided for @urlHint.
+  ///
+  /// In en, this message translates to:
+  /// **'https://...'**
+  String get urlHint;
 }
 
 class _AppLocalizationsDelegate

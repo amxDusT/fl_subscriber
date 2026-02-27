@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AddSubscriptionState {
 
- int get currentStep; CatalogService? get selectedService; ServicePlan? get selectedPlan; double? get customAmount; BillingFrequency get frequency; DateTime? get startDate; int? get alertDaysBefore;
+ int get currentStep; CatalogService? get selectedService; ServicePlan? get selectedPlan; double? get customAmount; BillingFrequency get frequency; DateTime? get startDate; int? get alertDaysBefore; String? get unsubscribeUrl;
 /// Create a copy of AddSubscriptionState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $AddSubscriptionStateCopyWith<AddSubscriptionState> get copyWith => _$AddSubscri
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddSubscriptionState&&(identical(other.currentStep, currentStep) || other.currentStep == currentStep)&&(identical(other.selectedService, selectedService) || other.selectedService == selectedService)&&(identical(other.selectedPlan, selectedPlan) || other.selectedPlan == selectedPlan)&&(identical(other.customAmount, customAmount) || other.customAmount == customAmount)&&(identical(other.frequency, frequency) || other.frequency == frequency)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.alertDaysBefore, alertDaysBefore) || other.alertDaysBefore == alertDaysBefore));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddSubscriptionState&&(identical(other.currentStep, currentStep) || other.currentStep == currentStep)&&(identical(other.selectedService, selectedService) || other.selectedService == selectedService)&&(identical(other.selectedPlan, selectedPlan) || other.selectedPlan == selectedPlan)&&(identical(other.customAmount, customAmount) || other.customAmount == customAmount)&&(identical(other.frequency, frequency) || other.frequency == frequency)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.alertDaysBefore, alertDaysBefore) || other.alertDaysBefore == alertDaysBefore)&&(identical(other.unsubscribeUrl, unsubscribeUrl) || other.unsubscribeUrl == unsubscribeUrl));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentStep,selectedService,selectedPlan,customAmount,frequency,startDate,alertDaysBefore);
+int get hashCode => Object.hash(runtimeType,currentStep,selectedService,selectedPlan,customAmount,frequency,startDate,alertDaysBefore,unsubscribeUrl);
 
 @override
 String toString() {
-  return 'AddSubscriptionState(currentStep: $currentStep, selectedService: $selectedService, selectedPlan: $selectedPlan, customAmount: $customAmount, frequency: $frequency, startDate: $startDate, alertDaysBefore: $alertDaysBefore)';
+  return 'AddSubscriptionState(currentStep: $currentStep, selectedService: $selectedService, selectedPlan: $selectedPlan, customAmount: $customAmount, frequency: $frequency, startDate: $startDate, alertDaysBefore: $alertDaysBefore, unsubscribeUrl: $unsubscribeUrl)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $AddSubscriptionStateCopyWith<$Res>  {
   factory $AddSubscriptionStateCopyWith(AddSubscriptionState value, $Res Function(AddSubscriptionState) _then) = _$AddSubscriptionStateCopyWithImpl;
 @useResult
 $Res call({
- int currentStep, CatalogService? selectedService, ServicePlan? selectedPlan, double? customAmount, BillingFrequency frequency, DateTime? startDate, int? alertDaysBefore
+ int currentStep, CatalogService? selectedService, ServicePlan? selectedPlan, double? customAmount, BillingFrequency frequency, DateTime? startDate, int? alertDaysBefore, String? unsubscribeUrl
 });
 
 
@@ -62,7 +62,7 @@ class _$AddSubscriptionStateCopyWithImpl<$Res>
 
 /// Create a copy of AddSubscriptionState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currentStep = null,Object? selectedService = freezed,Object? selectedPlan = freezed,Object? customAmount = freezed,Object? frequency = null,Object? startDate = freezed,Object? alertDaysBefore = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? currentStep = null,Object? selectedService = freezed,Object? selectedPlan = freezed,Object? customAmount = freezed,Object? frequency = null,Object? startDate = freezed,Object? alertDaysBefore = freezed,Object? unsubscribeUrl = freezed,}) {
   return _then(_self.copyWith(
 currentStep: null == currentStep ? _self.currentStep : currentStep // ignore: cast_nullable_to_non_nullable
 as int,selectedService: freezed == selectedService ? _self.selectedService : selectedService // ignore: cast_nullable_to_non_nullable
@@ -71,7 +71,8 @@ as ServicePlan?,customAmount: freezed == customAmount ? _self.customAmount : cus
 as double?,frequency: null == frequency ? _self.frequency : frequency // ignore: cast_nullable_to_non_nullable
 as BillingFrequency,startDate: freezed == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime?,alertDaysBefore: freezed == alertDaysBefore ? _self.alertDaysBefore : alertDaysBefore // ignore: cast_nullable_to_non_nullable
-as int?,
+as int?,unsubscribeUrl: freezed == unsubscribeUrl ? _self.unsubscribeUrl : unsubscribeUrl // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int currentStep,  CatalogService? selectedService,  ServicePlan? selectedPlan,  double? customAmount,  BillingFrequency frequency,  DateTime? startDate,  int? alertDaysBefore)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int currentStep,  CatalogService? selectedService,  ServicePlan? selectedPlan,  double? customAmount,  BillingFrequency frequency,  DateTime? startDate,  int? alertDaysBefore,  String? unsubscribeUrl)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AddSubscriptionState() when $default != null:
-return $default(_that.currentStep,_that.selectedService,_that.selectedPlan,_that.customAmount,_that.frequency,_that.startDate,_that.alertDaysBefore);case _:
+return $default(_that.currentStep,_that.selectedService,_that.selectedPlan,_that.customAmount,_that.frequency,_that.startDate,_that.alertDaysBefore,_that.unsubscribeUrl);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.currentStep,_that.selectedService,_that.selectedPlan,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int currentStep,  CatalogService? selectedService,  ServicePlan? selectedPlan,  double? customAmount,  BillingFrequency frequency,  DateTime? startDate,  int? alertDaysBefore)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int currentStep,  CatalogService? selectedService,  ServicePlan? selectedPlan,  double? customAmount,  BillingFrequency frequency,  DateTime? startDate,  int? alertDaysBefore,  String? unsubscribeUrl)  $default,) {final _that = this;
 switch (_that) {
 case _AddSubscriptionState():
-return $default(_that.currentStep,_that.selectedService,_that.selectedPlan,_that.customAmount,_that.frequency,_that.startDate,_that.alertDaysBefore);case _:
+return $default(_that.currentStep,_that.selectedService,_that.selectedPlan,_that.customAmount,_that.frequency,_that.startDate,_that.alertDaysBefore,_that.unsubscribeUrl);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +198,10 @@ return $default(_that.currentStep,_that.selectedService,_that.selectedPlan,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int currentStep,  CatalogService? selectedService,  ServicePlan? selectedPlan,  double? customAmount,  BillingFrequency frequency,  DateTime? startDate,  int? alertDaysBefore)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int currentStep,  CatalogService? selectedService,  ServicePlan? selectedPlan,  double? customAmount,  BillingFrequency frequency,  DateTime? startDate,  int? alertDaysBefore,  String? unsubscribeUrl)?  $default,) {final _that = this;
 switch (_that) {
 case _AddSubscriptionState() when $default != null:
-return $default(_that.currentStep,_that.selectedService,_that.selectedPlan,_that.customAmount,_that.frequency,_that.startDate,_that.alertDaysBefore);case _:
+return $default(_that.currentStep,_that.selectedService,_that.selectedPlan,_that.customAmount,_that.frequency,_that.startDate,_that.alertDaysBefore,_that.unsubscribeUrl);case _:
   return null;
 
 }
@@ -212,7 +213,7 @@ return $default(_that.currentStep,_that.selectedService,_that.selectedPlan,_that
 
 
 class _AddSubscriptionState implements AddSubscriptionState {
-  const _AddSubscriptionState({this.currentStep = 0, this.selectedService, this.selectedPlan, this.customAmount, this.frequency = BillingFrequency.monthly, this.startDate, this.alertDaysBefore});
+  const _AddSubscriptionState({this.currentStep = 0, this.selectedService, this.selectedPlan, this.customAmount, this.frequency = BillingFrequency.monthly, this.startDate, this.alertDaysBefore, this.unsubscribeUrl});
   
 
 @override@JsonKey() final  int currentStep;
@@ -222,6 +223,7 @@ class _AddSubscriptionState implements AddSubscriptionState {
 @override@JsonKey() final  BillingFrequency frequency;
 @override final  DateTime? startDate;
 @override final  int? alertDaysBefore;
+@override final  String? unsubscribeUrl;
 
 /// Create a copy of AddSubscriptionState
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +235,16 @@ _$AddSubscriptionStateCopyWith<_AddSubscriptionState> get copyWith => __$AddSubs
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddSubscriptionState&&(identical(other.currentStep, currentStep) || other.currentStep == currentStep)&&(identical(other.selectedService, selectedService) || other.selectedService == selectedService)&&(identical(other.selectedPlan, selectedPlan) || other.selectedPlan == selectedPlan)&&(identical(other.customAmount, customAmount) || other.customAmount == customAmount)&&(identical(other.frequency, frequency) || other.frequency == frequency)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.alertDaysBefore, alertDaysBefore) || other.alertDaysBefore == alertDaysBefore));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddSubscriptionState&&(identical(other.currentStep, currentStep) || other.currentStep == currentStep)&&(identical(other.selectedService, selectedService) || other.selectedService == selectedService)&&(identical(other.selectedPlan, selectedPlan) || other.selectedPlan == selectedPlan)&&(identical(other.customAmount, customAmount) || other.customAmount == customAmount)&&(identical(other.frequency, frequency) || other.frequency == frequency)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.alertDaysBefore, alertDaysBefore) || other.alertDaysBefore == alertDaysBefore)&&(identical(other.unsubscribeUrl, unsubscribeUrl) || other.unsubscribeUrl == unsubscribeUrl));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currentStep,selectedService,selectedPlan,customAmount,frequency,startDate,alertDaysBefore);
+int get hashCode => Object.hash(runtimeType,currentStep,selectedService,selectedPlan,customAmount,frequency,startDate,alertDaysBefore,unsubscribeUrl);
 
 @override
 String toString() {
-  return 'AddSubscriptionState(currentStep: $currentStep, selectedService: $selectedService, selectedPlan: $selectedPlan, customAmount: $customAmount, frequency: $frequency, startDate: $startDate, alertDaysBefore: $alertDaysBefore)';
+  return 'AddSubscriptionState(currentStep: $currentStep, selectedService: $selectedService, selectedPlan: $selectedPlan, customAmount: $customAmount, frequency: $frequency, startDate: $startDate, alertDaysBefore: $alertDaysBefore, unsubscribeUrl: $unsubscribeUrl)';
 }
 
 
@@ -253,7 +255,7 @@ abstract mixin class _$AddSubscriptionStateCopyWith<$Res> implements $AddSubscri
   factory _$AddSubscriptionStateCopyWith(_AddSubscriptionState value, $Res Function(_AddSubscriptionState) _then) = __$AddSubscriptionStateCopyWithImpl;
 @override @useResult
 $Res call({
- int currentStep, CatalogService? selectedService, ServicePlan? selectedPlan, double? customAmount, BillingFrequency frequency, DateTime? startDate, int? alertDaysBefore
+ int currentStep, CatalogService? selectedService, ServicePlan? selectedPlan, double? customAmount, BillingFrequency frequency, DateTime? startDate, int? alertDaysBefore, String? unsubscribeUrl
 });
 
 
@@ -270,7 +272,7 @@ class __$AddSubscriptionStateCopyWithImpl<$Res>
 
 /// Create a copy of AddSubscriptionState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currentStep = null,Object? selectedService = freezed,Object? selectedPlan = freezed,Object? customAmount = freezed,Object? frequency = null,Object? startDate = freezed,Object? alertDaysBefore = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? currentStep = null,Object? selectedService = freezed,Object? selectedPlan = freezed,Object? customAmount = freezed,Object? frequency = null,Object? startDate = freezed,Object? alertDaysBefore = freezed,Object? unsubscribeUrl = freezed,}) {
   return _then(_AddSubscriptionState(
 currentStep: null == currentStep ? _self.currentStep : currentStep // ignore: cast_nullable_to_non_nullable
 as int,selectedService: freezed == selectedService ? _self.selectedService : selectedService // ignore: cast_nullable_to_non_nullable
@@ -279,7 +281,8 @@ as ServicePlan?,customAmount: freezed == customAmount ? _self.customAmount : cus
 as double?,frequency: null == frequency ? _self.frequency : frequency // ignore: cast_nullable_to_non_nullable
 as BillingFrequency,startDate: freezed == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime?,alertDaysBefore: freezed == alertDaysBefore ? _self.alertDaysBefore : alertDaysBefore // ignore: cast_nullable_to_non_nullable
-as int?,
+as int?,unsubscribeUrl: freezed == unsubscribeUrl ? _self.unsubscribeUrl : unsubscribeUrl // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

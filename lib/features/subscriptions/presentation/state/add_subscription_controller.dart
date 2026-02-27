@@ -43,6 +43,10 @@ class AddSubscriptionController extends _$AddSubscriptionController {
     state = state.copyWith(alertDaysBefore: days);
   }
 
+  void setUnsubscribeUrl(String? url) {
+    state = state.copyWith(unsubscribeUrl: url);
+  }
+
   void goToStep(int step) {
     state = state.copyWith(currentStep: step);
   }
@@ -75,7 +79,7 @@ class AddSubscriptionController extends _$AddSubscriptionController {
       startDate: startDate,
       nextPaymentDate: _calculateNextPayment(startDate, state.frequency),
       alertDaysBefore: state.alertDaysBefore,
-      unsubscribeUrl: service.unsubscribeUrl,
+      unsubscribeUrl: state.unsubscribeUrl ?? service.unsubscribeUrl,
     );
   }
 

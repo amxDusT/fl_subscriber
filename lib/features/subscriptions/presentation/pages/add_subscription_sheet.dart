@@ -7,6 +7,7 @@ import 'package:fl_subscriber/features/subscriptions/presentation/widgets/freque
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/plan_amount_step.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/service_selection_step.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/step_indicator.dart';
+import 'package:fl_subscriber/features/subscriptions/presentation/widgets/url_step.dart';
 import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,14 +30,28 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
   // 1 = Plan selection (catalog with plans only)
   // 2 = Billing frequency
   // 3 = Date + Alerts
+  // 4 = URL (custom subscriptions only)
 
   int get _currentPage => _pageHistory.last;
+
+  bool get _isCustomService =>
+      ref
+          .read(addSubscriptionControllerProvider)
+          .selectedService
+          ?.id
+          .startsWith('custom_') ??
+      false;
+
+  int get _totalSteps => _isCustomService ? 5 : 4;
+
+  int get _lastPage => _isCustomService ? 4 : 3;
 
   int get _indicatorStep => switch (_currentPage) {
         0 => 0,
         1 => 1,
         2 => 2,
         3 => 3,
+        4 => 4,
         _ => 0,
       };
 
@@ -116,10 +131,13 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
     final controller = ref.read(addSubscriptionControllerProvider.notifier);
 
     final wizardState = ref.watch(addSubscriptionControllerProvider);
+    final isCustom =
+        wizardState.selectedService?.id.startsWith('custom_') ?? false;
     final showBack = _pageHistory.length > 1;
-    final showFinish = _currentPage == 3;
-    final showContinue = _currentPage == 1 &&
-        (wizardState.selectedService?.plans.isEmpty ?? true);
+    final showFinish = _currentPage == _lastPage;
+    final showContinue = (_currentPage == 1 &&
+            (wizardState.selectedService?.plans.isEmpty ?? true)) ||
+        (_currentPage == 3 && isCustom);
     final showBottomBar = showBack || showFinish || showContinue;
 
     return SizedBox(
@@ -161,7 +179,7 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
                 const SizedBox(height: 16),
                 StepIndicator(
                   currentStep: _indicatorStep,
-                  totalSteps: 4,
+                  totalSteps: _totalSteps,
                 ),
                 const SizedBox(height: 24),
               ],
@@ -183,6 +201,7 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
                   onFrequencySelected: () => _autoAdvanceTo(3),
                 ),
                 const DateAlertsStep(),
+                const UrlStep(),
               ],
             ),
           ),
@@ -224,9 +243,11 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
                   if (showContinue)
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: controller.canProceedFromStep2
-                            ? () => _autoAdvanceTo(2)
-                            : null,
+                        onPressed: _currentPage == 1
+                            ? (controller.canProceedFromStep2
+                                ? () => _autoAdvanceTo(2)
+                                : null)
+                            : () => _advanceTo(4),
                         child: Text(l10n.continueLabel),
                       ),
                     ),

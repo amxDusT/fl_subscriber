@@ -336,4 +336,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hapticFeedback => 'Haptic Feedback';
+
+  @override
+  String get websiteLink => 'Website / Unsubscribe Link';
+
+  @override
+  String get urlHint => 'https://...';
 }

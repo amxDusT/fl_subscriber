@@ -116,5 +116,7 @@
       }
     }
   },
-  "hapticFeedback": "Vibración"
+  "hapticFeedback": "Vibración",
+  "websiteLink": "Sitio Web / Enlace de Cancelación",
+  "urlHint": "https://..."
 }

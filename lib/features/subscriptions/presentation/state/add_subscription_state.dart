@@ -14,5 +14,6 @@ abstract class AddSubscriptionState with _$AddSubscriptionState {
     @Default(BillingFrequency.monthly) BillingFrequency frequency,
     DateTime? startDate,
     int? alertDaysBefore,
+    String? unsubscribeUrl,
   }) = _AddSubscriptionState;
 }

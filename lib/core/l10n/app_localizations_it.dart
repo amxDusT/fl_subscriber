@@ -336,4 +336,10 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get hapticFeedback => 'Vibrazione';
+
+  @override
+  String get websiteLink => 'Sito Web / Link di Cancellazione';
+
+  @override
+  String get urlHint => 'https://...';
 }
