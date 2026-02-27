@@ -2,6 +2,7 @@ import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/state/app_controller.dart';
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SettingsSheet extends ConsumerWidget {
@@ -63,6 +64,7 @@ class SettingsSheet extends ConsumerWidget {
             ref
                 .read(appControllerProvider.notifier)
                 .setHapticFeedback(enabled);
+            if (enabled) HapticFeedback.lightImpact();
           },
         ),
 
