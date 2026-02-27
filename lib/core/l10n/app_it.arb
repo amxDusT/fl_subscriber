@@ -91,5 +91,29 @@
   "no": "No",
   "restoreSubscription": "Ripristina Abbonamento",
   "noExpiredSubscriptions": "Nessun abbonamento scaduto",
-  "noExpiredSubscriptionsDescription": "Gli abbonamenti cancellati appariranno qui"
+  "noExpiredSubscriptionsDescription": "Gli abbonamenti cancellati appariranno qui",
+  "periodThreeMonths": "3M",
+  "periodSixMonths": "6M",
+  "periodOneYear": "1A",
+  "periodAllTime": "Tutto",
+  "monthlyCost": "Costo Mensile",
+  "yearlyProjected": "Proiezione Annuale",
+  "activeCount": "Attivi",
+  "averagePerSub": "Media / Abb",
+  "spendingByCategory": "Spesa per Categoria",
+  "monthlyTrend": "Tendenza Mensile",
+  "breakdown": "Dettaglio",
+  "noAnalyticsData": "Nessun dato",
+  "noAnalyticsDataDescription": "Aggiungi abbonamenti per vedere le statistiche di spesa",
+  "noDataForPeriod": "Nessun dato per questo periodo",
+  "noDataForPeriodDescription": "Nessun abbonamento era attivo durante questo periodo",
+  "perMonthAbbr": "/mese",
+  "ofTotal": "{percentage}% del totale",
+  "@ofTotal": {
+    "placeholders": {
+      "percentage": {
+        "type": "String"
+      }
+    }
+  }
 }

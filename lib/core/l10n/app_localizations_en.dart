@@ -278,4 +278,59 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noExpiredSubscriptionsDescription =>
       'Cancelled subscriptions will appear here';
+
+  @override
+  String get periodThreeMonths => '3M';
+
+  @override
+  String get periodSixMonths => '6M';
+
+  @override
+  String get periodOneYear => '1Y';
+
+  @override
+  String get periodAllTime => 'All';
+
+  @override
+  String get monthlyCost => 'Monthly Cost';
+
+  @override
+  String get yearlyProjected => 'Yearly Projected';
+
+  @override
+  String get activeCount => 'Active';
+
+  @override
+  String get averagePerSub => 'Avg / Sub';
+
+  @override
+  String get spendingByCategory => 'Spending by Category';
+
+  @override
+  String get monthlyTrend => 'Monthly Trend';
+
+  @override
+  String get breakdown => 'Breakdown';
+
+  @override
+  String get noAnalyticsData => 'No analytics data';
+
+  @override
+  String get noAnalyticsDataDescription =>
+      'Add subscriptions to see your spending insights';
+
+  @override
+  String get noDataForPeriod => 'No data for this period';
+
+  @override
+  String get noDataForPeriodDescription =>
+      'No subscriptions were active during this time range';
+
+  @override
+  String get perMonthAbbr => '/mo';
+
+  @override
+  String ofTotal(String percentage) {
+    return '$percentage% of total';
+  }
 }

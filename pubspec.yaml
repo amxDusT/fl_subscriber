@@ -33,6 +33,7 @@ dependencies:
   dio: ^5.9.1
   drift: ^2.31.0
   drift_flutter: ^0.2.8
+  fl_chart: ^1.1.1
   flutter:
     sdk: flutter
   flutter_displaymode: ^0.7.0

@@ -91,5 +91,29 @@
   "no": "No",
   "restoreSubscription": "Restaurar Suscripción",
   "noExpiredSubscriptions": "No hay suscripciones canceladas",
-  "noExpiredSubscriptionsDescription": "Las suscripciones canceladas aparecerán aquí"
+  "noExpiredSubscriptionsDescription": "Las suscripciones canceladas aparecerán aquí",
+  "periodThreeMonths": "3M",
+  "periodSixMonths": "6M",
+  "periodOneYear": "1A",
+  "periodAllTime": "Todo",
+  "monthlyCost": "Coste Mensual",
+  "yearlyProjected": "Proyección Anual",
+  "activeCount": "Activas",
+  "averagePerSub": "Media / Sub",
+  "spendingByCategory": "Gasto por Categoría",
+  "monthlyTrend": "Tendencia Mensual",
+  "breakdown": "Desglose",
+  "noAnalyticsData": "Sin datos",
+  "noAnalyticsDataDescription": "Añade suscripciones para ver tus estadísticas de gasto",
+  "noDataForPeriod": "Sin datos para este periodo",
+  "noDataForPeriodDescription": "No hubo suscripciones activas durante este periodo",
+  "perMonthAbbr": "/mes",
+  "ofTotal": "{percentage}% del total",
+  "@ofTotal": {
+    "placeholders": {
+      "percentage": {
+        "type": "String"
+      }
+    }
+  }
 }

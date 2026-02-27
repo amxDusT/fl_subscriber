@@ -609,6 +609,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancelled subscriptions will appear here'**
   String get noExpiredSubscriptionsDescription;
+
+  /// No description provided for @periodThreeMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'3M'**
+  String get periodThreeMonths;
+
+  /// No description provided for @periodSixMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'6M'**
+  String get periodSixMonths;
+
+  /// No description provided for @periodOneYear.
+  ///
+  /// In en, this message translates to:
+  /// **'1Y'**
+  String get periodOneYear;
+
+  /// No description provided for @periodAllTime.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get periodAllTime;
+
+  /// No description provided for @monthlyCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Cost'**
+  String get monthlyCost;
+
+  /// No description provided for @yearlyProjected.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly Projected'**
+  String get yearlyProjected;
+
+  /// No description provided for @activeCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get activeCount;
+
+  /// No description provided for @averagePerSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Avg / Sub'**
+  String get averagePerSub;
+
+  /// No description provided for @spendingByCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Spending by Category'**
+  String get spendingByCategory;
+
+  /// No description provided for @monthlyTrend.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Trend'**
+  String get monthlyTrend;
+
+  /// No description provided for @breakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakdown'**
+  String get breakdown;
+
+  /// No description provided for @noAnalyticsData.
+  ///
+  /// In en, this message translates to:
+  /// **'No analytics data'**
+  String get noAnalyticsData;
+
+  /// No description provided for @noAnalyticsDataDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Add subscriptions to see your spending insights'**
+  String get noAnalyticsDataDescription;
+
+  /// No description provided for @noDataForPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'No data for this period'**
+  String get noDataForPeriod;
+
+  /// No description provided for @noDataForPeriodDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'No subscriptions were active during this time range'**
+  String get noDataForPeriodDescription;
+
+  /// No description provided for @perMonthAbbr.
+  ///
+  /// In en, this message translates to:
+  /// **'/mo'**
+  String get perMonthAbbr;
+
+  /// No description provided for @ofTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{percentage}% of total'**
+  String ofTotal(String percentage);
 }
 
 class _AppLocalizationsDelegate
