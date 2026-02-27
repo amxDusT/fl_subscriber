@@ -1,26 +1,46 @@
+import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 
 enum ServiceCategory {
-  entertainment(Icons.movie_rounded, 'Entertainment'),
-  productivity(Icons.work_rounded, 'Productivity'),
-  cloud(Icons.cloud_rounded, 'Cloud Storage'),
-  ai(Icons.smart_toy_rounded, 'AI Tools'),
-  design(Icons.palette_rounded, 'Design'),
-  development(Icons.code_rounded, 'Development'),
-  social(Icons.people_rounded, 'Social'),
-  shopping(Icons.shopping_bag_rounded, 'Shopping'),
-  fitness(Icons.fitness_center_rounded, 'Fitness'),
-  education(Icons.school_rounded, 'Education'),
-  gaming(Icons.sports_esports_rounded, 'Gaming'),
-  news(Icons.newspaper_rounded, 'News'),
-  finance(Icons.account_balance_rounded, 'Finance'),
-  lifestyle(Icons.spa_rounded, 'Lifestyle'),
-  other(Icons.more_horiz_rounded, 'Other');
+  entertainment(Icons.movie_rounded),
+  productivity(Icons.work_rounded),
+  cloud(Icons.cloud_rounded),
+  ai(Icons.smart_toy_rounded),
+  design(Icons.palette_rounded),
+  development(Icons.code_rounded),
+  social(Icons.people_rounded),
+  shopping(Icons.shopping_bag_rounded),
+  fitness(Icons.fitness_center_rounded),
+  education(Icons.school_rounded),
+  gaming(Icons.sports_esports_rounded),
+  news(Icons.newspaper_rounded),
+  finance(Icons.account_balance_rounded),
+  lifestyle(Icons.spa_rounded),
+  other(Icons.more_horiz_rounded);
 
-  const ServiceCategory(this.icon, this.label);
+  const ServiceCategory(this.icon);
   final IconData icon;
-  final String label;
+
+  String localizedLabel(AppLocalizations l10n) {
+    return switch (this) {
+      entertainment => l10n.categoryEntertainment,
+      productivity => l10n.categoryProductivity,
+      cloud => l10n.categoryCloud,
+      ai => l10n.categoryAi,
+      design => l10n.categoryDesign,
+      development => l10n.categoryDevelopment,
+      social => l10n.categorySocial,
+      shopping => l10n.categoryShopping,
+      fitness => l10n.categoryFitness,
+      education => l10n.categoryEducation,
+      gaming => l10n.categoryGaming,
+      news => l10n.categoryNews,
+      finance => l10n.categoryFinance,
+      lifestyle => l10n.categoryLifestyle,
+      other => l10n.categoryOther,
+    };
+  }
 }
 
 class ServicePlan {

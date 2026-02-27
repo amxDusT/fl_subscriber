@@ -105,5 +105,20 @@
   },
   "alertOff": "Off",
   "category": "Category",
-  "renewals": "Renewals"
+  "renewals": "Renewals",
+  "categoryEntertainment": "Entertainment",
+  "categoryProductivity": "Productivity",
+  "categoryCloud": "Cloud Storage",
+  "categoryAi": "AI Tools",
+  "categoryDesign": "Design",
+  "categoryDevelopment": "Development",
+  "categorySocial": "Social",
+  "categoryShopping": "Shopping",
+  "categoryFitness": "Fitness",
+  "categoryEducation": "Education",
+  "categoryGaming": "Gaming",
+  "categoryNews": "News",
+  "categoryFinance": "Finance",
+  "categoryLifestyle": "Lifestyle",
+  "categoryOther": "Other"
 }

@@ -328,7 +328,7 @@ class _CategoryPage extends StatelessWidget {
                     Icon(cat.icon, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      cat.label,
+                      cat.localizedLabel(l10n),
                       style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight:
                             selected ? FontWeight.w600 : FontWeight.w400,

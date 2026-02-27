@@ -447,6 +447,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Renewals'**
   String get renewals;
+
+  /// No description provided for @categoryEntertainment.
+  ///
+  /// In en, this message translates to:
+  /// **'Entertainment'**
+  String get categoryEntertainment;
+
+  /// No description provided for @categoryProductivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Productivity'**
+  String get categoryProductivity;
+
+  /// No description provided for @categoryCloud.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud Storage'**
+  String get categoryCloud;
+
+  /// No description provided for @categoryAi.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Tools'**
+  String get categoryAi;
+
+  /// No description provided for @categoryDesign.
+  ///
+  /// In en, this message translates to:
+  /// **'Design'**
+  String get categoryDesign;
+
+  /// No description provided for @categoryDevelopment.
+  ///
+  /// In en, this message translates to:
+  /// **'Development'**
+  String get categoryDevelopment;
+
+  /// No description provided for @categorySocial.
+  ///
+  /// In en, this message translates to:
+  /// **'Social'**
+  String get categorySocial;
+
+  /// No description provided for @categoryShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get categoryShopping;
+
+  /// No description provided for @categoryFitness.
+  ///
+  /// In en, this message translates to:
+  /// **'Fitness'**
+  String get categoryFitness;
+
+  /// No description provided for @categoryEducation.
+  ///
+  /// In en, this message translates to:
+  /// **'Education'**
+  String get categoryEducation;
+
+  /// No description provided for @categoryGaming.
+  ///
+  /// In en, this message translates to:
+  /// **'Gaming'**
+  String get categoryGaming;
+
+  /// No description provided for @categoryNews.
+  ///
+  /// In en, this message translates to:
+  /// **'News'**
+  String get categoryNews;
+
+  /// No description provided for @categoryFinance.
+  ///
+  /// In en, this message translates to:
+  /// **'Finance'**
+  String get categoryFinance;
+
+  /// No description provided for @categoryLifestyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifestyle'**
+  String get categoryLifestyle;
+
+  /// No description provided for @categoryOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get categoryOther;
 }
 
 class _AppLocalizationsDelegate

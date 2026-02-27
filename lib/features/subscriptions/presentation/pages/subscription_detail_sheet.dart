@@ -1,5 +1,6 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -140,7 +141,10 @@ class SubscriptionDetailSheet extends StatelessWidget {
                   if (subscription.category != null)
                     _DetailRow(
                       label: l10n.category,
-                      value: subscription.category!,
+                      value: ServiceCategory.values
+                          .where((c) => c.name == subscription.category)
+                          .firstOrNull
+                          ?.localizedLabel(l10n) ?? subscription.category!,
                       muted: muted,
                       theme: theme,
                     ),

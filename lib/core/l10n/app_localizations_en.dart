@@ -194,4 +194,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get renewals => 'Renewals';
+
+  @override
+  String get categoryEntertainment => 'Entertainment';
+
+  @override
+  String get categoryProductivity => 'Productivity';
+
+  @override
+  String get categoryCloud => 'Cloud Storage';
+
+  @override
+  String get categoryAi => 'AI Tools';
+
+  @override
+  String get categoryDesign => 'Design';
+
+  @override
+  String get categoryDevelopment => 'Development';
+
+  @override
+  String get categorySocial => 'Social';
+
+  @override
+  String get categoryShopping => 'Shopping';
+
+  @override
+  String get categoryFitness => 'Fitness';
+
+  @override
+  String get categoryEducation => 'Education';
+
+  @override
+  String get categoryGaming => 'Gaming';
+
+  @override
+  String get categoryNews => 'News';
+
+  @override
+  String get categoryFinance => 'Finance';
+
+  @override
+  String get categoryLifestyle => 'Lifestyle';
+
+  @override
+  String get categoryOther => 'Other';
 }

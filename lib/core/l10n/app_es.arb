@@ -57,5 +57,20 @@
   "alertDaysBefore": "{days}d antes",
   "alertOff": "Desactivada",
   "category": "Categoría",
-  "renewals": "Renovaciones"
+  "renewals": "Renovaciones",
+  "categoryEntertainment": "Entretenimiento",
+  "categoryProductivity": "Productividad",
+  "categoryCloud": "Almacenamiento en la Nube",
+  "categoryAi": "Herramientas de IA",
+  "categoryDesign": "Diseño",
+  "categoryDevelopment": "Desarrollo",
+  "categorySocial": "Social",
+  "categoryShopping": "Compras",
+  "categoryFitness": "Fitness",
+  "categoryEducation": "Educación",
+  "categoryGaming": "Videojuegos",
+  "categoryNews": "Noticias",
+  "categoryFinance": "Finanzas",
+  "categoryLifestyle": "Estilo de Vida",
+  "categoryOther": "Otro"
 }

@@ -194,4 +194,49 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get renewals => 'Rinnovi';
+
+  @override
+  String get categoryEntertainment => 'Intrattenimento';
+
+  @override
+  String get categoryProductivity => 'Produttività';
+
+  @override
+  String get categoryCloud => 'Archiviazione Cloud';
+
+  @override
+  String get categoryAi => 'Strumenti IA';
+
+  @override
+  String get categoryDesign => 'Design';
+
+  @override
+  String get categoryDevelopment => 'Sviluppo';
+
+  @override
+  String get categorySocial => 'Social';
+
+  @override
+  String get categoryShopping => 'Shopping';
+
+  @override
+  String get categoryFitness => 'Fitness';
+
+  @override
+  String get categoryEducation => 'Istruzione';
+
+  @override
+  String get categoryGaming => 'Videogiochi';
+
+  @override
+  String get categoryNews => 'Notizie';
+
+  @override
+  String get categoryFinance => 'Finanza';
+
+  @override
+  String get categoryLifestyle => 'Stile di Vita';
+
+  @override
+  String get categoryOther => 'Altro';
 }

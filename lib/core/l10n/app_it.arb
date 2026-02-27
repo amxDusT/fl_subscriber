@@ -57,5 +57,20 @@
   "alertDaysBefore": "{days}g prima",
   "alertOff": "Disattivato",
   "category": "Categoria",
-  "renewals": "Rinnovi"
+  "renewals": "Rinnovi",
+  "categoryEntertainment": "Intrattenimento",
+  "categoryProductivity": "Produttività",
+  "categoryCloud": "Archiviazione Cloud",
+  "categoryAi": "Strumenti IA",
+  "categoryDesign": "Design",
+  "categoryDevelopment": "Sviluppo",
+  "categorySocial": "Social",
+  "categoryShopping": "Shopping",
+  "categoryFitness": "Fitness",
+  "categoryEducation": "Istruzione",
+  "categoryGaming": "Videogiochi",
+  "categoryNews": "Notizie",
+  "categoryFinance": "Finanza",
+  "categoryLifestyle": "Stile di Vita",
+  "categoryOther": "Altro"
 }
