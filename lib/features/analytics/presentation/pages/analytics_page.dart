@@ -48,7 +48,7 @@ class AnalyticsContent extends ConsumerWidget {
             const SizedBox(height: 16),
             Expanded(
               child: hasDataForPeriod
-                  ? _AnalyticsBody(analytics: analytics, l10n: l10n)
+                  ? _AnalyticsBody(analytics: analytics, l10n: l10n, period: period)
                   : AnalyticsEmptyState(
                       isFiltered: period != AnalyticsPeriod.allTime,
                     ),
@@ -64,10 +64,12 @@ class _AnalyticsBody extends StatelessWidget {
   const _AnalyticsBody({
     required this.analytics,
     required this.l10n,
+    required this.period,
   });
 
   final AnalyticsData analytics;
   final AppLocalizations l10n;
+  final AnalyticsPeriod period;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +129,8 @@ class _AnalyticsBody extends StatelessWidget {
           ],
 
           // Bar chart
-          if (analytics.monthlyTrend.length > 1) ...[
+          if (analytics.monthlyTrend.length > 1 &&
+              period != AnalyticsPeriod.allTime) ...[
             const SizedBox(height: 36),
             SectionLabel(label: l10n.monthlyTrend),
             const SizedBox(height: 20),
