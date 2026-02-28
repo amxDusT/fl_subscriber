@@ -8,7 +8,7 @@ import 'package:fl_subscriber/features/subscriptions/presentation/widgets/plan_a
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/service_selection_step.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/step_indicator.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/url_step.dart';
-import 'package:fl_subscriber/core/utils/haptic.dart';
+import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -47,13 +47,13 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
   int get _lastPage => _isCustomService ? 4 : 3;
 
   int get _indicatorStep => switch (_currentPage) {
-        0 => 0,
-        1 => 1,
-        2 => 2,
-        3 => 3,
-        4 => 4,
-        _ => 0,
-      };
+    0 => 0,
+    1 => 1,
+    2 => 2,
+    3 => 3,
+    4 => 4,
+    _ => 0,
+  };
 
   @override
   void initState() {
@@ -135,7 +135,8 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
         wizardState.selectedService?.id.startsWith('custom_') ?? false;
     final showBack = _pageHistory.length > 1;
     final showFinish = _currentPage == _lastPage;
-    final showContinue = (_currentPage == 1 &&
+    final showContinue =
+        (_currentPage == 1 &&
             (wizardState.selectedService?.plans.isEmpty ?? true)) ||
         (_currentPage == 3 && isCustom);
     final showBottomBar = showBack || showFinish || showContinue;
@@ -149,32 +150,10 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
             child: Column(
               children: [
                 const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        l10n.addSubscription,
-                        style: theme.textTheme.headlineLarge,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: IconButton(
-                        onPressed: () {
-                          triggerHaptic(ref);
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.close_rounded, size: 20),
-                        style: IconButton.styleFrom(
-                          backgroundColor: theme.colorScheme.surface,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                AppBottomSheetHeader(
+                  title: l10n.addSubscription,
+                  padding: EdgeInsets.zero,
+                  onClose: () => Navigator.pop(context),
                 ),
                 const SizedBox(height: 16),
                 StepIndicator(
@@ -219,24 +198,12 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
               child: Row(
                 children: [
                   if (showBack)
-                    SizedBox(
-                      width: 48,
-                      height: 48,
-                      child: IconButton(
-                        onPressed: () {
-                          triggerHaptic(ref);
-                          _goBack();
-                        },
-                        icon: const Icon(
-                            Icons.arrow_back_rounded, size: 20),
-                        style: IconButton.styleFrom(
-                          backgroundColor: const Color(0xFF2A2A2A),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                        ),
-                      ),
+                    AppBottomSheetActionButton(
+                      icon: Icons.arrow_back_rounded,
+                      onPressed: _goBack,
+                      size: 48,
+                      iconSize: 20,
+                      borderRadius: 14,
                     ),
                   if (showBack && (showFinish || showContinue))
                     const SizedBox(width: 12),
@@ -245,8 +212,8 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
                       child: ElevatedButton(
                         onPressed: _currentPage == 1
                             ? (controller.canProceedFromStep2
-                                ? () => _autoAdvanceTo(2)
-                                : null)
+                                  ? () => _autoAdvanceTo(2)
+                                  : null)
                             : () => _advanceTo(4),
                         child: Text(l10n.continueLabel),
                       ),
@@ -254,9 +221,7 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
                   if (showFinish)
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: controller.canFinish
-                            ? _handleFinish
-                            : null,
+                        onPressed: controller.canFinish ? _handleFinish : null,
                         child: _isLoading
                             ? SizedBox(
                                 width: 20,

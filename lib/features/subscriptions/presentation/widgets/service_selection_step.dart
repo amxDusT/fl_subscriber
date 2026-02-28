@@ -1,6 +1,7 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/providers/database_provider.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/providers/subscription_provider.dart';
@@ -51,9 +52,8 @@ class ServiceSelectionStep extends ConsumerWidget {
                 selected: false,
                 onTap: () async {
                   triggerHaptic(ref);
-                  final service = await showModalBottomSheet<CatalogService>(
+                  final service = await showAppFullBottomSheet<CatalogService>(
                     context: context,
-                    isScrollControlled: true,
                     builder: (_) => const CustomServiceSheet(),
                   );
                   if (service != null) {

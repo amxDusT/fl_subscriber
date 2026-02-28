@@ -1,5 +1,6 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/features/settings/presentation/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
@@ -23,10 +24,8 @@ class ProfileContent extends StatelessWidget {
   }
 
   void _openSettings(BuildContext context) {
-    showModalBottomSheet(
+    showAppFullBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
       builder: (_) => const SettingsSheet(),
     );
   }

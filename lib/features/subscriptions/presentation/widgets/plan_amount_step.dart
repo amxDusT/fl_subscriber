@@ -1,5 +1,6 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:fl_subscriber/core/widgets/selectable_tile.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
@@ -83,7 +84,7 @@ class _PlanList extends ConsumerWidget {
           child: InkWell(
             onTap: () async {
               triggerHaptic(ref);
-              final confirmed = await showModalBottomSheet<bool>(
+              final confirmed = await showAppBottomSheet<bool>(
                 context: context,
                 isScrollControlled: true,
                 builder: (_) => const CustomAmountSheet(),
@@ -159,8 +160,7 @@ class _InlineAmountInputState extends ConsumerState<_InlineAmountInput> {
           controller: _amountController,
           autofocus: true,
           onTapOutside: (_) => FocusScope.of(context).unfocus(),
-          keyboardType:
-              const TextInputType.numberWithOptions(decimal: true),
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
           inputFormatters: [
             FilteringTextInputFormatter.allow(_amountRegex),
           ],
@@ -180,9 +180,7 @@ class _InlineAmountInputState extends ConsumerState<_InlineAmountInput> {
             hintText: '0.00',
             hintStyle: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.w600,
-              color: isDark
-                  ? Palette.textMutedDark
-                  : Palette.textMutedLight,
+              color: isDark ? Palette.textMutedDark : Palette.textMutedLight,
             ),
             filled: true,
             fillColor: theme.colorScheme.surface,

@@ -1,5 +1,6 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/core/widgets/button.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ Future<bool?> showAppConfirmDialog({
       : Palette.textSecondaryLight;
   final l10n = AppLocalizations.of(context)!;
 
-  return showModalBottomSheet<bool>(
+  return showAppBottomSheet<bool>(
     context: context,
     builder: (ctx) => Padding(
       padding: const EdgeInsets.fromLTRB(24, 8, 24, 40),

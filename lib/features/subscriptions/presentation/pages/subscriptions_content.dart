@@ -1,5 +1,6 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
 import 'package:fl_subscriber/core/widgets/button.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/pages/add_subscription_sheet.dart';
@@ -102,19 +103,15 @@ class _SubscriptionsContentState extends ConsumerState<SubscriptionsContent> {
   }
 
   void _openDetailSheet(BuildContext context, Subscription subscription) {
-    showModalBottomSheet(
+    showAppFullBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
       builder: (_) => SubscriptionDetailSheet(subscription: subscription),
     );
   }
 
   void _openAddSheet(BuildContext context) {
-    showModalBottomSheet(
+    showAppFullBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
       builder: (_) => const AddSubscriptionSheet(),
     );
   }

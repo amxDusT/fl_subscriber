@@ -1,6 +1,8 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/core/widgets/confirm_dialog.dart';
+import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/subscription_controller.dart';
@@ -124,23 +126,11 @@ class _SubscriptionDetailSheetState
       child: Column(
         children: [
           // Close handle
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  style: IconButton.styleFrom(
-                    backgroundColor: theme.colorScheme.surface,
-                    fixedSize: const Size(40, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  icon: const Icon(Icons.close_rounded, size: 18),
-                ),
-              ],
+              children: [AppBottomSheetCloseButton(iconSize: 18)],
             ),
           ),
 
@@ -302,14 +292,9 @@ class _SubscriptionDetailSheetState
                   if (renewals.isNotEmpty) ...[
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Padding(
+                      child: SectionLabel(
+                        label: l10n.renewals,
                         padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Text(
-                          l10n.renewals.toUpperCase(),
-                          style: theme.textTheme.labelMedium?.copyWith(
-                            letterSpacing: 0.8,
-                          ),
-                        ),
                       ),
                     ),
                     const SizedBox(height: 12),

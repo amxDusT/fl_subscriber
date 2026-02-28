@@ -2,6 +2,7 @@ import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/providers/database_provider.dart';
 import 'package:fl_subscriber/core/resources/app_database.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/step_indicator.dart';
@@ -66,7 +67,9 @@ class _CustomServiceSheetState extends ConsumerState<CustomServiceSheet> {
 
   Future<void> _save() async {
     final db = ref.read(appDatabaseProvider);
-    final id = await db.into(db.customServicesTable).insert(
+    final id = await db
+        .into(db.customServicesTable)
+        .insert(
           CustomServicesTableCompanion.insert(
             name: _nameController.text.trim(),
             category: _category!.name,
@@ -89,7 +92,6 @@ class _CustomServiceSheetState extends ConsumerState<CustomServiceSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
     final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
 
@@ -106,29 +108,9 @@ class _CustomServiceSheetState extends ConsumerState<CustomServiceSheet> {
             child: Column(
               children: [
                 const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        l10n.custom,
-                        style: theme.textTheme.headlineLarge,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.close_rounded, size: 20),
-                        style: IconButton.styleFrom(
-                          backgroundColor: theme.colorScheme.surface,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                AppBottomSheetHeader(
+                  title: l10n.custom,
+                  padding: EdgeInsets.zero,
                 ),
                 const SizedBox(height: 16),
                 StepIndicator(
@@ -183,24 +165,14 @@ class _CustomServiceSheetState extends ConsumerState<CustomServiceSheet> {
               child: Row(
                 children: [
                   if (showBack)
-                    SizedBox(
-                      width: 52,
-                      height: 52,
-                      child: IconButton(
-                        onPressed: _goBack,
-                        icon: const Icon(
-                            Icons.arrow_back_rounded, size: 22),
-                        style: IconButton.styleFrom(
-                          backgroundColor: const Color(0xFF2A2A2A),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                      ),
+                    AppBottomSheetActionButton(
+                      icon: Icons.arrow_back_rounded,
+                      onPressed: _goBack,
+                      size: 52,
+                      iconSize: 22,
+                      borderRadius: 16,
                     ),
-                  if (showBack && showContinue)
-                    const SizedBox(width: 12),
+                  if (showBack && showContinue) const SizedBox(width: 12),
                   if (showContinue)
                     Expanded(
                       child: SizedBox(
@@ -257,9 +229,7 @@ class _NamePage extends StatelessWidget {
             decoration: InputDecoration(
               hintText: l10n.customName,
               hintStyle: theme.textTheme.titleLarge?.copyWith(
-                color: isDark
-                    ? Palette.textMutedDark
-                    : Palette.textMutedLight,
+                color: isDark ? Palette.textMutedDark : Palette.textMutedLight,
               ),
               filled: true,
               fillColor: theme.colorScheme.surface,
@@ -308,18 +278,20 @@ class _CategoryPage extends StatelessWidget {
               onTap: () => onCategorySelected(cat),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
                   color: selected
-                      ? (isDark
-                          ? Palette.elevatedDark
-                          : Palette.elevatedLight)
+                      ? (isDark ? Palette.elevatedDark : Palette.elevatedLight)
                       : theme.colorScheme.surface,
                   borderRadius: BorderRadius.circular(14),
                   border: selected
                       ? Border.all(
-                          color: theme.colorScheme.onSurface, width: 1.5)
+                          color: theme.colorScheme.onSurface,
+                          width: 1.5,
+                        )
                       : null,
                 ),
                 child: Row(
@@ -330,8 +302,9 @@ class _CategoryPage extends StatelessWidget {
                     Text(
                       cat.localizedLabel(l10n),
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight:
-                            selected ? FontWeight.w600 : FontWeight.w400,
+                        fontWeight: selected
+                            ? FontWeight.w600
+                            : FontWeight.w400,
                       ),
                     ),
                   ],
@@ -400,8 +373,11 @@ class _ColorPage extends StatelessWidget {
                       : null,
                 ),
                 child: selected
-                    ? const Icon(Icons.check_rounded,
-                        size: 22, color: Colors.white)
+                    ? const Icon(
+                        Icons.check_rounded,
+                        size: 22,
+                        color: Colors.white,
+                      )
                     : null,
               ),
             );
@@ -411,4 +387,3 @@ class _ColorPage extends StatelessWidget {
     );
   }
 }
-

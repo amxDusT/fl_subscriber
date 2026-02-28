@@ -1,6 +1,8 @@
 import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/state/app_controller.dart';
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
+import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
+import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,31 +21,14 @@ class SettingsSheet extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       children: [
         const SizedBox(height: 4),
-        Row(
-          children: [
-            Expanded(
-              child: Text(l10n.settings, style: theme.textTheme.headlineLarge),
-            ),
-            SizedBox(
-              width: 40,
-              height: 40,
-              child: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.close_rounded, size: 20),
-                style: IconButton.styleFrom(
-                  backgroundColor: theme.colorScheme.surface,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-            ),
-          ],
+        AppBottomSheetHeader(
+          title: l10n.settings,
+          padding: EdgeInsets.zero,
         ),
 
         const SizedBox(height: 36),
 
-        _SectionLabel(label: l10n.appearance),
+        SectionLabel(label: l10n.appearance),
         const SizedBox(height: 10),
         _ThemeToggle(
           isDark: isDark,
@@ -56,21 +41,19 @@ class SettingsSheet extends ConsumerWidget {
 
         const SizedBox(height: 28),
 
-        _SectionLabel(label: l10n.hapticFeedback),
+        SectionLabel(label: l10n.hapticFeedback),
         const SizedBox(height: 10),
         _HapticToggle(
           enabled: appState.hapticFeedback,
           onChanged: (enabled) {
-            ref
-                .read(appControllerProvider.notifier)
-                .setHapticFeedback(enabled);
+            ref.read(appControllerProvider.notifier).setHapticFeedback(enabled);
             if (enabled) HapticFeedback.lightImpact();
           },
         ),
 
         const SizedBox(height: 28),
 
-        _SectionLabel(label: l10n.language),
+        SectionLabel(label: l10n.language),
         const SizedBox(height: 10),
         _SettingsTile(
           icon: Icons.language_rounded,
@@ -93,7 +76,7 @@ class SettingsSheet extends ConsumerWidget {
         .map((locale) => (locale, _localeLabel(locale, l10n)))
         .toList();
 
-    showModalBottomSheet(
+    showAppBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (context) {
@@ -153,21 +136,6 @@ class SettingsSheet extends ConsumerWidget {
       'it' => l10n.languageItalian,
       _ => l10n.languageEnglish,
     };
-  }
-}
-
-class _SectionLabel extends StatelessWidget {
-  const _SectionLabel({required this.label});
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label.toUpperCase(),
-      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-        letterSpacing: 0.8,
-      ),
-    );
   }
 }
 

@@ -1,3 +1,4 @@
+import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:flutter/material.dart';
 
 class StatCard extends StatelessWidget {
@@ -23,11 +24,9 @@ class StatCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label.toUpperCase(),
-            style: theme.textTheme.labelMedium?.copyWith(
-              letterSpacing: 0.8,
-            ),
+          SectionLabel(
+            label: label,
+            padding: EdgeInsets.zero,
           ),
           const SizedBox(height: 8),
           Text(
