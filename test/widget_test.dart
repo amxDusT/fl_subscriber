@@ -1,5 +1,5 @@
-import 'package:fl_subscriber/app.dart';
 import 'package:fl_subscriber/core/providers/preferences_provider.dart';
+import 'package:fl_subscriber/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
