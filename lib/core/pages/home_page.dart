@@ -1,5 +1,6 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
+import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:fl_subscriber/features/analytics/presentation/pages/analytics_page.dart';
 import 'package:fl_subscriber/features/profile/presentation/pages/profile_page.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/pages/subscriptions_content.dart';
@@ -60,7 +61,10 @@ class _HomePageState extends State<HomePage> {
                       children: List.generate(tabs.length, (i) {
                         final selected = _currentPage == i;
                         return GestureDetector(
-                          onTap: () => _animateTo(i),
+                          onTap: withHapticContext(
+                            context,
+                            () => _animateTo(i),
+                          ),
                           child: Padding(
                             padding: EdgeInsets.only(
                               right: i < tabs.length - 1 ? 16 : 0,
@@ -87,7 +91,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                   _AvatarButton(
                     selected: _currentPage == _profileIndex,
-                    onTap: () => _animateTo(_profileIndex),
+                    onTap: withHapticContext(
+                      context,
+                      () => _animateTo(_profileIndex),
+                    )!,
                   ),
                 ],
               ),

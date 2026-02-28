@@ -105,6 +105,7 @@ class _SubscriptionsContentState extends ConsumerState<SubscriptionsContent> {
   void _openDetailSheet(BuildContext context, Subscription subscription) {
     showAppFullBottomSheet(
       context: context,
+      hapticOnOpen: false,
       builder: (_) => SubscriptionDetailSheet(subscription: subscription),
     );
   }
@@ -112,6 +113,7 @@ class _SubscriptionsContentState extends ConsumerState<SubscriptionsContent> {
   void _openAddSheet(BuildContext context) {
     showAppFullBottomSheet(
       context: context,
+      hapticOnOpen: false,
       builder: (_) => const AddSubscriptionSheet(),
     );
   }

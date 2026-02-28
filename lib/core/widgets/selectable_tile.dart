@@ -30,16 +30,16 @@ class SelectableTile extends ConsumerWidget {
           : theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
-        onTap: () {
-          triggerHaptic(ref);
-          onTap();
-        },
+        onTap: withHaptic(ref, onTap),
         borderRadius: BorderRadius.circular(16),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           child: Row(
             children: [
-              if (leading case final leading?) ...[leading, const SizedBox(width: 12)],
+              if (leading case final leading?) ...[
+                leading,
+                const SizedBox(width: 12),
+              ],
               Expanded(
                 child: Text(
                   label,

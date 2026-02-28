@@ -51,7 +51,6 @@ class ServiceSelectionStep extends ConsumerWidget {
                     : Palette.textSecondaryLight,
                 selected: false,
                 onTap: () async {
-                  triggerHaptic(ref);
                   final service = await showAppFullBottomSheet<CatalogService>(
                     context: context,
                     builder: (_) => const CustomServiceSheet(),

@@ -39,12 +39,7 @@ class AppButton extends ConsumerWidget {
         : Text(label);
 
     return ElevatedButton(
-      onPressed: isLoading || onPressed == null
-          ? null
-          : () {
-              triggerHaptic(ref);
-              onPressed!();
-            },
+      onPressed: isLoading ? null : withHaptic(ref, onPressed),
       child: child,
     );
   }

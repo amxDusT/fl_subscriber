@@ -5,7 +5,6 @@ import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:fl_subscriber/core/widgets/selectable_tile.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/custom_amount_step.dart';
-import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -83,7 +82,6 @@ class _PlanList extends ConsumerWidget {
           borderRadius: BorderRadius.circular(16),
           child: InkWell(
             onTap: () async {
-              triggerHaptic(ref);
               final confirmed = await showAppBottomSheet<bool>(
                 context: context,
                 isScrollControlled: true,

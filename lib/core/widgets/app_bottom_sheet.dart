@@ -8,7 +8,12 @@ Future<T?> showAppBottomSheet<T>({
   required WidgetBuilder builder,
   bool isScrollControlled = false,
   bool useSafeArea = true,
+  bool hapticOnOpen = true,
 }) {
+  if (hapticOnOpen) {
+    triggerHapticFromContext(context);
+  }
+
   return showModalBottomSheet<T>(
     context: context,
     isScrollControlled: isScrollControlled,
@@ -22,11 +27,13 @@ Future<T?> showAppFullBottomSheet<T>({
   required WidgetBuilder builder,
   double heightFactor = 0.88,
   bool useSafeArea = true,
+  bool hapticOnOpen = true,
 }) {
   return showAppBottomSheet<T>(
     context: context,
     isScrollControlled: true,
     useSafeArea: useSafeArea,
+    hapticOnOpen: hapticOnOpen,
     builder: (ctx) => SizedBox(
       height: MediaQuery.sizeOf(ctx).height * heightFactor,
       child: builder(ctx),
@@ -94,10 +101,7 @@ class AppBottomSheetCloseButton extends ConsumerWidget {
       width: 40,
       height: 40,
       child: IconButton(
-        onPressed: () {
-          triggerHaptic(ref);
-          (onPressed ?? () => Navigator.pop(context)).call();
-        },
+        onPressed: withHaptic(ref, onPressed ?? () => Navigator.pop(context)),
         icon: Icon(Icons.close_rounded, size: iconSize),
         style: IconButton.styleFrom(
           backgroundColor: theme.colorScheme.surface,
@@ -136,10 +140,7 @@ class AppBottomSheetActionButton extends ConsumerWidget {
       width: size,
       height: size,
       child: IconButton(
-        onPressed: () {
-          triggerHaptic(ref);
-          onPressed();
-        },
+        onPressed: withHaptic(ref, onPressed),
         icon: Icon(icon, size: iconSize),
         style: IconButton.styleFrom(
           backgroundColor: backgroundColor,

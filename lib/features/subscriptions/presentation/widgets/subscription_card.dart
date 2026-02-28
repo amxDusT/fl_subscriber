@@ -46,16 +46,10 @@ class SubscriptionCard extends ConsumerWidget {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
-          onTap: onTap != null
-              ? () {
-                  triggerHaptic(ref);
-                  onTap!();
-                }
-              : null,
+          onTap: withHaptic(ref, onTap),
           borderRadius: BorderRadius.circular(16),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             child: Row(
               children: [
                 Container(
@@ -136,8 +130,7 @@ class SubscriptionCard extends ConsumerWidget {
                             const SizedBox(width: 4),
                           ],
                           Text(
-                            dateFormat
-                                .format(subscription.nextPaymentDate),
+                            dateFormat.format(subscription.nextPaymentDate),
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: isDark
                                   ? Palette.textMutedDark
