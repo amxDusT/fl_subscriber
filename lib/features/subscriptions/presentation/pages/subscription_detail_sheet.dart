@@ -104,10 +104,8 @@ class _SubscriptionDetailSheetState
     final sub = widget.subscription;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final muted = isDark ? Palette.textMutedDark : Palette.textMutedLight;
-    final secondary = isDark
-        ? Palette.textSecondaryDark
-        : Palette.textSecondaryLight;
+    final muted = context.appColors.textMuted;
+    final secondary = theme.colorScheme.secondary;
     final color = Color(sub.colorValue);
     final icon = IconData(
       sub.iconCodePoint,

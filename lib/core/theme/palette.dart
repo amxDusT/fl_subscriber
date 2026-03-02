@@ -1,5 +1,33 @@
 import 'package:flutter/material.dart';
 
+class AppColors extends ThemeExtension<AppColors> {
+  const AppColors({required this.elevated, required this.textMuted});
+
+  final Color elevated;
+  final Color textMuted;
+
+  @override
+  AppColors copyWith({Color? elevated, Color? textMuted}) {
+    return AppColors(
+      elevated: elevated ?? this.elevated,
+      textMuted: textMuted ?? this.textMuted,
+    );
+  }
+
+  @override
+  AppColors lerp(AppColors? other, double t) {
+    if (other is! AppColors) return this;
+    return AppColors(
+      elevated: Color.lerp(elevated, other.elevated, t)!,
+      textMuted: Color.lerp(textMuted, other.textMuted, t)!,
+    );
+  }
+}
+
+extension AppColorsX on BuildContext {
+  AppColors get appColors => Theme.of(this).extension<AppColors>()!;
+}
+
 class Palette {
   Palette._();
 

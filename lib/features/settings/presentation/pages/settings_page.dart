@@ -17,6 +17,7 @@ class SettingsSheet extends ConsumerWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
+
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       children: [
@@ -191,13 +192,10 @@ class _ThemeOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
-    final selectedBg = isDark ? Palette.elevatedDark : Palette.elevatedLight;
+    final selectedBg = context.appColors.elevated;
     final selectedFg = theme.colorScheme.onSurface;
-    final unselectedFg = isDark
-        ? Palette.textMutedDark
-        : Palette.textMutedLight;
+    final unselectedFg = context.appColors.textMuted;
 
     return GestureDetector(
       onTap: onTap,
@@ -294,9 +292,7 @@ class _SettingsTile extends StatelessWidget {
               Icon(
                 Icons.chevron_right_rounded,
                 size: 20,
-                color: theme.brightness == Brightness.dark
-                    ? Palette.textMutedDark
-                    : Palette.textMutedLight,
+                color: context.appColors.textMuted,
               ),
             ],
           ),

@@ -25,6 +25,12 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.dark,
       scaffoldBackgroundColor: Palette.backgroundDark,
+      extensions: const [
+        AppColors(
+          elevated: Palette.elevatedDark,
+          textMuted: Palette.textMutedDark,
+        ),
+      ],
       colorScheme: const ColorScheme.dark(
         surface: Palette.surfaceDark,
         onSurface: Palette.textPrimaryDark,
@@ -55,7 +61,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       bottomSheetTheme: const BottomSheetThemeData(
-        backgroundColor: Palette.surfaceDark,
+        backgroundColor: Palette.backgroundDark,
         surfaceTintColor: Colors.transparent,
         modalBarrierColor: Colors.black54,
         shape: RoundedRectangleBorder(
@@ -130,6 +136,12 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.light,
       scaffoldBackgroundColor: Palette.backgroundLight,
+      extensions: const [
+        AppColors(
+          elevated: Palette.elevatedLight,
+          textMuted: Palette.textMutedLight,
+        ),
+      ],
       colorScheme: const ColorScheme.light(
         surface: Palette.surfaceLight,
         onSurface: Palette.textPrimaryLight,

@@ -24,7 +24,6 @@ class _UrlStepState extends ConsumerState<UrlStep> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
     final controller = ref.read(addSubscriptionControllerProvider.notifier);
 
@@ -50,16 +49,14 @@ class _UrlStepState extends ConsumerState<UrlStep> {
             hintText: l10n.urlHint,
             hintStyle: theme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500,
-              color: isDark ? Palette.textMutedDark : Palette.textMutedLight,
+              color: context.appColors.textMuted,
             ),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(left: 16, right: 8),
               child: Icon(
                 Icons.link_rounded,
                 size: 20,
-                color: isDark
-                    ? Palette.textSecondaryDark
-                    : Palette.textSecondaryLight,
+                color: theme.colorScheme.secondary,
               ),
             ),
             prefixIconConstraints: const BoxConstraints(

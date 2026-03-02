@@ -135,7 +135,6 @@ class _FilterChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return GestureDetector(
       onTap: onTap,
@@ -157,7 +156,7 @@ class _FilterChip extends StatelessWidget {
                 fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
                 color: selected
                     ? theme.colorScheme.onSurface
-                    : (isDark ? Palette.textMutedDark : Palette.textMutedLight),
+                    : context.appColors.textMuted,
               ),
             ),
             if (count > 0) ...[
@@ -165,9 +164,7 @@ class _FilterChip extends StatelessWidget {
               Text(
                 '$count',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: isDark
-                      ? Palette.textSecondaryDark
-                      : Palette.textSecondaryLight,
+                  color: theme.colorScheme.secondary,
                 ),
               ),
             ],
@@ -185,7 +182,6 @@ class _ExpiredEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -193,7 +189,7 @@ class _ExpiredEmptyState extends StatelessWidget {
           Icon(
             Icons.history_rounded,
             size: 48,
-            color: isDark ? Palette.textMutedDark : Palette.textMutedLight,
+            color: context.appColors.textMuted,
           ),
           const SizedBox(height: 16),
           Text(
@@ -204,9 +200,7 @@ class _ExpiredEmptyState extends StatelessWidget {
           Text(
             l10n.noExpiredSubscriptionsDescription,
             style: theme.textTheme.bodySmall?.copyWith(
-              color: isDark
-                  ? Palette.textSecondaryDark
-                  : Palette.textSecondaryLight,
+              color: theme.colorScheme.secondary,
             ),
           ),
         ],

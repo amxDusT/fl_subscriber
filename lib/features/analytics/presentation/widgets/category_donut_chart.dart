@@ -45,7 +45,6 @@ class _CategoryDonutChartState extends State<CategoryDonutChart> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
 
     final centerLabel = _touchedIndex >= 0 && _touchedIndex < widget.categories.length
@@ -99,18 +98,14 @@ class _CategoryDonutChartState extends State<CategoryDonutChart> {
                     Text(
                       centerLabel,
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: isDark
-                            ? Palette.textSecondaryDark
-                            : Palette.textSecondaryLight,
+                        color: theme.colorScheme.secondary,
                       ),
                     )
                   else
                     Text(
                       l10n.perMonthAbbr,
                       style: theme.textTheme.labelMedium?.copyWith(
-                        color: isDark
-                            ? Palette.textMutedDark
-                            : Palette.textMutedLight,
+                        color: context.appColors.textMuted,
                       ),
                     ),
                 ],
@@ -143,7 +138,6 @@ class _CategoryDonutChartState extends State<CategoryDonutChart> {
 
   Widget _buildLegend(BuildContext context, AppLocalizations l10n) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Wrap(
       spacing: 16,
@@ -166,9 +160,7 @@ class _CategoryDonutChartState extends State<CategoryDonutChart> {
             Text(
               _categoryLabel(cat.categoryKey, l10n),
               style: theme.textTheme.bodySmall?.copyWith(
-                color: isDark
-                    ? Palette.textSecondaryDark
-                    : Palette.textSecondaryLight,
+                color: theme.colorScheme.secondary,
               ),
             ),
             const SizedBox(width: 4),

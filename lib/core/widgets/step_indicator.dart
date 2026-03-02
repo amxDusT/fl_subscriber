@@ -10,7 +10,6 @@ class StepIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Row(
       children: List.generate(totalSteps, (i) {
@@ -24,7 +23,7 @@ class StepIndicator extends StatelessWidget {
             decoration: BoxDecoration(
               color: active
                   ? theme.colorScheme.onSurface
-                  : (isDark ? Palette.elevatedDark : Palette.elevatedLight),
+                  : context.appColors.elevated,
               borderRadius: BorderRadius.circular(2),
             ),
           ),

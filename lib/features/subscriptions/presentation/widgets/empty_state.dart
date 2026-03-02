@@ -8,7 +8,6 @@ class SubscriptionEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
 
     return Center(
@@ -20,7 +19,7 @@ class SubscriptionEmptyState extends StatelessWidget {
             Icon(
               Icons.subscriptions_rounded,
               size: 80,
-              color: isDark ? Palette.textMutedDark : Palette.textMutedLight,
+              color: context.appColors.textMuted,
             ),
             const SizedBox(height: 24),
             Text(
@@ -32,9 +31,7 @@ class SubscriptionEmptyState extends StatelessWidget {
             Text(
               l10n.noSubscriptionsDescription,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: isDark
-                    ? Palette.textSecondaryDark
-                    : Palette.textSecondaryLight,
+                color: theme.colorScheme.secondary,
               ),
               textAlign: TextAlign.center,
             ),

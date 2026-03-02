@@ -132,7 +132,6 @@ class _NamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
 
     return Padding(
@@ -153,7 +152,7 @@ class _NamePage extends StatelessWidget {
             decoration: InputDecoration(
               hintText: l10n.customName,
               hintStyle: theme.textTheme.titleLarge?.copyWith(
-                color: isDark ? Palette.textMutedDark : Palette.textMutedLight,
+                color: context.appColors.textMuted,
               ),
               filled: true,
               fillColor: theme.colorScheme.surface,
@@ -185,7 +184,6 @@ class _CategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
 
     return ListView(
@@ -208,7 +206,7 @@ class _CategoryPage extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: selected
-                      ? (isDark ? Palette.elevatedDark : Palette.elevatedLight)
+                      ? context.appColors.elevated
                       : theme.colorScheme.surface,
                   borderRadius: BorderRadius.circular(14),
                   border: selected

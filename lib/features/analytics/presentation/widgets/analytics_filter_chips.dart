@@ -52,7 +52,6 @@ class _FilterChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return GestureDetector(
       onTap: onTap,
@@ -71,7 +70,7 @@ class _FilterChip extends StatelessWidget {
             fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
             color: selected
                 ? theme.colorScheme.onSurface
-                : (isDark ? Palette.textMutedDark : Palette.textMutedLight),
+                : context.appColors.textMuted,
           ),
         ),
       ),

@@ -23,6 +23,7 @@ class ServiceSelectionStep extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
     final services = ref.watch(serviceCatalogProvider);
+
     final wizardState = ref.watch(addSubscriptionControllerProvider);
     final controller = ref.read(addSubscriptionControllerProvider.notifier);
 
@@ -46,9 +47,7 @@ class ServiceSelectionStep extends ConsumerWidget {
               return _ServiceTile(
                 icon: Icons.add_rounded,
                 name: l10n.custom,
-                color: isDark
-                    ? Palette.textSecondaryDark
-                    : Palette.textSecondaryLight,
+                color: theme.colorScheme.secondary,
                 selected: false,
                 onTap: () async {
                   final service = await showAppFullBottomSheet<CatalogService>(
@@ -144,11 +143,10 @@ class _ServiceTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Material(
       color: selected
-          ? (isDark ? Palette.elevatedDark : Palette.elevatedLight)
+          ? context.appColors.elevated
           : theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(

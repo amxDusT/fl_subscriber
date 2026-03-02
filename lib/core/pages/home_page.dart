@@ -1,6 +1,7 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/utils/haptic.dart';
+
 import 'package:fl_subscriber/features/analytics/presentation/pages/analytics_page.dart';
 import 'package:fl_subscriber/features/profile/presentation/pages/profile_page.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/pages/subscriptions_content.dart';
@@ -43,7 +44,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     final tabs = [l10n.subscriptions, l10n.analytics];
 
@@ -77,9 +77,7 @@ class _HomePageState extends State<HomePage> {
                                       .copyWith(
                                         color: selected
                                             ? theme.colorScheme.onSurface
-                                            : isDark
-                                            ? Palette.textMutedDark
-                                            : Palette.textMutedLight,
+                                            : context.appColors.textMuted,
                                         fontSize: 22,
                                       ),
                               child: Text(tabs[i]),
@@ -126,14 +124,13 @@ class _AvatarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     final bg = selected
-        ? (isDark ? Palette.textPrimaryDark : Palette.textPrimaryLight)
-        : (isDark ? Palette.elevatedDark : Palette.elevatedLight);
+        ? theme.colorScheme.onSurface
+        : context.appColors.elevated;
     final fg = selected
-        ? (isDark ? Palette.backgroundDark : Palette.backgroundLight)
-        : (isDark ? Palette.textSecondaryDark : Palette.textSecondaryLight);
+        ? theme.colorScheme.onPrimary
+        : theme.colorScheme.secondary;
 
     return GestureDetector(
       onTap: onTap,

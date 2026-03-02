@@ -1,5 +1,4 @@
 import 'package:fl_subscriber/core/utils/haptic.dart';
-import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:flutter/material.dart';
 
 Future<T?> showAppBottomSheet<T>({
@@ -8,6 +7,9 @@ Future<T?> showAppBottomSheet<T>({
   bool isScrollControlled = false,
   bool useSafeArea = true,
   bool hapticOnOpen = true,
+  bool? showDragHandle,
+  bool enableDrag = true,
+  Color? backgroundColor,
 }) {
   if (hapticOnOpen) {
     triggerHaptic(context);
@@ -17,6 +19,9 @@ Future<T?> showAppBottomSheet<T>({
     context: context,
     isScrollControlled: isScrollControlled,
     useSafeArea: useSafeArea,
+    showDragHandle: showDragHandle,
+    enableDrag: enableDrag,
+    backgroundColor: backgroundColor,
     builder: builder,
   );
 }
@@ -24,7 +29,7 @@ Future<T?> showAppBottomSheet<T>({
 Future<T?> showAppFullBottomSheet<T>({
   required BuildContext context,
   required WidgetBuilder builder,
-  double heightFactor = 0.88,
+  double heightFactor = 1,
   bool useSafeArea = true,
   bool hapticOnOpen = true,
 }) {
@@ -33,9 +38,35 @@ Future<T?> showAppFullBottomSheet<T>({
     isScrollControlled: true,
     useSafeArea: useSafeArea,
     hapticOnOpen: hapticOnOpen,
-    builder: (ctx) => SizedBox(
-      height: MediaQuery.sizeOf(ctx).height * heightFactor,
-      child: builder(ctx),
+    showDragHandle: false,
+    enableDrag: false,
+    backgroundColor: Colors.transparent,
+    builder: (ctx) => DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: heightFactor,
+      maxChildSize: heightFactor,
+      minChildSize: 0.4,
+      snap: true,
+      snapSizes: [heightFactor],
+      builder: (sheetCtx, scrollController) {
+        final sheetTheme = Theme.of(sheetCtx).bottomSheetTheme;
+        return Material(
+          color: sheetTheme.backgroundColor,
+          shape: sheetTheme.shape,
+          clipBehavior: Clip.hardEdge,
+          child: Column(
+            children: [
+              _DragHandle(color: sheetTheme.dragHandleColor),
+              Expanded(
+                child: PrimaryScrollController(
+                  controller: scrollController,
+                  child: builder(sheetCtx),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     ),
   );
 }
@@ -100,12 +131,38 @@ class AppBottomSheetCloseButton extends StatelessWidget {
       width: 40,
       height: 40,
       child: IconButton(
-        onPressed: withHaptic(context, onPressed ?? () => Navigator.pop(context)),
+        onPressed: withHaptic(
+          context,
+          onPressed ?? () => Navigator.pop(context),
+        ),
         icon: Icon(Icons.close_rounded, size: iconSize),
         style: IconButton.styleFrom(
           backgroundColor: theme.colorScheme.surface,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DragHandle extends StatelessWidget {
+  const _DragHandle({this.color});
+
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Center(
+        child: Container(
+          width: 36,
+          height: 4,
+          decoration: BoxDecoration(
+            color: color ?? Theme.of(context).colorScheme.onSurfaceVariant,
+            borderRadius: BorderRadius.circular(2),
           ),
         ),
       ),
@@ -121,8 +178,8 @@ class AppBottomSheetActionButton extends StatelessWidget {
     this.iconSize = 20,
     this.size = 48,
     this.borderRadius = 14,
-    this.backgroundColor = Palette.borderDark,
-    this.foregroundColor = Palette.textPrimaryDark,
+    this.backgroundColor,
+    this.foregroundColor,
   });
 
   final IconData icon;
@@ -130,11 +187,12 @@ class AppBottomSheetActionButton extends StatelessWidget {
   final double iconSize;
   final double size;
   final double borderRadius;
-  final Color backgroundColor;
-  final Color foregroundColor;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SizedBox(
       width: size,
       height: size,
@@ -142,8 +200,8 @@ class AppBottomSheetActionButton extends StatelessWidget {
         onPressed: withHaptic(context, onPressed),
         icon: Icon(icon, size: iconSize),
         style: IconButton.styleFrom(
-          backgroundColor: backgroundColor,
-          foregroundColor: foregroundColor,
+          backgroundColor: backgroundColor ?? theme.colorScheme.outline,
+          foregroundColor: foregroundColor ?? theme.colorScheme.onSurface,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),

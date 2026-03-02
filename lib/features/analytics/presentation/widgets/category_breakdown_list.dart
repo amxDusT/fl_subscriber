@@ -45,7 +45,6 @@ class _CategoryRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final color = categoryChartColors[category.categoryKey] ??
         categoryChartColors['other']!;
     final fraction = totalMonthly > 0 ? category.monthlyAmount / totalMonthly : 0.0;
@@ -88,9 +87,7 @@ class _CategoryRow extends StatelessWidget {
                     Text(
                       '${category.subscriptionCount} ${category.subscriptionCount == 1 ? 'sub' : 'subs'}',
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: isDark
-                            ? Palette.textMutedDark
-                            : Palette.textMutedLight,
+                        color: context.appColors.textMuted,
                       ),
                     ),
                   ],
@@ -108,9 +105,7 @@ class _CategoryRow extends StatelessWidget {
                   Text(
                     l10n.ofTotal(category.percentage.toStringAsFixed(1)),
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: isDark
-                          ? Palette.textSecondaryDark
-                          : Palette.textSecondaryLight,
+                      color: theme.colorScheme.secondary,
                     ),
                   ),
                 ],
@@ -122,7 +117,7 @@ class _CategoryRow extends StatelessWidget {
             borderRadius: BorderRadius.circular(2),
             child: LinearProgressIndicator(
               value: fraction,
-              backgroundColor: isDark ? Palette.borderDark : Palette.borderLight,
+              backgroundColor: theme.colorScheme.outline,
               valueColor: AlwaysStoppedAnimation<Color>(color),
               minHeight: 3,
             ),

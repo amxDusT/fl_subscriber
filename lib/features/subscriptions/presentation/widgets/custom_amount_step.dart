@@ -33,7 +33,6 @@ class _CustomAmountSheetState extends ConsumerState<CustomAmountSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
     final controller = ref.read(addSubscriptionControllerProvider.notifier);
 
@@ -55,7 +54,7 @@ class _CustomAmountSheetState extends ConsumerState<CustomAmountSheet> {
                 width: 36,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: isDark ? Palette.elevatedDark : Palette.elevatedLight,
+                  color: context.appColors.elevated,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -94,9 +93,7 @@ class _CustomAmountSheetState extends ConsumerState<CustomAmountSheet> {
                 hintText: '0.00',
                 hintStyle: theme.textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: isDark
-                      ? Palette.textMutedDark
-                      : Palette.textMutedLight,
+                  color: context.appColors.textMuted,
                 ),
                 filled: true,
                 fillColor: theme.colorScheme.surface,

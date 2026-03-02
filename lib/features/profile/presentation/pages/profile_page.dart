@@ -72,9 +72,7 @@ class _ProfileTile extends StatelessWidget {
               Icon(
                 Icons.chevron_right_rounded,
                 size: 20,
-                color: theme.brightness == Brightness.dark
-                    ? Palette.textMutedDark
-                    : Palette.textMutedLight,
+                color: context.appColors.textMuted,
               ),
             ],
           ),

@@ -1,5 +1,4 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
-import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/core/widgets/button.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +14,6 @@ Future<bool?> showAppConfirmDialog({
   IconData? ctaIcon = Icons.arrow_forward_ios_rounded,
 }) {
   final theme = Theme.of(context);
-  final isDark = theme.brightness == Brightness.dark;
-  final secondary = isDark
-      ? Palette.textSecondaryDark
-      : Palette.textSecondaryLight;
   final l10n = AppLocalizations.of(context)!;
 
   return showAppBottomSheet<bool>(
@@ -36,7 +31,9 @@ Future<bool?> showAppConfirmDialog({
           const SizedBox(height: 12),
           Text(
             message,
-            style: theme.textTheme.bodyMedium?.copyWith(color: secondary),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.secondary,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 28),

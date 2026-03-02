@@ -17,7 +17,6 @@ class MonthlyTrendChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     if (dataPoints.isEmpty) return const SizedBox.shrink();
 
@@ -79,9 +78,7 @@ class MonthlyTrendChart extends StatelessWidget {
                     child: Text(
                       DateFormat('MMM').format(month),
                       style: theme.textTheme.labelSmall?.copyWith(
-                        color: isDark
-                            ? Palette.textMutedDark
-                            : Palette.textMutedLight,
+                        color: context.appColors.textMuted,
                       ),
                     ),
                   );
@@ -103,15 +100,14 @@ class MonthlyTrendChart extends StatelessWidget {
             drawVerticalLine: false,
             horizontalInterval: interval,
             getDrawingHorizontalLine: (value) => FlLine(
-              color: isDark ? Palette.borderDark : Palette.borderLight,
+              color: theme.colorScheme.outline,
               strokeWidth: 0.5,
             ),
           ),
           borderData: FlBorderData(show: false),
           barTouchData: BarTouchData(
             touchTooltipData: BarTouchTooltipData(
-              getTooltipColor: (_) =>
-                  isDark ? Palette.surfaceDark : Palette.surfaceLight,
+              getTooltipColor: (_) => theme.colorScheme.surface,
               tooltipPadding:
                   const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               getTooltipItem: (group, groupIndex, rod, rodIndex) {

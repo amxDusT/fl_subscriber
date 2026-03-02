@@ -21,11 +21,10 @@ class SelectableTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Material(
       color: selected
-          ? (isDark ? Palette.elevatedDark : Palette.elevatedLight)
+          ? context.appColors.elevated
           : theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(

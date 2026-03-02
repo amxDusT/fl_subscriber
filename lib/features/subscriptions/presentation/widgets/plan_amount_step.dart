@@ -44,7 +44,6 @@ class _PlanList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
     final wizardState = ref.watch(addSubscriptionControllerProvider);
     final controller = ref.read(addSubscriptionControllerProvider.notifier);
@@ -102,17 +101,13 @@ class _PlanList extends ConsumerWidget {
                   Icon(
                     Icons.edit_rounded,
                     size: 18,
-                    color: isDark
-                        ? Palette.textSecondaryDark
-                        : Palette.textSecondaryLight,
+                    color: theme.colorScheme.secondary,
                   ),
                   const SizedBox(width: 12),
                   Text(
                     l10n.orEnterCustomAmount,
                     style: theme.textTheme.bodyLarge?.copyWith(
-                      color: isDark
-                          ? Palette.textSecondaryDark
-                          : Palette.textSecondaryLight,
+                      color: theme.colorScheme.secondary,
                     ),
                   ),
                 ],
@@ -145,7 +140,6 @@ class _InlineAmountInputState extends ConsumerState<_InlineAmountInput> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
     final controller = ref.read(addSubscriptionControllerProvider.notifier);
 
@@ -178,7 +172,7 @@ class _InlineAmountInputState extends ConsumerState<_InlineAmountInput> {
             hintText: '0.00',
             hintStyle: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.w600,
-              color: isDark ? Palette.textMutedDark : Palette.textMutedLight,
+              color: context.appColors.textMuted,
             ),
             filled: true,
             fillColor: theme.colorScheme.surface,
