@@ -93,4 +93,8 @@ class NotificationService {
       await _plugin.cancel(id: subscriptionId * 10 + days);
     }
   }
+
+  Future<void> cancelAll() async {
+    await _plugin.cancelAll();
+  }
 }

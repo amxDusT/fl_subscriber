@@ -1,7 +1,9 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
+import 'package:fl_subscriber/features/profile/presentation/pages/developer_sheet.dart';
 import 'package:fl_subscriber/features/settings/presentation/pages/settings_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ProfileContent extends StatelessWidget {
@@ -17,16 +19,24 @@ class ProfileContent extends StatelessWidget {
         _ProfileTile(
           icon: Icons.settings_rounded,
           title: l10n.settings,
-          onTap: () => _openSettings(context),
+          onTap: () => _openSheet(context, const SettingsSheet()),
         ),
+        if (kDebugMode) ...[
+          const SizedBox(height: 8),
+          _ProfileTile(
+            icon: Icons.code_rounded,
+            title: 'Developer',
+            onTap: () => _openSheet(context, const DeveloperSheet()),
+          ),
+        ],
       ],
     );
   }
 
-  void _openSettings(BuildContext context) {
+  void _openSheet(BuildContext context, Widget sheet) {
     showAppFullBottomSheet(
       context: context,
-      builder: (_) => const SettingsSheet(),
+      builder: (_) => sheet,
     );
   }
 }
