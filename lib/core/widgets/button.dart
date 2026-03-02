@@ -1,8 +1,7 @@
 import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AppButton extends ConsumerWidget {
+class AppButton extends StatelessWidget {
   const AppButton({
     super.key,
     required this.onPressed,
@@ -17,7 +16,7 @@ class AppButton extends ConsumerWidget {
   final bool isLoading;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final child = isLoading
         ? SizedBox(
             width: 20,
@@ -39,7 +38,7 @@ class AppButton extends ConsumerWidget {
         : Text(label);
 
     return ElevatedButton(
-      onPressed: isLoading ? null : withHaptic(ref, onPressed),
+      onPressed: isLoading ? null : withHaptic(context, onPressed),
       child: child,
     );
   }

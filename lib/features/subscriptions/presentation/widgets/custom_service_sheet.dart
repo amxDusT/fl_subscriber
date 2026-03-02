@@ -2,10 +2,9 @@ import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/providers/database_provider.dart';
 import 'package:fl_subscriber/core/resources/app_database.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
-import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/core/widgets/section_label.dart';
+import 'package:fl_subscriber/core/widgets/wizard_sheet.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
-import 'package:fl_subscriber/features/subscriptions/presentation/widgets/step_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,51 +17,15 @@ class CustomServiceSheet extends ConsumerStatefulWidget {
 
 class _CustomServiceSheetState extends ConsumerState<CustomServiceSheet> {
   final _nameController = TextEditingController();
-  late final PageController _pageController;
-  final List<int> _pageHistory = [0];
+  final _wizardController = WizardController();
   ServiceCategory? _category;
   int? _colorValue;
-
-  int get _currentPage => _pageHistory.last;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
 
   @override
   void dispose() {
     _nameController.dispose();
-    _pageController.dispose();
+    _wizardController.dispose();
     super.dispose();
-  }
-
-  void _advanceTo(int page) {
-    _pageHistory.add(page);
-    _pageController.animateToPage(
-      page,
-      duration: const Duration(milliseconds: 250),
-      curve: Curves.easeInOut,
-    );
-    setState(() {});
-  }
-
-  void _autoAdvanceTo(int page) {
-    Future.delayed(const Duration(milliseconds: 300), () {
-      if (mounted) _advanceTo(page);
-    });
-  }
-
-  void _goBack() {
-    if (_pageHistory.length <= 1) return;
-    _pageHistory.removeLast();
-    _pageController.animateToPage(
-      _currentPage,
-      duration: const Duration(milliseconds: 250),
-      curve: Curves.easeInOut,
-    );
-    setState(() {});
   }
 
   Future<void> _save() async {
@@ -93,103 +56,64 @@ class _CustomServiceSheetState extends ConsumerState<CustomServiceSheet> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
+    final wc = _wizardController;
 
-    final showBack = _pageHistory.length > 1;
-    final showContinue = _currentPage == 0;
-    final showBottomBar = showBack || showContinue;
+    return WizardSheet(
+      title: l10n.custom,
+      totalSteps: 3,
+      controller: wc,
+      padding: 24,
+      stepIndicatorGap: 28,
+      pages: [
+        _NamePage(
+          controller: _nameController,
+          onChanged: () => setState(() {}),
+          onSubmitted: () {
+            if (_nameController.text.trim().isNotEmpty) {
+              wc.advanceTo(1);
+            }
+          },
+        ),
+        _CategoryPage(
+          selectedCategory: _category,
+          onCategorySelected: (cat) {
+            setState(() => _category = cat);
+            wc.autoAdvanceTo(2);
+          },
+        ),
+        _ColorPage(
+          selectedColor: _colorValue,
+          onColorSelected: (c) {
+            setState(() => _colorValue = c);
+            _save();
+          },
+        ),
+      ],
+      bottomBarBuilder: (context, wc) {
+        final showBack = wc.canGoBack;
+        final showContinue = wc.currentPage == 0;
+        if (!showBack && !showContinue) return null;
 
-    return SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.88,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              children: [
-                const SizedBox(height: 4),
-                AppBottomSheetHeader(
-                  title: l10n.custom,
-                  padding: EdgeInsets.zero,
+        return Row(
+          children: [
+            if (showBack)
+              const WizardBackButton(size: 52, iconSize: 22, borderRadius: 16),
+            if (showBack && showContinue) const SizedBox(width: 12),
+            if (showContinue)
+              Expanded(
+                child: SizedBox(
+                  height: 52,
+                  child: ElevatedButton(
+                    onPressed: _nameController.text.trim().isNotEmpty
+                        ? () => wc.advanceTo(1)
+                        : null,
+                    child: Text(l10n.continueLabel),
+                  ),
                 ),
-                const SizedBox(height: 16),
-                StepIndicator(
-                  currentStep: _currentPage,
-                  totalSteps: 3,
-                ),
-                const SizedBox(height: 28),
-              ],
-            ),
-          ),
-          Expanded(
-            child: PageView(
-              controller: _pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                _NamePage(
-                  controller: _nameController,
-                  onChanged: () => setState(() {}),
-                  onSubmitted: () {
-                    if (_nameController.text.trim().isNotEmpty) {
-                      _advanceTo(1);
-                    }
-                  },
-                ),
-                _CategoryPage(
-                  selectedCategory: _category,
-                  onCategorySelected: (cat) {
-                    setState(() => _category = cat);
-                    _autoAdvanceTo(2);
-                  },
-                ),
-                _ColorPage(
-                  selectedColor: _colorValue,
-                  onColorSelected: (c) {
-                    setState(() => _colorValue = c);
-                    _save();
-                  },
-                ),
-              ],
-            ),
-          ),
-          if (showBottomBar)
-            AnimatedPadding(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeOut,
-              padding: EdgeInsets.fromLTRB(
-                24,
-                12,
-                24,
-                bottomInset > 0 ? bottomInset + 12 : 24,
               ),
-              child: Row(
-                children: [
-                  if (showBack)
-                    AppBottomSheetActionButton(
-                      icon: Icons.arrow_back_rounded,
-                      onPressed: _goBack,
-                      size: 52,
-                      iconSize: 22,
-                      borderRadius: 16,
-                    ),
-                  if (showBack && showContinue) const SizedBox(width: 12),
-                  if (showContinue)
-                    Expanded(
-                      child: SizedBox(
-                        height: 52,
-                        child: ElevatedButton(
-                          onPressed: _nameController.text.trim().isNotEmpty
-                              ? () => _advanceTo(1)
-                              : null,
-                          child: Text(l10n.continueLabel),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-        ],
-      ),
+          ],
+        );
+      },
     );
   }
 }
