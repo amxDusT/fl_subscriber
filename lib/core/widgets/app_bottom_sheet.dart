@@ -1,7 +1,6 @@
 import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<T?> showAppBottomSheet<T>({
   required BuildContext context,
@@ -11,7 +10,7 @@ Future<T?> showAppBottomSheet<T>({
   bool hapticOnOpen = true,
 }) {
   if (hapticOnOpen) {
-    triggerHapticFromContext(context);
+    triggerHaptic(context);
   }
 
   return showModalBottomSheet<T>(
@@ -83,7 +82,7 @@ class AppBottomSheetHeader extends StatelessWidget {
   }
 }
 
-class AppBottomSheetCloseButton extends ConsumerWidget {
+class AppBottomSheetCloseButton extends StatelessWidget {
   const AppBottomSheetCloseButton({
     super.key,
     this.onPressed,
@@ -94,14 +93,14 @@ class AppBottomSheetCloseButton extends ConsumerWidget {
   final double iconSize;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return SizedBox(
       width: 40,
       height: 40,
       child: IconButton(
-        onPressed: withHaptic(ref, onPressed ?? () => Navigator.pop(context)),
+        onPressed: withHaptic(context, onPressed ?? () => Navigator.pop(context)),
         icon: Icon(Icons.close_rounded, size: iconSize),
         style: IconButton.styleFrom(
           backgroundColor: theme.colorScheme.surface,
@@ -114,7 +113,7 @@ class AppBottomSheetCloseButton extends ConsumerWidget {
   }
 }
 
-class AppBottomSheetActionButton extends ConsumerWidget {
+class AppBottomSheetActionButton extends StatelessWidget {
   const AppBottomSheetActionButton({
     super.key,
     required this.icon,
@@ -135,12 +134,12 @@ class AppBottomSheetActionButton extends ConsumerWidget {
   final Color foregroundColor;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return SizedBox(
       width: size,
       height: size,
       child: IconButton(
-        onPressed: withHaptic(ref, onPressed),
+        onPressed: withHaptic(context, onPressed),
         icon: Icon(icon, size: iconSize),
         style: IconButton.styleFrom(
           backgroundColor: backgroundColor,

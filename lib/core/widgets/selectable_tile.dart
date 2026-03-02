@@ -1,9 +1,8 @@
 import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SelectableTile extends ConsumerWidget {
+class SelectableTile extends StatelessWidget {
   const SelectableTile({
     super.key,
     required this.label,
@@ -20,7 +19,7 @@ class SelectableTile extends ConsumerWidget {
   final Widget? trailing;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -30,7 +29,7 @@ class SelectableTile extends ConsumerWidget {
           : theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
-        onTap: withHaptic(ref, onTap),
+        onTap: withHaptic(context, onTap),
         borderRadius: BorderRadius.circular(16),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),

@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                       children: List.generate(tabs.length, (i) {
                         final selected = _currentPage == i;
                         return GestureDetector(
-                          onTap: withHapticContext(
+                          onTap: withHaptic(
                             context,
                             () => _animateTo(i),
                           ),
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   _AvatarButton(
                     selected: _currentPage == _profileIndex,
-                    onTap: withHapticContext(
+                    onTap: withHaptic(
                       context,
                       () => _animateTo(_profileIndex),
                     )!,

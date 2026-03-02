@@ -3,10 +3,9 @@ import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class SubscriptionCard extends ConsumerWidget {
+class SubscriptionCard extends StatelessWidget {
   const SubscriptionCard({
     super.key,
     required this.subscription,
@@ -17,7 +16,7 @@ class SubscriptionCard extends ConsumerWidget {
   final VoidCallback? onTap;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final color = Color(subscription.colorValue);
@@ -46,7 +45,7 @@ class SubscriptionCard extends ConsumerWidget {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
-          onTap: withHaptic(ref, onTap),
+          onTap: withHaptic(context, onTap),
           borderRadius: BorderRadius.circular(16),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),

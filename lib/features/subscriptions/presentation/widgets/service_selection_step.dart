@@ -73,7 +73,7 @@ class ServiceSelectionStep extends ConsumerWidget {
               color: service.color,
               selected: wizardState.selectedService?.id == service.id,
               onTap: () {
-                triggerHaptic(ref);
+                triggerHaptic(context);
                 controller.selectService(service);
                 onServiceSelected?.call();
               },

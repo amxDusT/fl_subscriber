@@ -6,6 +6,7 @@ import 'package:fl_subscriber/core/providers/preferences_provider.dart';
 import 'package:fl_subscriber/core/routes/routes.dart';
 import 'package:fl_subscriber/core/state/app_controller.dart';
 import 'package:fl_subscriber/core/theme/theme.dart';
+import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
@@ -46,17 +47,20 @@ class App extends ConsumerWidget {
     final goRouter = ref.watch(routerProvider);
     final isDark = appState.themeMode == ThemeMode.dark;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: isDark ? AppTheme.darkOverlay : AppTheme.lightOverlay,
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routerConfig: goRouter,
-        theme: AppTheme.light(),
-        darkTheme: AppTheme.dark(),
-        themeMode: appState.themeMode,
-        locale: appState.locale,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
+    return HapticScope(
+      enabled: appState.hapticFeedback,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: isDark ? AppTheme.darkOverlay : AppTheme.lightOverlay,
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerConfig: goRouter,
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: appState.themeMode,
+          locale: appState.locale,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+        ),
       ),
     );
   }
