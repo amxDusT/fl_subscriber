@@ -1,6 +1,7 @@
 import 'package:fl_subscriber/core/providers/notification_provider.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
+import 'package:fl_subscriber/core/widgets/app_toast.dart';
 import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,6 +39,20 @@ class DeveloperSheet extends ConsumerWidget {
           title: 'Cancel all notifications',
           onTap: () => _cancelAll(context, ref),
         ),
+        const SizedBox(height: 28),
+        const SectionLabel(label: 'Toasts'),
+        const SizedBox(height: 10),
+        _DevTile(
+          icon: Icons.check_circle_rounded,
+          title: 'Show success toast',
+          onTap: () => AppToast.show(context, message: 'This is a success toast', type: AppToastType.success),
+        ),
+        const SizedBox(height: 8),
+        _DevTile(
+          icon: Icons.error_rounded,
+          title: 'Show error toast',
+          onTap: () => AppToast.show(context, message: 'This is an error toast', type: AppToastType.error),
+        ),
         const SizedBox(height: 32),
       ],
     );
@@ -47,7 +62,9 @@ class DeveloperSheet extends ConsumerWidget {
     final service = ref.read(notificationServiceProvider);
     final granted = await service.requestPermission();
     if (!granted) {
-      if (context.mounted) _showSnack(context, 'Permission denied');
+      if (context.mounted) {
+        AppToast.show(context, message: 'Permission denied', type: AppToastType.error);
+      }
       return;
     }
 
@@ -58,14 +75,18 @@ class DeveloperSheet extends ConsumerWidget {
       paymentDate: DateTime.now().add(const Duration(seconds: 5)),
       daysBefore: 0,
     );
-    if (context.mounted) _showSnack(context, 'Notification in a few seconds');
+    if (context.mounted) {
+      AppToast.show(context, message: 'Notification in a few seconds', type: AppToastType.success);
+    }
   }
 
   Future<void> _sendIn10Min(BuildContext context, WidgetRef ref) async {
     final service = ref.read(notificationServiceProvider);
     final granted = await service.requestPermission();
     if (!granted) {
-      if (context.mounted) _showSnack(context, 'Permission denied');
+      if (context.mounted) {
+        AppToast.show(context, message: 'Permission denied', type: AppToastType.error);
+      }
       return;
     }
 
@@ -76,19 +97,17 @@ class DeveloperSheet extends ConsumerWidget {
       paymentDate: DateTime.now().add(const Duration(minutes: 10)),
       daysBefore: 0,
     );
-    if (context.mounted) _showSnack(context, 'Scheduled in 10 minutes');
+    if (context.mounted) {
+      AppToast.show(context, message: 'Scheduled in 10 minutes', type: AppToastType.success);
+    }
   }
 
   Future<void> _cancelAll(BuildContext context, WidgetRef ref) async {
     final service = ref.read(notificationServiceProvider);
     await service.cancelAll();
-    if (context.mounted) _showSnack(context, 'All notifications cancelled');
-  }
-
-  void _showSnack(BuildContext context, String message) {
-    ScaffoldMessenger.of(context)
-      ..clearSnackBars()
-      ..showSnackBar(SnackBar(content: Text(message)));
+    if (context.mounted) {
+      AppToast.show(context, message: 'All notifications cancelled', type: AppToastType.success);
+    }
   }
 }
 
@@ -124,9 +143,7 @@ class _DevTile extends StatelessWidget {
               Icon(
                 Icons.chevron_right_rounded,
                 size: 20,
-                color: theme.brightness == Brightness.dark
-                    ? Palette.textMutedDark
-                    : Palette.textMutedLight,
+                color: context.appColors.textMuted,
               ),
             ],
           ),

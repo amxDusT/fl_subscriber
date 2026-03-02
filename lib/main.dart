@@ -7,6 +7,7 @@ import 'package:fl_subscriber/core/routes/routes.dart';
 import 'package:fl_subscriber/core/state/app_controller.dart';
 import 'package:fl_subscriber/core/theme/theme.dart';
 import 'package:fl_subscriber/core/utils/haptic.dart';
+import 'package:fl_subscriber/core/widgets/app_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
@@ -60,6 +61,7 @@ class App extends ConsumerWidget {
           locale: appState.locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
+          builder: (context, child) => AppToastLayer(child: child!),
         ),
       ),
     );
