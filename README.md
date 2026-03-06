@@ -9,6 +9,10 @@ SubTrack is a Flutter app to track recurring subscriptions, get payment reminder
 - Subscription details with cancellation link support
 - Analytics view derived from saved subscriptions
 
+## Demo
+
+[![SubTrack Demo](https://img.youtube.com/vi/VXkAAuCu6qk/0.jpg)](https://youtube.com/shorts/VXkAAuCu6qk?is=I2WaWr6UjgS-td6I)
+
 ## Tech stack
 - Flutter
 - State: Riverpod
