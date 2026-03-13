@@ -342,4 +342,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get urlHint => 'https://...';
+
+  @override
+  String toastSubscriptionAdded(String serviceName) {
+    return '$serviceName añadida';
+  }
+
+  @override
+  String toastSubscriptionCancelled(String serviceName) {
+    return '$serviceName cancelada';
+  }
+
+  @override
+  String toastSubscriptionRestored(String serviceName) {
+    return '$serviceName restaurada';
+  }
 }

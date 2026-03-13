@@ -118,5 +118,29 @@
   },
   "hapticFeedback": "Vibrazione",
   "websiteLink": "Sito Web / Link di Cancellazione",
-  "urlHint": "https://..."
+  "urlHint": "https://...",
+  "toastSubscriptionAdded": "{serviceName} aggiunto",
+  "@toastSubscriptionAdded": {
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      }
+    }
+  },
+  "toastSubscriptionCancelled": "{serviceName} cancellato",
+  "@toastSubscriptionCancelled": {
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      }
+    }
+  },
+  "toastSubscriptionRestored": "{serviceName} ripristinato",
+  "@toastSubscriptionRestored": {
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      }
+    }
+  }
 }

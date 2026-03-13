@@ -1,7 +1,9 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
+import 'package:fl_subscriber/core/widgets/app_toast.dart';
 import 'package:fl_subscriber/core/widgets/confirm_dialog.dart';
+import 'package:go_router/go_router.dart';
 import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
@@ -73,7 +75,14 @@ class _SubscriptionDetailSheetState
       await ref
           .read(subscriptionControllerProvider.notifier)
           .unsubscribeSubscription(widget.subscription);
-      if (mounted) Navigator.pop(context);
+      if (mounted) {
+        AppToast.show(
+          context,
+          message: l10n.toastSubscriptionCancelled(widget.subscription.serviceName),
+          type: AppToastType.success,
+        );
+        context.pop();
+      }
     }
   }
 
@@ -81,7 +90,15 @@ class _SubscriptionDetailSheetState
     await ref
         .read(subscriptionControllerProvider.notifier)
         .restoreSubscription(widget.subscription);
-    if (mounted) Navigator.pop(context);
+    if (mounted) {
+      final l10n = AppLocalizations.of(context)!;
+      AppToast.show(
+        context,
+        message: l10n.toastSubscriptionRestored(widget.subscription.serviceName),
+        type: AppToastType.success,
+      );
+      context.pop();
+    }
   }
 
   List<DateTime> _computeRenewals() {

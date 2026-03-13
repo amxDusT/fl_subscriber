@@ -166,5 +166,29 @@
   },
   "hapticFeedback": "Haptic Feedback",
   "websiteLink": "Website / Unsubscribe Link",
-  "urlHint": "https://..."
+  "urlHint": "https://...",
+  "toastSubscriptionAdded": "{serviceName} added",
+  "@toastSubscriptionAdded": {
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      }
+    }
+  },
+  "toastSubscriptionCancelled": "{serviceName} cancelled",
+  "@toastSubscriptionCancelled": {
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      }
+    }
+  },
+  "toastSubscriptionRestored": "{serviceName} restored",
+  "@toastSubscriptionRestored": {
+    "placeholders": {
+      "serviceName": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -6,6 +6,7 @@ import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsSheet extends ConsumerWidget {
   const SettingsSheet({super.key});
@@ -119,7 +120,7 @@ class SettingsSheet extends ConsumerWidget {
                       ref
                           .read(appControllerProvider.notifier)
                           .setLocale(entry.$1);
-                      Navigator.pop(context);
+                      context.pop();
                     },
                   );
                 }),

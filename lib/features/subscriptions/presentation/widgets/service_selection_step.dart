@@ -8,6 +8,7 @@ import 'package:fl_subscriber/features/subscriptions/domain/providers/subscripti
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/custom_service_sheet.dart';
 import 'package:fl_subscriber/gen/assets.gen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -99,11 +100,11 @@ class ServiceSelectionStep extends ConsumerWidget {
         content: Text(l10n.deleteServiceConfirmation(service.name)),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
+            onPressed: () => ctx.pop(false),
             child: Text(l10n.cancel),
           ),
           TextButton(
-            onPressed: () => Navigator.pop(ctx, true),
+            onPressed: () => ctx.pop(true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: Text(l10n.delete),
           ),

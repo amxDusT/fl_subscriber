@@ -7,6 +7,7 @@ import 'package:fl_subscriber/core/widgets/wizard_sheet.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomServiceSheet extends ConsumerStatefulWidget {
   const CustomServiceSheet({super.key});
@@ -41,8 +42,7 @@ class _CustomServiceSheetState extends ConsumerState<CustomServiceSheet> {
         );
 
     if (mounted) {
-      Navigator.pop(
-        context,
+      context.pop(
         CatalogService(
           id: 'custom_$id',
           name: _nameController.text.trim(),

@@ -4,6 +4,7 @@ import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subs
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomAmountSheet extends ConsumerStatefulWidget {
   const CustomAmountSheet({super.key});
@@ -27,7 +28,7 @@ class _CustomAmountSheetState extends ConsumerState<CustomAmountSheet> {
   }
 
   void _confirm() {
-    if (_canConfirm) Navigator.pop(context, true);
+    if (_canConfirm) context.pop(true);
   }
 
   @override

@@ -1,6 +1,8 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/providers/notification_provider.dart';
+import 'package:fl_subscriber/core/widgets/app_toast.dart';
 import 'package:fl_subscriber/core/widgets/wizard_sheet.dart';
+import 'package:go_router/go_router.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/subscription_controller.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/date_alerts_step.dart';
@@ -64,7 +66,15 @@ class _AddSubscriptionSheetState extends ConsumerState<AddSubscriptionSheet> {
       );
     }
 
-    if (mounted) Navigator.pop(context);
+    if (mounted) {
+      final l10n = AppLocalizations.of(context)!;
+      AppToast.show(
+        context,
+        message: l10n.toastSubscriptionAdded(subscription.serviceName),
+        type: AppToastType.success,
+      );
+      context.pop();
+    }
   }
 
   @override

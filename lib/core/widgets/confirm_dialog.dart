@@ -2,6 +2,7 @@ import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/core/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 /// Shows a confirmation bottom sheet with a title, message, and two buttons.
 ///
@@ -41,14 +42,14 @@ Future<bool?> showAppConfirmDialog({
             children: [
               Expanded(
                 child: TextButton(
-                  onPressed: () => Navigator.pop(ctx, false),
+                  onPressed: () => ctx.pop(false),
                   child: Text(l10n.cancel),
                 ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: AppButton(
-                  onPressed: () => Navigator.pop(ctx, true),
+                  onPressed: () => ctx.pop(true),
                   label: ctaLabel,
                   icon: ctaIcon,
                 ),

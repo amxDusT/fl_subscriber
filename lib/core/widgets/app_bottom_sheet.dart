@@ -1,5 +1,6 @@
 import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 Future<T?> showAppBottomSheet<T>({
   required BuildContext context,
@@ -105,7 +106,7 @@ class AppBottomSheetHeader extends StatelessWidget {
           ),
           if (showCloseButton)
             AppBottomSheetCloseButton(
-              onPressed: onClose ?? () => Navigator.pop(context),
+              onPressed: onClose ?? () => context.pop(),
             ),
         ],
       ),
@@ -133,7 +134,7 @@ class AppBottomSheetCloseButton extends StatelessWidget {
       child: IconButton(
         onPressed: withHaptic(
           context,
-          onPressed ?? () => Navigator.pop(context),
+          onPressed ?? () => context.pop(),
         ),
         icon: Icon(Icons.close_rounded, size: iconSize),
         style: IconButton.styleFrom(

@@ -729,6 +729,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'https://...'**
   String get urlHint;
+
+  /// No description provided for @toastSubscriptionAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'{serviceName} added'**
+  String toastSubscriptionAdded(String serviceName);
+
+  /// No description provided for @toastSubscriptionCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'{serviceName} cancelled'**
+  String toastSubscriptionCancelled(String serviceName);
+
+  /// No description provided for @toastSubscriptionRestored.
+  ///
+  /// In en, this message translates to:
+  /// **'{serviceName} restored'**
+  String toastSubscriptionRestored(String serviceName);
 }
 
 class _AppLocalizationsDelegate
