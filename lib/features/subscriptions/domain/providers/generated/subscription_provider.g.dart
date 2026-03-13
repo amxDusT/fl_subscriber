@@ -48,7 +48,7 @@ final class CustomServicesProvider
   }
 }
 
-String _$customServicesHash() => r'd2a0119da99fd03752aa119f92e409a4be9e14f7';
+String _$customServicesHash() => r'1a768aaf9245a54dcbe6b9bda77d91355f2d3174';
 
 @ProviderFor(serviceCatalog)
 final serviceCatalogProvider = ServiceCatalogProvider._();
