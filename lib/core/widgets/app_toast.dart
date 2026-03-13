@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
-
 
 enum AppToastType { success, error }
 
@@ -110,7 +108,7 @@ class _ToastEntry {
 
   Color get color => switch (type) {
     AppToastType.success => const Color(0xFF90ff02),
-    AppToastType.error => Palette.error,
+    AppToastType.error => const Color(0xFFFF3B30),
   };
 
   Color get foreground => switch (type) {
@@ -263,11 +261,13 @@ class _ToastWidgetState extends State<_ToastWidget>
                     color: widget.entry.color,
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  child: _Notch(),
+                  child: _Notch(
+                    color: widget.entry.foreground.withValues(alpha: 0.8),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
@@ -314,8 +314,9 @@ class _ToastWidgetState extends State<_ToastWidget>
 }
 
 class _Notch extends StatelessWidget {
-  const _Notch();
+  const _Notch({this.color});
 
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -325,7 +326,7 @@ class _Notch extends StatelessWidget {
           width: 48,
           height: 6,
           decoration: BoxDecoration(
-            color: context.appColors.textMuted,
+            color: color ?? Theme.of(context).colorScheme.onSurfaceVariant,
             borderRadius: BorderRadius.circular(3),
           ),
         ),

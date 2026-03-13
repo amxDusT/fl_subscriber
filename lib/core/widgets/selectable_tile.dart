@@ -1,4 +1,3 @@
-import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +23,7 @@ class SelectableTile extends StatelessWidget {
 
     return Material(
       color: selected
-          ? context.appColors.elevated
+          ? theme.colorScheme.surfaceContainerHighest
           : theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(

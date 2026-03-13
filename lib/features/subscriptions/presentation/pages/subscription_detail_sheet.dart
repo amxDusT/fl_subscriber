@@ -69,6 +69,7 @@ class _SubscriptionDetailSheetState
       title: l10n.didYouUnsubscribe,
       message: l10n.didYouUnsubscribeMessage(widget.subscription.serviceName),
       ctaLabel: l10n.yes,
+      cancelLabel: l10n.cancel,
     );
 
     if (confirmed == true && mounted) {

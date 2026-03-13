@@ -1,7 +1,6 @@
 import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/core/widgets/step_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class WizardController extends ChangeNotifier {
   WizardController();
@@ -128,7 +127,7 @@ class _WizardSheetState extends State<WizardSheet> {
                 AppBottomSheetHeader(
                   title: widget.title,
                   padding: EdgeInsets.zero,
-                  onClose: widget.onClose ?? () => context.pop(),
+                  onClose: widget.onClose ?? () => Navigator.pop(context),
                 ),
                 const SizedBox(height: 16),
                 StepIndicator(

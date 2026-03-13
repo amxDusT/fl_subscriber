@@ -1,4 +1,3 @@
-import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:flutter/material.dart';
 
 class StepIndicator extends StatelessWidget {
@@ -23,7 +22,7 @@ class StepIndicator extends StatelessWidget {
             decoration: BoxDecoration(
               color: active
                   ? theme.colorScheme.onSurface
-                  : context.appColors.elevated,
+                  : theme.colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
