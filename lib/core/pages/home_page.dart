@@ -1,11 +1,11 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
-import 'package:fl_subscriber/core/utils/haptic.dart';
 
 import 'package:fl_subscriber/features/analytics/presentation/pages/analytics_page.dart';
 import 'package:fl_subscriber/features/profile/presentation/pages/profile_page.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/pages/subscriptions_content.dart';
 import 'package:flutter/material.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

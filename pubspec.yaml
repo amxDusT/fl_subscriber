@@ -18,6 +18,9 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
+workspace:
+  - packages/tr_ui
+
 environment:
   sdk: ^3.10.7
 
@@ -29,6 +32,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   asset_gen: ^1.0.2
+  tr_ui:
+    path: packages/tr_ui
   cupertino_icons: ^1.0.8
   dio: ^5.9.1
   drift: ^2.31.0

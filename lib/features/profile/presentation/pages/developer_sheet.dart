@@ -1,10 +1,8 @@
 import 'package:fl_subscriber/core/providers/notification_provider.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
-import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
-import 'package:fl_subscriber/core/widgets/app_toast.dart';
-import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class DeveloperSheet extends ConsumerWidget {
   const DeveloperSheet({super.key});

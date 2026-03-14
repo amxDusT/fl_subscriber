@@ -1,5 +1,5 @@
-import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
-import 'package:fl_subscriber/core/widgets/button.dart';
+import 'package:tr_ui/src/widgets/app_bottom_sheet.dart';
+import 'package:tr_ui/src/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 /// Shows a confirmation bottom sheet with a title, message, and two buttons.

@@ -1,4 +1,4 @@
-import 'package:fl_subscriber/core/utils/haptic.dart';
+import 'package:tr_ui/src/utils/haptic.dart';
 import 'package:flutter/material.dart';
 
 Future<T?> showAppBottomSheet<T>({

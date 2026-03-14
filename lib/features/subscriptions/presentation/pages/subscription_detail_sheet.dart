@@ -1,10 +1,6 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
-import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
-import 'package:fl_subscriber/core/widgets/app_toast.dart';
-import 'package:fl_subscriber/core/widgets/confirm_dialog.dart';
 import 'package:go_router/go_router.dart';
-import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/subscription_controller.dart';
@@ -12,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class SubscriptionDetailSheet extends ConsumerStatefulWidget {
   const SubscriptionDetailSheet({super.key, required this.subscription});

@@ -1,12 +1,12 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
+import 'package:fl_subscriber/core/providers/database_provider.dart';
+import 'package:fl_subscriber/core/resources/app_database.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
-import 'package:fl_subscriber/core/widgets/section_label.dart';
-import 'package:fl_subscriber/core/widgets/wizard_sheet.dart';
-import 'package:fl_subscriber/features/subscriptions/data/providers/subscription_data_provider.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class CustomServiceSheet extends ConsumerStatefulWidget {
   const CustomServiceSheet({super.key});
@@ -29,15 +29,27 @@ class _CustomServiceSheetState extends ConsumerState<CustomServiceSheet> {
   }
 
   Future<void> _save() async {
-    final service = await ref
-        .read(customServiceRepositoryProvider)
-        .add(
-          name: _nameController.text.trim(),
-          category: _category!,
-          colorValue: _colorValue!,
+    final db = ref.read(appDatabaseProvider);
+    final id = await db
+        .into(db.customServicesTable)
+        .insert(
+          CustomServicesTableCompanion.insert(
+            name: _nameController.text.trim(),
+            category: _category!.name,
+            colorValue: _colorValue!,
+          ),
         );
 
-    if (mounted) context.pop(service);
+    if (mounted) {
+      context.pop(
+        CatalogService(
+          id: 'custom_$id',
+          name: _nameController.text.trim(),
+          color: Color(_colorValue!),
+          category: _category!,
+        ),
+      );
+    }
   }
 
   @override

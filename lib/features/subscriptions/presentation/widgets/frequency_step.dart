@@ -1,10 +1,9 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
-import 'package:fl_subscriber/core/widgets/section_label.dart';
-import 'package:fl_subscriber/core/widgets/selectable_tile.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class FrequencyStep extends ConsumerWidget {
   const FrequencyStep({super.key, this.onFrequencySelected});

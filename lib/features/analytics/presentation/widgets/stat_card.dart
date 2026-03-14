@@ -1,5 +1,5 @@
-import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:flutter/material.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class StatCard extends StatelessWidget {
   const StatCard({

@@ -1,5 +1,4 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
-import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:fl_subscriber/features/analytics/domain/entities/analytics_data.dart';
 import 'package:fl_subscriber/features/analytics/presentation/state/analytics_controller.dart';
 import 'package:fl_subscriber/features/analytics/presentation/widgets/analytics_empty_state.dart';
@@ -11,6 +10,7 @@ import 'package:fl_subscriber/features/analytics/presentation/widgets/stat_card.
 import 'package:fl_subscriber/features/subscriptions/presentation/state/subscription_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class AnalyticsContent extends ConsumerWidget {
   const AnalyticsContent({super.key});

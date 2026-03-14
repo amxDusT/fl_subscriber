@@ -1,8 +1,6 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
-import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
-import 'package:fl_subscriber/core/widgets/button.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/pages/add_subscription_sheet.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/pages/subscription_detail_sheet.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/subscription_controller.dart';
@@ -10,6 +8,7 @@ import 'package:fl_subscriber/features/subscriptions/presentation/widgets/empty_
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/subscription_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class SubscriptionsContent extends ConsumerStatefulWidget {
   const SubscriptionsContent({super.key});

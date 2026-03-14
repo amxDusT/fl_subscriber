@@ -1,12 +1,11 @@
 import 'package:fl_subscriber/core/theme/palette.dart';
 import 'package:fl_subscriber/core/state/app_controller.dart';
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
-import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
-import 'package:fl_subscriber/core/widgets/section_label.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class SettingsSheet extends ConsumerWidget {
   const SettingsSheet({super.key});

@@ -6,14 +6,13 @@ import 'package:fl_subscriber/core/providers/preferences_provider.dart';
 import 'package:fl_subscriber/core/routes/routes.dart';
 import 'package:fl_subscriber/core/state/app_controller.dart';
 import 'package:fl_subscriber/core/theme/theme.dart';
-import 'package:fl_subscriber/core/utils/haptic.dart';
-import 'package:fl_subscriber/core/widgets/app_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:tr_ui/tr_ui.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

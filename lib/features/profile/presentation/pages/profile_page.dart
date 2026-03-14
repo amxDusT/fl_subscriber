@@ -1,10 +1,10 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
-import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
 import 'package:fl_subscriber/features/profile/presentation/pages/developer_sheet.dart';
 import 'package:fl_subscriber/features/settings/presentation/pages/settings_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class ProfileContent extends StatelessWidget {
   const ProfileContent({super.key});

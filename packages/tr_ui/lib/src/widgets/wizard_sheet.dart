@@ -1,5 +1,5 @@
-import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
-import 'package:fl_subscriber/core/widgets/step_indicator.dart';
+import 'package:tr_ui/src/widgets/app_bottom_sheet.dart';
+import 'package:tr_ui/src/widgets/step_indicator.dart';
 import 'package:flutter/material.dart';
 
 class WizardController extends ChangeNotifier {

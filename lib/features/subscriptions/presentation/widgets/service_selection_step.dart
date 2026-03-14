@@ -1,17 +1,15 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
-import 'package:fl_subscriber/core/providers/database_provider.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
-import 'package:fl_subscriber/core/widgets/app_bottom_sheet.dart';
-import 'package:fl_subscriber/core/widgets/section_label.dart';
+import 'package:fl_subscriber/features/subscriptions/data/providers/subscription_data_provider.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/service_catalog.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/providers/subscription_provider.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/custom_service_sheet.dart';
 import 'package:fl_subscriber/gen/assets.gen.dart';
 import 'package:go_router/go_router.dart';
-import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class ServiceSelectionStep extends ConsumerWidget {
   const ServiceSelectionStep({super.key, this.onServiceSelected});
@@ -114,10 +112,7 @@ class ServiceSelectionStep extends ConsumerWidget {
 
     if (confirmed == true) {
       final dbId = int.parse(service.id.replaceFirst('custom_', ''));
-      final db = ref.read(appDatabaseProvider);
-      await (db.delete(
-        db.customServicesTable,
-      )..where((t) => t.id.equals(dbId))).go();
+      await ref.read(customServiceRepositoryProvider).delete(dbId);
     }
   }
 }

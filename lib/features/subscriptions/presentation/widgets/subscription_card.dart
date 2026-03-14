@@ -1,9 +1,9 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/theme/palette.dart';
-import 'package:fl_subscriber/core/utils/haptic.dart';
 import 'package:fl_subscriber/features/subscriptions/domain/entities/subscription.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class SubscriptionCard extends StatelessWidget {
   const SubscriptionCard({

@@ -1,7 +1,5 @@
 import 'package:fl_subscriber/core/l10n/app_localizations.dart';
 import 'package:fl_subscriber/core/providers/notification_provider.dart';
-import 'package:fl_subscriber/core/widgets/app_toast.dart';
-import 'package:fl_subscriber/core/widgets/wizard_sheet.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/add_subscription_controller.dart';
 import 'package:fl_subscriber/features/subscriptions/presentation/state/subscription_controller.dart';
@@ -12,6 +10,7 @@ import 'package:fl_subscriber/features/subscriptions/presentation/widgets/servic
 import 'package:fl_subscriber/features/subscriptions/presentation/widgets/url_step.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tr_ui/tr_ui.dart';
 
 class AddSubscriptionSheet extends ConsumerStatefulWidget {
   const AddSubscriptionSheet({super.key});

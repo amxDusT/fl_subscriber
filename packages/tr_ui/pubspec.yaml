@@ -1,0 +1,12 @@
+name: tr_ui
+description: Reusable UI widgets and utilities.
+publish_to: 'none'
+resolution: workspace
+
+environment:
+  sdk: ^3.10.7
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
